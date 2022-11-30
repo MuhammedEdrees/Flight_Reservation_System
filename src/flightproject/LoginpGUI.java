@@ -219,7 +219,7 @@ public class LoginpGUI extends javax.swing.JFrame {
                 } else if((User.getUserRole(flightProject.currentUserID)).equals("flightagent")){
                     new FlightAgentUI().setVisible(true);
                 }else{
-                    new PassengerUI().setVisible(true);
+                    new WelcomeScreen().setVisible(true);
                 }
                 dispose();
 
