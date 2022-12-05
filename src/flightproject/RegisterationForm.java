@@ -47,9 +47,9 @@ public class RegisterationForm extends javax.swing.JFrame {
         RePasswordField = new javax.swing.JPasswordField();
         EmailField = new javax.swing.JTextField();
         PhoneNumberField = new javax.swing.JTextField();
-        BirthDateField = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        BirthDateField = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -136,10 +136,6 @@ public class RegisterationForm extends javax.swing.JFrame {
         PhoneNumberField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PhoneNumberField.setForeground(new java.awt.Color(79, 79, 79));
 
-        BirthDateField.setBackground(new java.awt.Color(241, 241, 241));
-        BirthDateField.setForeground(new java.awt.Color(79, 79, 79));
-        BirthDateField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         jButton1.setBackground(new java.awt.Color(241, 241, 241));
         jButton1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         jButton1.setForeground(new java.awt.Color(53, 146, 196));
@@ -160,7 +156,7 @@ public class RegisterationForm extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
+                        .addGap(92, 92, 92)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -224,7 +220,7 @@ public class RegisterationForm extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(PhoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(BirthDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -257,7 +253,7 @@ public class RegisterationForm extends javax.swing.JFrame {
         String phoneNumber = PhoneNumberField.getText().trim();
         java.util.Date utilDate = BirthDateField.getDate();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        int id = (User.generateID()+1);
+        int id = flightProject.generateID("USERS");
         //Check if all data fields are filled with data.
         if (name.equals("") || username.equals("") || password.equals("") || rePassword.equals("") || email.equals("") || phoneNumber.equals("")){
             JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
