@@ -23,22 +23,7 @@ public class User {
             return 0;
         }
     }
-    public static int generateID(){
-        try{
-            //Query to get the number of rows in a table
-            String idquery = "select count(*) from ROOT.USERS";
-            //Executing the query
-            mystatObj = myconObj.prepareStatement(idquery);
-            myresObj = mystatObj.executeQuery();
-            //Retrieving the result
-            myresObj.next();
-            int count = myresObj.getInt(1);
-            System.out.println(count);
-            return count;
-            }catch(SQLException e){
-                return -1;
-            }
-    }
+    
     public static String getFullName(int id){
         String query = "select * from ROOT.USERS WHERE ID=?";
         try{
