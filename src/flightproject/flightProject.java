@@ -8,6 +8,5 @@ public class flightProject {
     public static Integer currentUserID;
     public static void main(String[] args) throws SQLException {
         new LoginpGUI().setVisible(true);
-
     }
 }
