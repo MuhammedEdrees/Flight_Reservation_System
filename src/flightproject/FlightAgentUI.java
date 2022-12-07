@@ -107,7 +107,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
         );
 
         Table_1.setBackground(new java.awt.Color(204, 204, 204));
-        Table_1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        Table_1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         Table_1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
