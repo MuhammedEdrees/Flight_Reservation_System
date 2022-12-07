@@ -17,23 +17,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
     }
 
     public void selectionall(){
-        /*try{
-        MystaObj=MyconObj.createStatement();
-        MyresObj=MystaObj.executeQuery("SELECT * FROM ROOT.FLIGHTS");
-        while(MyresObj.next()){
-            String id = String.valueOf(MyresObj.getInt("ID"));
-            String departureAirport = MyresObj.getString("DEPARTUREAIRPORT");
-            String arrivalAirport = MyresObj.getString("ARRIVALAIRPORT");
-            String flightDate = String.valueOf(MyresObj.getDate("FLIGHTDATE"));
-            String departureTime = MyresObj.getString("DEPARTURETIME");
-            String flightDuration = MyresObj.getString("FLIGHTDURATION");
-            String basePrice = String.valueOf(MyresObj.getDouble("BASEPRICE"));
-            String tbData[] = {id, departureAirport, arrivalAirport, flightDate, departureTime, flightDuration, basePrice};
-            DefaultTableModel tblModel = (DefaultTableModel) Table_1.getModel();
-            tblModel.addRow(tbData);
-        }*/
         try{
-        MyconObj=DriverManager.getConnection("jdbc:derby://localhost:1527/flight project DB", "root", "root");
         MystaObj=MyconObj.createStatement();
         MyresObj=MystaObj.executeQuery("SELECT * FROM ROOT.FLIGHTS");
         Table_1.setModel(DbUtils.resultSetToTableModel(MyresObj));
