@@ -124,7 +124,7 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="arrivalairportTxt" pref="174" max="32767" attributes="0"/>
                                   <Component id="timeTxt" alignment="0" pref="174" max="32767" attributes="0"/>
-                                  <Component id="dateTxt" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="flightDate" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -155,7 +155,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jLabel4" min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Component id="dateTxt" min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Component id="flightDate" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -470,13 +470,10 @@
                 <Property name="text" type="java.lang.String" value="Base Price                  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="dateTxt">
+            <Component class="com.toedter.calendar.JDateChooser" name="flightDate">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="12" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>

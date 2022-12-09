@@ -54,7 +54,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        dateTxt = new javax.swing.JTextField();
+        flightDate = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -174,9 +174,8 @@ public class FlightAgentUI extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Base Price                  :");
 
-        dateTxt.setBackground(new java.awt.Color(255, 255, 255));
-        dateTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        dateTxt.setForeground(new java.awt.Color(51, 51, 51));
+        flightDate.setBackground(new java.awt.Color(255, 255, 255));
+        flightDate.setForeground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -215,7 +214,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(arrivalairportTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                             .addComponent(timeTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                            .addComponent(dateTxt))))
+                            .addComponent(flightDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -238,7 +237,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(flightDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,12 +302,14 @@ public class FlightAgentUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+        java.util.Date utilDate = flightDate.getDate();
+        java.sql.Date flightDate = new java.sql.Date(utilDate.getTime());
         try{
             String sql="Update ROOT.FLIGHTS Set DepartureAirport = ?, ArrivalAirport = ?, FlightDate = ? , DepartureTime = ? , FlightDuration = ? , BasePrice = ? where ID = ?";
             PreparedStatement mystatObj= MyconObj.prepareStatement(sql);
             mystatObj.setString(1, departureairportTxt.getText());
             mystatObj.setString(2, arrivalairportTxt.getText());
-            mystatObj.setString(3, dateTxt.getText());
+            mystatObj.setDate(3, flightDate);
             mystatObj.setString(4, timeTxt.getText());
             mystatObj.setString(5, durationTxt.getText());
             mystatObj.setDouble(6, Double.parseDouble(priceTxt.getText()));
@@ -334,7 +335,6 @@ public class FlightAgentUI extends javax.swing.JFrame {
             durationTxt.setText("");
             timeTxt.setText("");
             priceTxt.setText("");
-            priceTxt.setText("");
 
         }
         catch(SQLException e){
@@ -346,10 +346,11 @@ public class FlightAgentUI extends javax.swing.JFrame {
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         try{
-            int id=Integer.parseInt(idTxt.getText());
+            int id=flightproject.flightProject.generateID("FLIGHTS");
             String departureAP = departureairportTxt.getText();
             String arrivalAP = arrivalairportTxt.getText();
-            String flightDate = dateTxt.getText();
+            java.util.Date utilDate = flightDate.getDate();
+            java.sql.Date flightDate = new java.sql.Date(utilDate.getTime());
             String time=timeTxt.getText();
             String duration=durationTxt.getText();
             double price=Double.parseDouble(priceTxt.getText());
@@ -358,7 +359,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
             add.setInt(1, id);
             add.setString(2, departureAP);
             add.setString(3, arrivalAP);
-            add.setString(4, flightDate);
+            add.setDate(4, flightDate);
             add.setString(5, time);
             add.setString(6, duration);
             add.setDouble(7, price);
@@ -413,9 +414,9 @@ public class FlightAgentUI extends javax.swing.JFrame {
     private javax.swing.JTable Table_1;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField arrivalairportTxt;
-    private javax.swing.JTextField dateTxt;
     private javax.swing.JTextField departureairportTxt;
     private javax.swing.JTextField durationTxt;
+    private com.toedter.calendar.JDateChooser flightDate;
     private javax.swing.JTextField idTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
