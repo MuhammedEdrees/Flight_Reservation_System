@@ -4,6 +4,8 @@
  */
 package flightproject.Passenger;
 
+import java.awt.Color;
+
 /**
  *
  * @author moham
@@ -15,6 +17,14 @@ public class PassengerUI extends javax.swing.JFrame {
      */
     public PassengerUI() {
         initComponents();
+        //show home as default and hide other panels
+        homePanel.setVisible(true);
+        flightSearchingPanel.setVisible(false);
+        ordersPanel.setVisible(false);
+       //highlight home tab button and set other tab buttons to normal colors
+        homeTab.setBackground(new Color (94, 170, 211));
+        flightsTab.setBackground(new Color (53, 146, 196));
+        bookingsTab.setBackground(new Color (53, 146, 196));
     }
 
     /**
@@ -26,21 +36,234 @@ public class PassengerUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        menuPanel = new javax.swing.JPanel();
+        homeTab = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        flightsTab = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        bookingsTab = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        mainPanel = new javax.swing.JPanel();
+        homePanel = new javax.swing.JPanel();
+        flightSearchingPanel = new javax.swing.JPanel();
+        ordersPanel = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        menuPanel.setBackground(new java.awt.Color(53, 146, 196));
+
+        homeTab.setBackground(new java.awt.Color(53, 146, 196));
+        homeTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeTabMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel1.setText("Home");
+
+        javax.swing.GroupLayout homeTabLayout = new javax.swing.GroupLayout(homeTab);
+        homeTab.setLayout(homeTabLayout);
+        homeTabLayout.setHorizontalGroup(
+            homeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homeTabLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        homeTabLayout.setVerticalGroup(
+            homeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        flightsTab.setBackground(new java.awt.Color(53, 146, 196));
+        flightsTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flightsTabMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel2.setText("Flights");
+
+        javax.swing.GroupLayout flightsTabLayout = new javax.swing.GroupLayout(flightsTab);
+        flightsTab.setLayout(flightsTabLayout);
+        flightsTabLayout.setHorizontalGroup(
+            flightsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, flightsTabLayout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        flightsTabLayout.setVerticalGroup(
+            flightsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, flightsTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        bookingsTab.setBackground(new java.awt.Color(53, 146, 196));
+        bookingsTab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bookingsTabMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel3.setText("Bookings");
+
+        javax.swing.GroupLayout bookingsTabLayout = new javax.swing.GroupLayout(bookingsTab);
+        bookingsTab.setLayout(bookingsTabLayout);
+        bookingsTabLayout.setHorizontalGroup(
+            bookingsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookingsTabLayout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        bookingsTabLayout.setVerticalGroup(
+            bookingsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookingsTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(homeTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(flightsTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bookingsTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(139, 139, 139))
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addGap(0, 28, Short.MAX_VALUE)
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(homeTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bookingsTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(flightsTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        homePanel.setBackground(new java.awt.Color(231, 231, 231));
+
+        javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
+        homePanel.setLayout(homePanelLayout);
+        homePanelLayout.setHorizontalGroup(
+            homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        homePanelLayout.setVerticalGroup(
+            homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 475, Short.MAX_VALUE)
+        );
+
+        flightSearchingPanel.setBackground(new java.awt.Color(231, 231, 231));
+
+        javax.swing.GroupLayout flightSearchingPanelLayout = new javax.swing.GroupLayout(flightSearchingPanel);
+        flightSearchingPanel.setLayout(flightSearchingPanelLayout);
+        flightSearchingPanelLayout.setHorizontalGroup(
+            flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        flightSearchingPanelLayout.setVerticalGroup(
+            flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 475, Short.MAX_VALUE)
+        );
+
+        ordersPanel.setBackground(new java.awt.Color(231, 231, 231));
+
+        javax.swing.GroupLayout ordersPanelLayout = new javax.swing.GroupLayout(ordersPanel);
+        ordersPanel.setLayout(ordersPanelLayout);
+        ordersPanelLayout.setHorizontalGroup(
+            ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        ordersPanelLayout.setVerticalGroup(
+            ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 475, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(homePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(flightSearchingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ordersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(homePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(flightSearchingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ordersPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void homeTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeTabMouseClicked
+        //show home tab and hide other panels
+        homePanel.setVisible(true);
+        flightSearchingPanel.setVisible(false);
+        ordersPanel.setVisible(false);
+       //highlight home tab button and set other tab buttons to normal colors
+        homeTab.setBackground(new Color (94, 170, 211));
+        flightsTab.setBackground(new Color (53, 146, 196));
+        bookingsTab.setBackground(new Color (53, 146, 196));
+    }//GEN-LAST:event_homeTabMouseClicked
+
+    private void flightsTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flightsTabMouseClicked
+        //show flights tab and hide other tabs
+        homePanel.setVisible(false);
+        flightSearchingPanel.setVisible(true);
+        ordersPanel.setVisible(false);
+        //highlight flights tab button and set other tab buttons to normal color
+        homeTab.setBackground(new Color (53, 146, 196));
+        flightsTab.setBackground(new Color (94, 170, 211));
+        bookingsTab.setBackground(new Color (53, 146, 196));
+    }//GEN-LAST:event_flightsTabMouseClicked
+
+    private void bookingsTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingsTabMouseClicked
+        //show bookings tab and hide other panels
+        homePanel.setVisible(false);
+        flightSearchingPanel.setVisible(false);
+        ordersPanel.setVisible(true);
+       //highlight bookings tab button and set other tab buttons to normal colors
+        homeTab.setBackground(new Color (53, 146, 196));
+        flightsTab.setBackground(new Color (53, 146, 196));
+        bookingsTab.setBackground(new Color (94, 170, 211));
+    }//GEN-LAST:event_bookingsTabMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +302,16 @@ public class PassengerUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bookingsTab;
+    private javax.swing.JPanel flightSearchingPanel;
+    private javax.swing.JPanel flightsTab;
+    private javax.swing.JPanel homePanel;
+    private javax.swing.JPanel homeTab;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel menuPanel;
+    private javax.swing.JPanel ordersPanel;
     // End of variables declaration//GEN-END:variables
 }
