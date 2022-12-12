@@ -3,12 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package flightproject;
-import flightproject.FlightAgent.FlightAgentUI;
-import flightproject.Passenger.ForgottenPasswordForm;
-import flightproject.Passenger.RegisterationForm;
-import flightproject.Passenger.PassengerC;
-import flightproject.Passenger.WelcomeScreen;
-import flightproject.admin.AdminUI;
+import flightproject.FlightAgentP.FlightAgentUI;
+import flightproject.PassengerP.ForgottenPasswordForm;
+import flightproject.PassengerP.RegisterationForm;
+import flightproject.PassengerP.Passenger;
+import flightproject.PassengerP.WelcomeScreen;
+import flightproject.AdminP.AdminUI;
 import java.sql.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -218,26 +218,26 @@ public class LoginpGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(PassengerC.getID(usernamefield.getText()) != -1){
-            flightProject.currentUserID = PassengerC.getID(usernamefield.getText());
-            if(passwordfield.getText().equals(PassengerC.getPassword(flightProject.currentUserID))){
+        if(Passenger.getID(usernamefield.getText()) != -1){
+            flightProject.currentUserID = Passenger.getID(usernamefield.getText());
+            if(passwordfield.getText().equals(Passenger.getPassword(flightProject.currentUserID))){
                 new WelcomeScreen().setVisible(true);
                 dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Wrong Password!");
             }
-        }else if(flightproject.FlightAgent.FlightAgentC.getID(usernamefield.getText()) != -1){
-            flightProject.currentUserID = flightproject.FlightAgent.FlightAgentC.getID(usernamefield.getText());
-            if(passwordfield.getText().equals(flightproject.FlightAgent.FlightAgentC.getPassword(flightProject.currentUserID))){
+        }else if(flightproject.FlightAgentP.FlightAgent.getID(usernamefield.getText()) != -1){
+            flightProject.currentUserID = flightproject.FlightAgentP.FlightAgent.getID(usernamefield.getText());
+            if(passwordfield.getText().equals(flightproject.FlightAgentP.FlightAgent.getPassword(flightProject.currentUserID))){
                 new FlightAgentUI().setVisible(true);
                 dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Wrong Password!");
             }
-        }else if(flightproject.admin.AdminC.getID(usernamefield.getText()) != -1){
-            flightProject.currentUserID = flightproject.admin.AdminC.getID(usernamefield.getText());
-            if(passwordfield.getText().equals(flightproject.admin.AdminC.getPassword(flightProject.currentUserID))){
-                new AdminUI().setVisible(true);
+        }else if(flightproject.AdminP.Admin.getID(usernamefield.getText()) != -1){
+            flightProject.currentUserID = flightproject.AdminP.Admin.getID(usernamefield.getText());
+            if(passwordfield.getText().equals(flightproject.AdminP.Admin.getPassword(flightProject.currentUserID))){
+                new flightproject.AdminP.AdminUI().setVisible(true);
                 dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Wrong Password!");
@@ -247,11 +247,11 @@ public class LoginpGUI extends javax.swing.JFrame {
         }
         
         
-        /*flightProject.currentUserID = PassengerC.getID(usernamefield.getText());
-        if((passwordfield.getText()).equals(PassengerC.getPassword(flightProject.currentUserID))){                
-                if((PassengerC.getUserRole(flightProject.currentUserID)).equals("admin") ){
+        /*flightProject.currentUserID = Passenger.getID(usernamefield.getText());
+        if((passwordfield.getText()).equals(Passenger.getPassword(flightProject.currentUserID))){                
+                if((Passenger.getUserRole(flightProject.currentUserID)).equals("admin") ){
                     new AdminUI().setVisible(true);
-                } else if((PassengerC.getUserRole(flightProject.currentUserID)).equals("flightagent")){
+                } else if((Passenger.getUserRole(flightProject.currentUserID)).equals("flightagent")){
                     new FlightAgentUI().setVisible(true);
                 }else{
                     new WelcomeScreen().setVisible(true);
