@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package flightproject;
+import flightproject.FlightAgentP.FlightAgentUI;
+import flightproject.PassengerP.ForgottenPasswordForm;
+import flightproject.PassengerP.RegisterationForm;
+import flightproject.PassengerP.Passenger;
+import flightproject.PassengerP.WelcomeScreen;
+import flightproject.AdminP.AdminUI;
 import java.sql.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -212,11 +218,40 @@ public class LoginpGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        flightProject.currentUserID = User.getID(usernamefield.getText());
-        if((passwordfield.getText()).equals(User.getPassword(flightProject.currentUserID))){                
-                if((User.getUserRole(flightProject.currentUserID)).equals("admin") ){
+        if(Passenger.getID(usernamefield.getText()) != -1){
+            flightProject.currentUserID = Passenger.getID(usernamefield.getText());
+            if(passwordfield.getText().equals(Passenger.getPassword(flightProject.currentUserID))){
+                new WelcomeScreen().setVisible(true);
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Wrong Password!");
+            }
+        }else if(flightproject.FlightAgentP.FlightAgent.getID(usernamefield.getText()) != -1){
+            flightProject.currentUserID = flightproject.FlightAgentP.FlightAgent.getID(usernamefield.getText());
+            if(passwordfield.getText().equals(flightproject.FlightAgentP.FlightAgent.getPassword(flightProject.currentUserID))){
+                new FlightAgentUI().setVisible(true);
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Wrong Password!");
+            }
+        }else if(flightproject.AdminP.Admin.getID(usernamefield.getText()) != -1){
+            flightProject.currentUserID = flightproject.AdminP.Admin.getID(usernamefield.getText());
+            if(passwordfield.getText().equals(flightproject.AdminP.Admin.getPassword(flightProject.currentUserID))){
+                new flightproject.AdminP.AdminUI().setVisible(true);
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Wrong Password!");
+            }
+        }else {
+            JOptionPane.showMessageDialog(null, "Username doesn't exist!");
+        }
+        
+        
+        /*flightProject.currentUserID = Passenger.getID(usernamefield.getText());
+        if((passwordfield.getText()).equals(Passenger.getPassword(flightProject.currentUserID))){                
+                if((Passenger.getUserRole(flightProject.currentUserID)).equals("admin") ){
                     new AdminUI().setVisible(true);
-                } else if((User.getUserRole(flightProject.currentUserID)).equals("flightagent")){
+                } else if((Passenger.getUserRole(flightProject.currentUserID)).equals("flightagent")){
                     new FlightAgentUI().setVisible(true);
                 }else{
                     new WelcomeScreen().setVisible(true);
@@ -226,7 +261,7 @@ public class LoginpGUI extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Login Failed! Please Enter the correct username and password.");
 
-            }
+            }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void usernamefieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernamefieldActionPerformed
