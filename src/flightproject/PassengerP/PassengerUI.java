@@ -29,9 +29,11 @@ public class PassengerUI extends javax.swing.JFrame {
    
     public PassengerUI() {
         initComponents();
-        //show home as default and hide other panels
-        flightSearchingPanel.setVisible(true);
-        ordersPanel.setVisible(false);
+        //show flights as default and hide other panels
+        FlightSearchingPanel.setVisible(true);
+        BookingsPanel.setVisible(false);
+        ReservationDetailsPanel.setVisible(false);
+        PaymentPanel.setVisible(false);
        //highlight home tab button and set other tab buttons to normal colors
         flightsTab.setBackground(new Color (94, 170, 211));
         bookingsTab.setBackground(new Color (53, 146, 196));
@@ -102,7 +104,8 @@ public class PassengerUI extends javax.swing.JFrame {
         bookingsTab = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
-        flightSearchingPanel = new javax.swing.JPanel();
+        PaymentPanel = new javax.swing.JPanel();
+        FlightSearchingPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         fromSearchTxt = new swing.MyTextField();
@@ -112,7 +115,8 @@ public class PassengerUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        ordersPanel = new javax.swing.JPanel();
+        ReservationDetailsPanel = new javax.swing.JPanel();
+        BookingsPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -193,7 +197,20 @@ public class PassengerUI extends javax.swing.JFrame {
                 .addGap(379, 379, 379))
         );
 
-        flightSearchingPanel.setBackground(new java.awt.Color(231, 231, 231));
+        PaymentPanel.setBackground(new java.awt.Color(231, 231, 231));
+
+        javax.swing.GroupLayout PaymentPanelLayout = new javax.swing.GroupLayout(PaymentPanel);
+        PaymentPanel.setLayout(PaymentPanelLayout);
+        PaymentPanelLayout.setHorizontalGroup(
+            PaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 810, Short.MAX_VALUE)
+        );
+        PaymentPanelLayout.setVerticalGroup(
+            PaymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 641, Short.MAX_VALUE)
+        );
+
+        FlightSearchingPanel.setBackground(new java.awt.Color(231, 231, 231));
 
         jLabel4.setFont(new java.awt.Font("Malgun Gothic Semilight", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(53, 146, 196));
@@ -256,54 +273,54 @@ public class PassengerUI extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Lucida Sans", 1, 16)); // NOI18N
         jButton1.setText("Search");
 
-        javax.swing.GroupLayout flightSearchingPanelLayout = new javax.swing.GroupLayout(flightSearchingPanel);
-        flightSearchingPanel.setLayout(flightSearchingPanelLayout);
-        flightSearchingPanelLayout.setHorizontalGroup(
-            flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(flightSearchingPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout FlightSearchingPanelLayout = new javax.swing.GroupLayout(FlightSearchingPanel);
+        FlightSearchingPanel.setLayout(FlightSearchingPanelLayout);
+        FlightSearchingPanelLayout.setHorizontalGroup(
+            FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FlightSearchingPanelLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addGroup(flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(flightSearchingPanelLayout.createSequentialGroup()
-                            .addGroup(flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(flightSearchingPanelLayout.createSequentialGroup()
+                    .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(FlightSearchingPanelLayout.createSequentialGroup()
+                            .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(FlightSearchingPanelLayout.createSequentialGroup()
                                     .addComponent(jLabel6)
                                     .addGap(8, 8, 8))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, flightSearchingPanelLayout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, FlightSearchingPanelLayout.createSequentialGroup()
                                     .addComponent(jLabel5)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(toSearchTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(departDate, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)))
-                        .addGroup(flightSearchingPanelLayout.createSequentialGroup()
+                        .addGroup(FlightSearchingPanelLayout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                             .addComponent(fromSearchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(133, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, flightSearchingPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlightSearchingPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(324, 324, 324))
         );
-        flightSearchingPanelLayout.setVerticalGroup(
-            flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(flightSearchingPanelLayout.createSequentialGroup()
+        FlightSearchingPanelLayout.setVerticalGroup(
+            FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FlightSearchingPanelLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addGroup(flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fromSearchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toSearchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(flightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(departDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
@@ -311,16 +328,29 @@ public class PassengerUI extends javax.swing.JFrame {
                 .addContainerGap(318, Short.MAX_VALUE))
         );
 
-        ordersPanel.setBackground(new java.awt.Color(231, 231, 231));
+        ReservationDetailsPanel.setBackground(new java.awt.Color(231, 231, 231));
 
-        javax.swing.GroupLayout ordersPanelLayout = new javax.swing.GroupLayout(ordersPanel);
-        ordersPanel.setLayout(ordersPanelLayout);
-        ordersPanelLayout.setHorizontalGroup(
-            ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 762, Short.MAX_VALUE)
+        javax.swing.GroupLayout ReservationDetailsPanelLayout = new javax.swing.GroupLayout(ReservationDetailsPanel);
+        ReservationDetailsPanel.setLayout(ReservationDetailsPanelLayout);
+        ReservationDetailsPanelLayout.setHorizontalGroup(
+            ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 810, Short.MAX_VALUE)
         );
-        ordersPanelLayout.setVerticalGroup(
-            ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        ReservationDetailsPanelLayout.setVerticalGroup(
+            ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 641, Short.MAX_VALUE)
+        );
+
+        BookingsPanel.setBackground(new java.awt.Color(231, 231, 231));
+
+        javax.swing.GroupLayout BookingsPanelLayout = new javax.swing.GroupLayout(BookingsPanel);
+        BookingsPanel.setLayout(BookingsPanelLayout);
+        BookingsPanelLayout.setHorizontalGroup(
+            BookingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 810, Short.MAX_VALUE)
+        );
+        BookingsPanelLayout.setVerticalGroup(
+            BookingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 641, Short.MAX_VALUE)
         );
 
@@ -330,17 +360,25 @@ public class PassengerUI extends javax.swing.JFrame {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 810, Short.MAX_VALUE)
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(flightSearchingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(FlightSearchingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(ordersPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(BookingsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ReservationDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(PaymentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 641, Short.MAX_VALUE)
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(flightSearchingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(FlightSearchingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(ordersPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(BookingsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ReservationDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(PaymentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -363,8 +401,10 @@ public class PassengerUI extends javax.swing.JFrame {
 
     private void flightsTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flightsTabMouseClicked
         //show flights tab and hide other tabs
-        flightSearchingPanel.setVisible(true);
-        ordersPanel.setVisible(false);
+        FlightSearchingPanel.setVisible(true);
+        BookingsPanel.setVisible(false);
+        ReservationDetailsPanel.setVisible(false);
+        PaymentPanel.setVisible(false);
         //highlight flights tab button and set other tab buttons to normal color
         flightsTab.setBackground(new Color (94, 170, 211));
         bookingsTab.setBackground(new Color (53, 146, 196));
@@ -372,8 +412,10 @@ public class PassengerUI extends javax.swing.JFrame {
 
     private void bookingsTabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingsTabMouseClicked
         //show bookings tab and hide other panels
-        flightSearchingPanel.setVisible(false);
-        ordersPanel.setVisible(true);
+        FlightSearchingPanel.setVisible(false);
+        BookingsPanel.setVisible(true);
+        PaymentPanel.setVisible(false);
+        ReservationDetailsPanel.setVisible(false);
        //highlight bookings tab button and set other tab buttons to normal colors
         flightsTab.setBackground(new Color (53, 146, 196));
         bookingsTab.setBackground(new Color (94, 170, 211));
@@ -523,9 +565,12 @@ public class PassengerUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel BookingsPanel;
+    private javax.swing.JPanel FlightSearchingPanel;
+    private javax.swing.JPanel PaymentPanel;
+    private javax.swing.JPanel ReservationDetailsPanel;
     private javax.swing.JPanel bookingsTab;
     private com.toedter.calendar.JDateChooser departDate;
-    private javax.swing.JPanel flightSearchingPanel;
     private javax.swing.JPanel flightsTab;
     private swing.MyTextField fromSearchTxt;
     private javax.swing.JButton jButton1;
@@ -538,7 +583,6 @@ public class PassengerUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
-    private javax.swing.JPanel ordersPanel;
     private swing.MyTextField toSearchTxt;
     // End of variables declaration//GEN-END:variables
 }
