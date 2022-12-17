@@ -5,15 +5,10 @@
 package flightproject.AdminP;
 
 import flightproject.DBConnection;
-import flightproject.FlightAgentP.FlightAgent;
 import flightproject.FlightAgentP.FlightAgentModel;
 import java.awt.Color;
 import java.sql.*;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import org.apache.derby.iapi.sql.PreparedStatement;
 import net.proteanit.sql.DbUtils;
 
 
