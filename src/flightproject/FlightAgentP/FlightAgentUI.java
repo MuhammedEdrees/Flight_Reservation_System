@@ -128,15 +128,12 @@ public class FlightAgentUI extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(Table_1);
 
-        idTxt.setBackground(new java.awt.Color(255, 255, 255));
         idTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         idTxt.setForeground(new java.awt.Color(51, 51, 51));
 
-        durationTxt.setBackground(new java.awt.Color(255, 255, 255));
         durationTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         durationTxt.setForeground(new java.awt.Color(51, 51, 51));
 
-        timeTxt.setBackground(new java.awt.Color(255, 255, 255));
         timeTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         timeTxt.setForeground(new java.awt.Color(51, 51, 51));
         timeTxt.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +142,6 @@ public class FlightAgentUI extends javax.swing.JFrame {
             }
         });
 
-        priceTxt.setBackground(new java.awt.Color(255, 255, 255));
         priceTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         priceTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -180,7 +176,6 @@ public class FlightAgentUI extends javax.swing.JFrame {
         flightDate.setBackground(new java.awt.Color(255, 255, 255));
         flightDate.setForeground(new java.awt.Color(51, 51, 51));
 
-        airlineTxt.setBackground(new java.awt.Color(255, 255, 255));
         airlineTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         airlineTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -188,11 +183,19 @@ public class FlightAgentUI extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("Airline                           :");
 
-        departureAirport.setBackground(new java.awt.Color(255, 255, 255));
         departureAirport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        departureAirport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departureAirportActionPerformed(evt);
+            }
+        });
 
-        arrivalAirport.setBackground(new java.awt.Color(255, 255, 255));
         arrivalAirport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        arrivalAirport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arrivalAirportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -404,6 +407,14 @@ public class FlightAgentUI extends javax.swing.JFrame {
     private void timeTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_timeTxtActionPerformed
+
+    private void departureAirportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departureAirportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_departureAirportActionPerformed
+
+    private void arrivalAirportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrivalAirportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_arrivalAirportActionPerformed
 
     /**
      * @param args the command line arguments

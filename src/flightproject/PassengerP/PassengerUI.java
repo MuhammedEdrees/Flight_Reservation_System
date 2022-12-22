@@ -4,17 +4,23 @@
  */
 package flightproject.PassengerP;
 
+import flightproject.DBConnection;
+import flightproject.flightProject;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.nio.charset.Charset;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import swing.DataSearch;
 import swing.EventClick;
 import swing.PanelSearch;
+import java.sql.*;
 
 /**
  *
@@ -26,6 +32,9 @@ public class PassengerUI extends javax.swing.JFrame {
     private PanelSearch toSearch;
     private JPopupMenu fromMenu;
     private JPopupMenu toMenu;
+    Connection myconObj = DBConnection.connectDB();
+    Statement mystatObj = null;
+    ResultSet myresObj = null;
    
     public PassengerUI() {
         initComponents();
@@ -98,6 +107,8 @@ public class PassengerUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         menuPanel = new javax.swing.JPanel();
         flightsTab = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -116,7 +127,24 @@ public class PassengerUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         ReservationDetailsPanel = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        firstNameField = new javax.swing.JTextField();
+        surNameField = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        CountriesField = new javax.swing.JComboBox<>();
+        passportNumberField = new javax.swing.JTextField();
+        passportExpiryDateField = new com.toedter.calendar.JDateChooser();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        numberOfSeatsField = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        submitPassengerInfo = new javax.swing.JButton();
         BookingsPanel = new javax.swing.JPanel();
+
+        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -220,7 +248,6 @@ public class PassengerUI extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(53, 146, 196));
         jLabel5.setText("To");
 
-        fromSearchTxt.setBackground(new java.awt.Color(255, 255, 255));
         fromSearchTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fromSearchTxtMouseClicked(evt);
@@ -235,7 +262,6 @@ public class PassengerUI extends javax.swing.JFrame {
             }
         });
 
-        toSearchTxt.setBackground(new java.awt.Color(255, 255, 255));
         toSearchTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 toSearchTxtMouseClicked(evt);
@@ -277,6 +303,10 @@ public class PassengerUI extends javax.swing.JFrame {
         FlightSearchingPanel.setLayout(FlightSearchingPanelLayout);
         FlightSearchingPanelLayout.setHorizontalGroup(
             FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlightSearchingPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(324, 324, 324))
             .addGroup(FlightSearchingPanelLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,10 +329,6 @@ public class PassengerUI extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                             .addComponent(fromSearchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(133, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlightSearchingPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(324, 324, 324))
         );
         FlightSearchingPanelLayout.setVerticalGroup(
             FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,15 +356,145 @@ public class PassengerUI extends javax.swing.JFrame {
 
         ReservationDetailsPanel.setBackground(new java.awt.Color(231, 231, 231));
 
+        jPanel3.setBackground(new java.awt.Color(53, 146, 196));
+
+        jLabel9.setFont(new java.awt.Font("Roboto", 1, 48)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Passenger Information");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(142, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+        );
+
+        firstNameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstNameFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel8.setText("First Name");
+
+        jLabel10.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel10.setText("Surname");
+
+        jLabel11.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel11.setText("Nationality");
+
+        CountriesField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CountriesFieldActionPerformed(evt);
+            }
+        });
+
+        passportNumberField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passportNumberFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel12.setText("Passport Number");
+
+        jLabel13.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel13.setText("Passport Expiry date");
+
+        numberOfSeatsField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberOfSeatsFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel14.setText("Number of seats");
+
+        submitPassengerInfo.setBackground(new java.awt.Color(241, 241, 241));
+        submitPassengerInfo.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        submitPassengerInfo.setForeground(new java.awt.Color(53, 146, 196));
+        submitPassengerInfo.setText("Submit ");
+        submitPassengerInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitPassengerInfoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ReservationDetailsPanelLayout = new javax.swing.GroupLayout(ReservationDetailsPanel);
         ReservationDetailsPanel.setLayout(ReservationDetailsPanelLayout);
         ReservationDetailsPanelLayout.setHorizontalGroup(
             ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(ReservationDetailsPanelLayout.createSequentialGroup()
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReservationDetailsPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel14))
+                        .addGap(41, 41, 41)
+                        .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(numberOfSeatsField)
+                            .addComponent(surNameField)
+                            .addComponent(firstNameField)
+                            .addComponent(CountriesField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passportNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                            .addComponent(passportExpiryDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(ReservationDetailsPanelLayout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addComponent(submitPassengerInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ReservationDetailsPanelLayout.setVerticalGroup(
             ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 641, Short.MAX_VALUE)
+            .addGroup(ReservationDetailsPanelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(surNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(CountriesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(numberOfSeatsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(passportNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(passportExpiryDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(58, 58, 58)
+                .addComponent(submitPassengerInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         BookingsPanel.setBackground(new java.awt.Color(231, 231, 231));
@@ -486,6 +642,126 @@ public class PassengerUI extends javax.swing.JFrame {
             toMenu.setVisible(false);
         }
     }//GEN-LAST:event_toSearchTxtKeyPressed
+    int flightID=1;
+    private void firstNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstNameFieldActionPerformed
+
+    private void CountriesFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CountriesFieldActionPerformed
+       
+    }//GEN-LAST:event_CountriesFieldActionPerformed
+
+    private void numberOfSeatsFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberOfSeatsFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numberOfSeatsFieldActionPerformed
+
+    private void submitPassengerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitPassengerInfoActionPerformed
+
+    //assign each data field to a corrosponding variable
+        String firstName = firstNameField.getText().trim();
+        String surName = surNameField.getText().trim();
+        String nationality = (String)CountriesField.getSelectedItem();
+        
+        //2l parse bawazly 2l denya. so this is here to fix it
+        int numberOfSeats=0;
+        if (numberOfSeatsField.getText().equals("")) {
+        } else {
+            numberOfSeats = Integer.parseInt(numberOfSeatsField.getText().trim());
+        }
+        
+        String numOfSeatsComp= numberOfSeatsField.getText().trim();
+        String passportNumber=passportNumberField.getText().trim();
+        java.sql.Date passExp;
+        try{
+            java.util.Date utilDate = passportExpiryDateField.getDate();
+            passExp = new java.sql.Date(utilDate.getTime());
+        }
+        catch(NullPointerException e)
+        {
+            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
+            return;
+        }
+        
+        int id = flightProject.generateID("RESERVATIONS");
+        
+        //variables used
+        int availableSeats = 0, newAvailbleSeats=0;
+        
+        //getting the availabe seats
+        try{
+        String seatQuery="select * FROM ROOT.FLIGHTS where ID="+ String.valueOf(flightID);
+        mystatObj = myconObj.createStatement();
+        myresObj = mystatObj.executeQuery(seatQuery);
+        myresObj.next();
+        availableSeats=myresObj.getInt("AVAILABLESEATS");
+        }
+        catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "xd");
+            }
+        
+       
+        
+        //check if number entered is negative or = 0
+        JOptionPane.showMessageDialog(null,availableSeats+"   "+numberOfSeats);
+        if (numberOfSeats<=0)
+        {
+            JOptionPane.showMessageDialog(null, "Please enter a correct number of seats!");
+        }
+        //check if there is avaialbe seats
+        
+        else if (availableSeats < numberOfSeats)
+        {
+            JOptionPane.showMessageDialog(null, "Sorry all the seats are booked!");
+            
+        }
+        
+        //Check if all data fields are filled with data.
+        else if (firstName.equals("") || surName.equals("")  || passportNumber.equals("") || numOfSeatsComp.equals("")  ){
+            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
+        }
+        
+        
+        else{
+            newAvailbleSeats=availableSeats-numberOfSeats;
+            try{
+                //add entry to the RESERVATION database 
+                PreparedStatement add =myconObj.prepareStatement("Insert Into ROOT.RESERVATIONS values (?,?,?,?,?,?,?,?,?)");
+                add.setInt(1, id);
+                add.setString(2, firstName);
+                add.setString(3, surName);
+                add.setString(4, nationality);
+                add.setString(5, passportNumber);
+                add.setDate(6, passExp);
+                add.setInt(7, numberOfSeats);
+                add.setInt(8, flightID);
+                add.setInt(9, flightProject.currentUserID);
+                int row=add.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "The ticket is now booked! Your ticket ID is "+id);
+                
+                //availbeseats reduced
+                try{
+                    String seatQuery= "UPDATE ROOT.FLIGHTS SET AVAILABLESEATS="+newAvailbleSeats+" WHERE ID ="+flightID;
+                    mystatObj = myconObj.createStatement();                    
+                    mystatObj.executeUpdate(seatQuery);
+                    
+                }
+                catch(SQLException e){
+                    JOptionPane.showMessageDialog(null, e);
+                    }
+                ReservationDetailsPanel.setVisible(false);
+                PaymentPanel.setVisible(true);
+
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "xdd");
+            }
+
+        }
+    }//GEN-LAST:event_submitPassengerInfoActionPerformed
+
+    private void passportNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passportNumberFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passportNumberFieldActionPerformed
     private List<DataSearch> search(String search) {
         int limitData = 7;
         List<DataSearch> list = new ArrayList<>();
@@ -566,23 +842,40 @@ public class PassengerUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BookingsPanel;
+    private javax.swing.JComboBox<String> CountriesField;
     private javax.swing.JPanel FlightSearchingPanel;
     private javax.swing.JPanel PaymentPanel;
     private javax.swing.JPanel ReservationDetailsPanel;
     private javax.swing.JPanel bookingsTab;
+    private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser departDate;
+    private javax.swing.JTextField firstNameField;
     private javax.swing.JPanel flightsTab;
     private swing.MyTextField fromSearchTxt;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JTextField numberOfSeatsField;
+    private com.toedter.calendar.JDateChooser passportExpiryDateField;
+    private javax.swing.JTextField passportNumberField;
+    private javax.swing.JButton submitPassengerInfo;
+    private javax.swing.JTextField surNameField;
     private swing.MyTextField toSearchTxt;
     // End of variables declaration//GEN-END:variables
 }
