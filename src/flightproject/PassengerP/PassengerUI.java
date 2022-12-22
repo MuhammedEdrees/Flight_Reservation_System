@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -43,9 +44,16 @@ public class PassengerUI extends javax.swing.JFrame {
     private PanelSearch toSearch;
     private JPopupMenu fromMenu;
     private JPopupMenu toMenu;
+    
+    Connection myconObj = DBConnection.connectDB();
+    Statement mystatObj = null;
+    ResultSet myresObj = null;
    
     public PassengerUI() {
+        
+        String[] countries={"Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","St. Lucia","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"};
         initComponents();
+        CountriesField.setModel(new DefaultComboBoxModel<>(countries));
         //show flights as default and hide other panels
         FlightSearchingPanel.setVisible(true);
         BookingsPanel.setVisible(false);
@@ -80,6 +88,7 @@ public class PassengerUI extends javax.swing.JFrame {
                 }
                 System.out.println("Remove Item : " + data.getText());
             }
+            
         });
         toMenu.setBorder(BorderFactory.createLineBorder(new Color(164, 164, 164)));
         toMenu.add(toSearch);
@@ -161,11 +170,26 @@ public class PassengerUI extends javax.swing.JFrame {
         fromSearchTxt = new swing.MyTextField();
         toSearchTxt = new swing.MyTextField();
         jLabel6 = new javax.swing.JLabel();
-        departDate = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         ReservationDetailsPanel = new javax.swing.JPanel();
+        firstNameField = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        surNameField = new javax.swing.JTextField();
+        submitPassengerInfo = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        CountriesField = new javax.swing.JComboBox<>();
+        passportNumberField = new javax.swing.JTextField();
+        passportExpiryDateField = new com.toedter.calendar.JDateChooser();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        numberOfSeatsField = new javax.swing.JTextField();
         BookingsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         reservationTable = new javax.swing.JTable();
@@ -275,7 +299,6 @@ public class PassengerUI extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(53, 146, 196));
         jLabel5.setText("To");
 
-        fromSearchTxt.setBackground(new java.awt.Color(255, 255, 255));
         fromSearchTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fromSearchTxtMouseClicked(evt);
@@ -290,7 +313,6 @@ public class PassengerUI extends javax.swing.JFrame {
             }
         });
 
-        toSearchTxt.setBackground(new java.awt.Color(255, 255, 255));
         toSearchTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 toSearchTxtMouseClicked(evt);
@@ -314,8 +336,6 @@ public class PassengerUI extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(53, 146, 196));
         jLabel6.setText("Depart Date ");
 
-        departDate.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel1.setFont(new java.awt.Font("Lucida Sans", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(53, 146, 196));
         jLabel1.setText("Fill the form below to see the best flight tickets.");
@@ -330,6 +350,13 @@ public class PassengerUI extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -351,9 +378,7 @@ public class PassengerUI extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, FlightSearchingPanelLayout.createSequentialGroup()
                                     .addComponent(jLabel5)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(toSearchTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(departDate, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)))
+                            .addComponent(toSearchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(FlightSearchingPanelLayout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
@@ -361,7 +386,9 @@ public class PassengerUI extends javax.swing.JFrame {
                 .addContainerGap(133, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlightSearchingPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(324, 324, 324))
         );
         FlightSearchingPanelLayout.setVerticalGroup(
@@ -379,26 +406,156 @@ public class PassengerUI extends javax.swing.JFrame {
                 .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toSearchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(FlightSearchingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(departDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addGap(23, 23, 23)
+                .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addGap(126, 126, 126)
+                .addComponent(jButton2)
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         ReservationDetailsPanel.setBackground(new java.awt.Color(231, 231, 231));
+
+        firstNameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstNameFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel14.setText("Number of seats");
+
+        submitPassengerInfo.setBackground(new java.awt.Color(241, 241, 241));
+        submitPassengerInfo.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        submitPassengerInfo.setForeground(new java.awt.Color(53, 146, 196));
+        submitPassengerInfo.setText("Submit ");
+        submitPassengerInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitPassengerInfoActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel9.setText("First Name");
+
+        jLabel10.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel10.setText("Surname");
+
+        jLabel11.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel11.setText("Nationality");
+
+        CountriesField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CountriesFieldActionPerformed(evt);
+            }
+        });
+
+        passportNumberField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passportNumberFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel12.setText("Passport Number");
+
+        jPanel3.setBackground(new java.awt.Color(53, 146, 196));
+
+        jLabel13.setFont(new java.awt.Font("Roboto", 1, 48)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Passenger Information");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(142, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+        );
+
+        jLabel15.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(133, 133, 133));
+        jLabel15.setText("Passport Expiry date");
+
+        numberOfSeatsField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberOfSeatsFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ReservationDetailsPanelLayout = new javax.swing.GroupLayout(ReservationDetailsPanel);
         ReservationDetailsPanel.setLayout(ReservationDetailsPanelLayout);
         ReservationDetailsPanelLayout.setHorizontalGroup(
             ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(ReservationDetailsPanelLayout.createSequentialGroup()
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReservationDetailsPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel14))
+                        .addGap(41, 41, 41)
+                        .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(numberOfSeatsField)
+                            .addComponent(surNameField)
+                            .addComponent(firstNameField)
+                            .addComponent(passportNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                            .addComponent(CountriesField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(passportExpiryDateField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(ReservationDetailsPanelLayout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addComponent(submitPassengerInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ReservationDetailsPanelLayout.setVerticalGroup(
             ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 641, Short.MAX_VALUE)
+            .addGroup(ReservationDetailsPanelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(surNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(CountriesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(numberOfSeatsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(passportNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(ReservationDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(passportExpiryDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(58, 58, 58)
+                .addComponent(submitPassengerInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         BookingsPanel.setBackground(new java.awt.Color(231, 231, 231));
@@ -425,11 +582,9 @@ public class PassengerUI extends javax.swing.JFrame {
             }
         });
         reservationTable.setFocusable(false);
-        reservationTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         reservationTable.setRowHeight(25);
         reservationTable.setSelectionBackground(new java.awt.Color(86, 173, 219));
         reservationTable.setSelectionForeground(new java.awt.Color(51, 51, 51));
-        reservationTable.setShowVerticalLines(false);
         reservationTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(reservationTable);
 
@@ -437,7 +592,6 @@ public class PassengerUI extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
         jLabel8.setText("Reservation ID  : ");
 
-        reservationIdRemoveTxt.setBackground(new java.awt.Color(255, 255, 255));
         reservationIdRemoveTxt.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         reservationIdRemoveTxt.setForeground(new java.awt.Color(51, 51, 51));
         reservationIdRemoveTxt.addActionListener(new java.awt.event.ActionListener() {
@@ -633,6 +787,131 @@ public class PassengerUI extends javax.swing.JFrame {
     private void reservationIdRemoveTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationIdRemoveTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_reservationIdRemoveTxtActionPerformed
+
+    private void firstNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstNameFieldActionPerformed
+//xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+    int flightID=1;
+
+    private void submitPassengerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitPassengerInfoActionPerformed
+
+        //assign each data field to a corrosponding variable
+        String firstName = firstNameField.getText().trim();
+        String surName = surNameField.getText().trim();
+        String nationality = (String)CountriesField.getSelectedItem();
+
+        //2l parse bawazly 2l denya. so this is here to fix it
+        int numberOfSeats=0;
+        if (numberOfSeatsField.getText().equals("")) {
+        } else {
+            numberOfSeats = Integer.parseInt(numberOfSeatsField.getText().trim());
+        }
+
+        String numOfSeatsComp= numberOfSeatsField.getText().trim();
+        String passportNumber=passportNumberField.getText().trim();
+        java.sql.Date passExp;
+        try{
+            java.util.Date utilDate = passportExpiryDateField.getDate();
+            passExp = new java.sql.Date(utilDate.getTime());
+        }
+        catch(NullPointerException e)
+        {
+            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
+            return;
+        }
+
+        int id = flightProject.generateID("RESERVATIONS");
+
+        //variables used
+        int availableSeats = 0, newAvailbleSeats=0;
+
+        //getting the availabe seats
+        try{
+            String seatQuery="select * FROM ROOT.FLIGHTS where ID="+ String.valueOf(flightID);
+            mystatObj = myconObj.createStatement();
+            myresObj = mystatObj.executeQuery(seatQuery);
+            myresObj.next();
+            availableSeats=myresObj.getInt("AVAILABLESEATS");
+        }
+        catch(SQLException e){
+           
+        }
+
+        //check if number entered is negative or = 0
+        
+        if (numberOfSeats<=0)
+        {
+            JOptionPane.showMessageDialog(null, "Please enter a correct number of seats!");
+        }
+        //check if there is avaialbe seats
+
+        else if (availableSeats < numberOfSeats)
+        {
+            JOptionPane.showMessageDialog(null, "Sorry all the seats are booked!");
+
+        }
+
+        //Check if all data fields are filled with data.
+        else if (firstName.equals("") || surName.equals("")  || passportNumber.equals("") || numOfSeatsComp.equals("")  ){
+            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
+        }
+
+        else{
+            newAvailbleSeats=availableSeats-numberOfSeats;
+            try{
+                //add entry to the RESERVATION database
+                PreparedStatement add =myconObj.prepareStatement("Insert Into ROOT.RESERVATIONS values (?,?,?,?,?,?,?,?,?)");
+                add.setInt(1, id);
+                add.setString(2, firstName);
+                add.setString(3, surName);
+                add.setString(4, nationality);
+                add.setString(5, passportNumber);
+                add.setDate(6, passExp);
+                add.setInt(7, numberOfSeats);
+                add.setInt(8, flightID);
+                add.setInt(9, flightProject.currentUserID);
+                int row=add.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "The ticket is now booked! Your ticket ID is "+id);
+
+                //availbeseats reduced
+                try{
+                    String seatQuery= "UPDATE ROOT.FLIGHTS SET AVAILABLESEATS="+newAvailbleSeats+" WHERE ID ="+flightID;
+                    mystatObj = myconObj.createStatement();
+                    mystatObj.executeUpdate(seatQuery);
+
+                }
+                catch(SQLException e){
+                    
+                }
+                ReservationDetailsPanel.setVisible(false);
+                PaymentPanel.setVisible(true);
+
+            }catch(SQLException e){
+               
+            }
+
+        }
+    }//GEN-LAST:event_submitPassengerInfoActionPerformed
+
+    private void CountriesFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CountriesFieldActionPerformed
+
+    }//GEN-LAST:event_CountriesFieldActionPerformed
+
+    private void passportNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passportNumberFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passportNumberFieldActionPerformed
+
+    private void numberOfSeatsFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberOfSeatsFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numberOfSeatsFieldActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        ReservationDetailsPanel.setVisible(true);
+        FlightSearchingPanel.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
     private List<DataSearch> search(String search) {
         int limitData = 7;
         List<DataSearch> list = new ArrayList<>();
@@ -713,15 +992,23 @@ public class PassengerUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BookingsPanel;
+    private javax.swing.JComboBox<String> CountriesField;
     private javax.swing.JPanel FlightSearchingPanel;
     private javax.swing.JPanel PaymentPanel;
     private javax.swing.JPanel ReservationDetailsPanel;
     private javax.swing.JPanel bookingsTab;
-    private com.toedter.calendar.JDateChooser departDate;
+    private javax.swing.JTextField firstNameField;
     private javax.swing.JPanel flightsTab;
     private swing.MyTextField fromSearchTxt;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -729,12 +1016,19 @@ public class PassengerUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JTextField numberOfSeatsField;
+    private com.toedter.calendar.JDateChooser passportExpiryDateField;
+    private javax.swing.JTextField passportNumberField;
     private javax.swing.JButton reservationCancelButton;
     private javax.swing.JTextField reservationIdRemoveTxt;
     private javax.swing.JTable reservationTable;
+    private javax.swing.JButton submitPassengerInfo;
+    private javax.swing.JTextField surNameField;
     private swing.MyTextField toSearchTxt;
     // End of variables declaration//GEN-END:variables
 }

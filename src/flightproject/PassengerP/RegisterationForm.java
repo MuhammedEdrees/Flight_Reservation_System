@@ -53,7 +53,6 @@ public class RegisterationForm extends javax.swing.JFrame {
         PhoneNumberField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        BirthDateField = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
@@ -113,11 +112,9 @@ public class RegisterationForm extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(133, 133, 133));
         jLabel9.setText("Date of Birth");
 
-        FullNameField.setBackground(new java.awt.Color(255, 255, 255));
         FullNameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         FullNameField.setForeground(new java.awt.Color(79, 79, 79));
 
-        UsernameField.setBackground(new java.awt.Color(255, 255, 255));
         UsernameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         UsernameField.setForeground(new java.awt.Color(79, 79, 79));
         UsernameField.addActionListener(new java.awt.event.ActionListener() {
@@ -126,19 +123,15 @@ public class RegisterationForm extends javax.swing.JFrame {
             }
         });
 
-        PasswordField.setBackground(new java.awt.Color(255, 255, 255));
         PasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(79, 79, 79));
 
-        RePasswordField.setBackground(new java.awt.Color(255, 255, 255));
         RePasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         RePasswordField.setForeground(new java.awt.Color(79, 79, 79));
 
-        EmailField.setBackground(new java.awt.Color(255, 255, 255));
         EmailField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         EmailField.setForeground(new java.awt.Color(79, 79, 79));
 
-        PhoneNumberField.setBackground(new java.awt.Color(255, 255, 255));
         PhoneNumberField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PhoneNumberField.setForeground(new java.awt.Color(79, 79, 79));
 
@@ -203,14 +196,11 @@ public class RegisterationForm extends javax.swing.JFrame {
                                     .addComponent(PhoneNumberField)
                                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(43, 43, 43)
-                                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(BirthDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(43, 43, 43)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 25, Short.MAX_VALUE)))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -220,12 +210,9 @@ public class RegisterationForm extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(19, 19, 19))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                    .addComponent(jLabel2)
+                    .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -246,9 +233,7 @@ public class RegisterationForm extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(PhoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(BirthDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -346,7 +331,6 @@ public class RegisterationForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser BirthDateField;
     private javax.swing.JTextField EmailField;
     private javax.swing.JTextField FullNameField;
     private javax.swing.JPasswordField PasswordField;
