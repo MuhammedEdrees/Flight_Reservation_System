@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package flightproject.AdminP;
 
 import flightproject.DBConnection;
@@ -11,16 +7,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
-
-
-/**
- *
- * @author moham
- */
 public class AdminUI extends javax.swing.JFrame {
-    /**
-     * Creates new form AdminUI
-     */
     private Connection MyconObj=flightproject.DBConnection.connectDB();
     private Statement MystaObj=null;
     private ResultSet MyresObj=null;
@@ -46,7 +33,6 @@ public class AdminUI extends javax.swing.JFrame {
         Table_1.setModel(DbUtils.resultSetToTableModel(MyresObj));
        }
        catch(SQLException e){  
-            e.printStackTrace();
         }
     }
     private void updatePassengersTable(){
@@ -56,7 +42,6 @@ public class AdminUI extends javax.swing.JFrame {
         PassengersTable.setModel(DbUtils.resultSetToTableModel(MyresObj));
        }
        catch(SQLException e){ 
-            e.printStackTrace();
         }
     }
     private void updateRequestsTable(){
@@ -66,7 +51,6 @@ public class AdminUI extends javax.swing.JFrame {
         RequestsTable.setModel(DbUtils.resultSetToTableModel(MyresObj));
        }
        catch(SQLException e){   
-            e.printStackTrace();
         } 
     }
     
@@ -89,20 +73,31 @@ public class AdminUI extends javax.swing.JFrame {
     }
     
     private void getFlightAgentsFields(){
-        flightAgentFullName = flightAgentUsernameTxt.getText().trim();
-        flightAgentUsername = usernameTxt.getText().trim();
+        flightAgentFullName = flightAgentFullnameTxt.getText().trim();
+        flightAgentUsername = flightagentUsernameTxt.getText().trim();
         flightAgentPassword = flightAgentPasswordTxt.getText();
         flightAgentEmail = flightAgentEmailTxt.getText().trim();
     }
     
     private void clearFlightAgentsFields(){
         flightAgentIdTxt.setText("");
-        flightAgentUsernameTxt.setText("");
-        usernameTxt.setText("");
+        flightAgentFullnameTxt.setText("");
+        flightagentUsernameTxt.setText("");
         flightAgentPasswordTxt.setText("");
         flightAgentEmailTxt.setText("");
     }
-    
+    public boolean emptyFlightagentField(){
+        if(flightAgentFullName.equals("") || flightAgentUsername.equals("") || flightAgentPassword.equals("") || flightAgentEmail.equals("")){
+            return true;
+        }
+        return false;
+    }
+    public boolean emptyPassengerField(){
+        if(passengerFullName.equals("") ||  passengerUsername.equals("") || passengerPassword.equals("") || passengerEmail.equals("") || passengerPhoneNumber.equals("")){
+            return true;
+        }
+        return false;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,7 +122,7 @@ public class AdminUI extends javax.swing.JFrame {
         topPanel = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         RequestsIdTxt = new javax.swing.JTextField();
-        RDeleteButton = new javax.swing.JButton();
+        RequestDeleteButton = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         PassengerManagementPanel = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -144,9 +139,9 @@ public class AdminUI extends javax.swing.JFrame {
         passengerPhoneNumberTxt = new javax.swing.JTextField();
         passengerEmailTxt = new javax.swing.JTextField();
         passengerDateofBirthChooser = new com.toedter.calendar.JDateChooser();
-        PUpdateButton = new javax.swing.JButton();
-        PAddButton = new javax.swing.JButton();
-        PDeleteButton = new javax.swing.JButton();
+        PassengerUpdateButton = new javax.swing.JButton();
+        PassengerAddButton = new javax.swing.JButton();
+        PassengerDeleteButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         PassengersTable = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
@@ -154,8 +149,8 @@ public class AdminUI extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table_1 = new javax.swing.JTable();
-        flightAgentUsernameTxt = new javax.swing.JTextField();
-        usernameTxt = new javax.swing.JTextField();
+        flightAgentFullnameTxt = new javax.swing.JTextField();
+        flightagentUsernameTxt = new javax.swing.JTextField();
         flightAgentIdTxt = new javax.swing.JTextField();
         flightAgentEmailTxt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -164,14 +159,14 @@ public class AdminUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         flightAgentPasswordTxt = new javax.swing.JTextField();
-        AddButton = new javax.swing.JButton();
-        DeleteButton = new javax.swing.JButton();
-        UpdateButton = new javax.swing.JButton();
+        FlightagentAddButton = new javax.swing.JButton();
+        FlightagentDeleteButton = new javax.swing.JButton();
+        FlightagentUpdateButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(231, 231, 231));
 
         SidePanel.setBackground(new java.awt.Color(56, 146, 196));
         SidePanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -193,7 +188,7 @@ public class AdminUI extends javax.swing.JFrame {
             .addGroup(FlightAgentsTabPanelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         FlightAgentsTabPanelLayout.setVerticalGroup(
             FlightAgentsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +213,7 @@ public class AdminUI extends javax.swing.JFrame {
         PassengersTabPanelLayout.setHorizontalGroup(
             PassengersTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PassengersTabPanelLayout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
@@ -318,17 +313,17 @@ public class AdminUI extends javax.swing.JFrame {
         RequestsIdTxt.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         RequestsIdTxt.setForeground(new java.awt.Color(51, 51, 51));
 
-        RDeleteButton.setBackground(new java.awt.Color(153, 0, 0));
-        RDeleteButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        RDeleteButton.setForeground(new java.awt.Color(0, 0, 0));
-        RDeleteButton.setText("Delete");
-        RDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+        RequestDeleteButton.setBackground(new java.awt.Color(204, 0, 0));
+        RequestDeleteButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        RequestDeleteButton.setForeground(new java.awt.Color(231, 231, 231));
+        RequestDeleteButton.setText("Delete");
+        RequestDeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RDeleteButtonActionPerformed(evt);
+                RequestDeleteButtonActionPerformed(evt);
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(51, 51, 51));
         jLabel19.setText("Account Restoration Requests");
 
@@ -340,15 +335,14 @@ public class AdminUI extends javax.swing.JFrame {
                 .addGap(97, 97, 97)
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(topPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(165, Short.MAX_VALUE))
-                    .addGroup(topPanelLayout.createSequentialGroup()
-                        .addComponent(RequestsIdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(163, 163, 163))))
+                .addComponent(RequestsIdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                .addComponent(RequestDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(163, 163, 163))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(143, 143, 143))
         );
         topPanelLayout.setVerticalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,7 +353,7 @@ public class AdminUI extends javax.swing.JFrame {
                 .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RequestsIdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(RequestDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -436,29 +430,29 @@ public class AdminUI extends javax.swing.JFrame {
         passengerDateofBirthChooser.setBackground(new java.awt.Color(255, 255, 255));
         passengerDateofBirthChooser.setForeground(new java.awt.Color(51, 51, 51));
 
-        PUpdateButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        PUpdateButton.setText("Update");
-        PUpdateButton.addActionListener(new java.awt.event.ActionListener() {
+        PassengerUpdateButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        PassengerUpdateButton.setText("Update");
+        PassengerUpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PUpdateButtonActionPerformed(evt);
+                PassengerUpdateButtonActionPerformed(evt);
             }
         });
 
-        PAddButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        PAddButton.setText("Add");
-        PAddButton.addActionListener(new java.awt.event.ActionListener() {
+        PassengerAddButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        PassengerAddButton.setText("Add");
+        PassengerAddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PAddButtonActionPerformed(evt);
+                PassengerAddButtonActionPerformed(evt);
             }
         });
 
-        PDeleteButton.setBackground(new java.awt.Color(204, 0, 0));
-        PDeleteButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        PDeleteButton.setForeground(new java.awt.Color(255, 255, 255));
-        PDeleteButton.setText("Delete");
-        PDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+        PassengerDeleteButton.setBackground(new java.awt.Color(185, 0, 0));
+        PassengerDeleteButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        PassengerDeleteButton.setForeground(new java.awt.Color(255, 255, 255));
+        PassengerDeleteButton.setText("Delete");
+        PassengerDeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PDeleteButtonActionPerformed(evt);
+                PassengerDeleteButtonActionPerformed(evt);
             }
         });
 
@@ -483,6 +477,14 @@ public class AdminUI extends javax.swing.JFrame {
         PassengerManagementPanel.setLayout(PassengerManagementPanelLayout);
         PassengerManagementPanelLayout.setHorizontalGroup(
             PassengerManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PassengerManagementPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(PassengerAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(PassengerUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(PassengerDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(227, 227, 227))
             .addGroup(PassengerManagementPanelLayout.createSequentialGroup()
                 .addGroup(PassengerManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PassengerManagementPanelLayout.createSequentialGroup()
@@ -519,19 +521,9 @@ public class AdminUI extends javax.swing.JFrame {
                         .addGroup(PassengerManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(passengerDateofBirthChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(passengerPhoneNumberTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passengerEmailTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(PassengerManagementPanelLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(passengerEmailTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(66, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PassengerManagementPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(PAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(PUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(PDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(227, 227, 227))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
         );
         PassengerManagementPanelLayout.setVerticalGroup(
             PassengerManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,12 +555,11 @@ public class AdminUI extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(PassengerManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PassengerDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PassengerUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PassengerAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         FlightAgentsManagementPanel.setBackground(new java.awt.Color(231, 231, 231));
@@ -594,32 +585,17 @@ public class AdminUI extends javax.swing.JFrame {
             Table_1.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        flightAgentUsernameTxt.setBackground(new java.awt.Color(255, 255, 255));
-        flightAgentUsernameTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        flightAgentUsernameTxt.setForeground(new java.awt.Color(51, 51, 51));
-        flightAgentUsernameTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                flightAgentUsernameTxtActionPerformed(evt);
-            }
-        });
+        flightAgentFullnameTxt.setBackground(new java.awt.Color(255, 255, 255));
+        flightAgentFullnameTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        flightAgentFullnameTxt.setForeground(new java.awt.Color(51, 51, 51));
 
-        usernameTxt.setBackground(new java.awt.Color(255, 255, 255));
-        usernameTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        usernameTxt.setForeground(new java.awt.Color(51, 51, 51));
-        usernameTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameTxtActionPerformed(evt);
-            }
-        });
+        flightagentUsernameTxt.setBackground(new java.awt.Color(255, 255, 255));
+        flightagentUsernameTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        flightagentUsernameTxt.setForeground(new java.awt.Color(51, 51, 51));
 
         flightAgentIdTxt.setBackground(new java.awt.Color(255, 255, 255));
         flightAgentIdTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         flightAgentIdTxt.setForeground(new java.awt.Color(51, 51, 51));
-        flightAgentIdTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                flightAgentIdTxtActionPerformed(evt);
-            }
-        });
 
         flightAgentEmailTxt.setBackground(new java.awt.Color(255, 255, 255));
         flightAgentEmailTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -649,28 +625,29 @@ public class AdminUI extends javax.swing.JFrame {
         flightAgentPasswordTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         flightAgentPasswordTxt.setForeground(new java.awt.Color(51, 51, 51));
 
-        AddButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        AddButton.setText("Add");
-        AddButton.addActionListener(new java.awt.event.ActionListener() {
+        FlightagentAddButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        FlightagentAddButton.setText("Add");
+        FlightagentAddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddButtonActionPerformed(evt);
+                FlightagentAddButtonActionPerformed(evt);
             }
         });
 
-        DeleteButton.setBackground(new java.awt.Color(204, 0, 0));
-        DeleteButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        DeleteButton.setText("Delete");
-        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+        FlightagentDeleteButton.setBackground(new java.awt.Color(204, 0, 0));
+        FlightagentDeleteButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        FlightagentDeleteButton.setForeground(new java.awt.Color(231, 231, 231));
+        FlightagentDeleteButton.setText("Delete");
+        FlightagentDeleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteButtonActionPerformed(evt);
+                FlightagentDeleteButtonActionPerformed(evt);
             }
         });
 
-        UpdateButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        UpdateButton.setText("Update");
-        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
+        FlightagentUpdateButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        FlightagentUpdateButton.setText("Update");
+        FlightagentUpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateButtonActionPerformed(evt);
+                FlightagentUpdateButtonActionPerformed(evt);
             }
         });
 
@@ -715,8 +692,8 @@ public class AdminUI extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(4, 4, 4)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(flightAgentUsernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(flightAgentFullnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(flightagentUsernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(flightAgentIdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(61, 61, 61)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -733,12 +710,12 @@ public class AdminUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 697, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(171, 171, 171)
-                        .addComponent(AddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FlightagentAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FlightagentUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                        .addComponent(FlightagentDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(106, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -756,19 +733,19 @@ public class AdminUI extends javax.swing.JFrame {
                     .addComponent(flightAgentPasswordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(flightAgentUsernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(flightAgentFullnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(flightAgentEmailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(flightagentUsernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FlightagentUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FlightagentDeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FlightagentAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
@@ -778,7 +755,9 @@ public class AdminUI extends javax.swing.JFrame {
         FlightAgentsManagementPanel.setLayout(FlightAgentsManagementPanelLayout);
         FlightAgentsManagementPanelLayout.setHorizontalGroup(
             FlightAgentsManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlightAgentsManagementPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         FlightAgentsManagementPanelLayout.setVerticalGroup(
             FlightAgentsManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -827,17 +806,17 @@ public class AdminUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+    private void FlightagentAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlightagentAddButtonActionPerformed
         flightAgentId =FlightAgentModel.generateID();
         getFlightAgentsFields();
-        if(flightAgentFullName.equals("") || flightAgentUsername.equals("") || flightAgentPassword.equals("") || flightAgentEmail.equals("")){
+        if(emptyFlightagentField()){
             JOptionPane.showMessageDialog(null, "Complete Missing Data Fields!");
         }else{
             try{
@@ -851,14 +830,12 @@ public class AdminUI extends javax.swing.JFrame {
                 clearFlightAgentsFields();
             }
             catch(SQLException e){
-                e.printStackTrace();
             }
         }
         updateFlightAgentsTable();
-        
-    }//GEN-LAST:event_AddButtonActionPerformed
+    }//GEN-LAST:event_FlightagentAddButtonActionPerformed
 
-    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+    private void FlightagentDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlightagentDeleteButtonActionPerformed
         try{
             String sql="Delete FROM ROOT.FLIGHTAGENTS where id ="+flightAgentIdTxt.getText();
             Statement add=MyconObj.createStatement();
@@ -866,17 +843,17 @@ public class AdminUI extends javax.swing.JFrame {
             clearFlightAgentsFields();
         }
         catch(SQLException e){
-            e.printStackTrace();
         }
         updateFlightAgentsTable();
-    }//GEN-LAST:event_DeleteButtonActionPerformed
+    }//GEN-LAST:event_FlightagentDeleteButtonActionPerformed
 
-    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+    private void FlightagentUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlightagentUpdateButtonActionPerformed
         getFlightAgentsFields();
-        if(flightAgentFullName.equals("") || flightAgentUsername.equals("") || flightAgentPassword.equals("") || flightAgentEmail.equals("") || flightAgentIdTxt.getText().equals("")){
+        if(emptyFlightagentField() || flightAgentIdTxt.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Complete Missing Data Fields!");
         }else{
             try{
+                flightAgentId = Integer.parseInt(flightAgentIdTxt.getText());
                 String sql="Update ROOT.FLIGHTAGENTS Set full_name = ?, username = ?, password = ? , email = ? where ID = ?";
                 java.sql.PreparedStatement mystatObj=  MyconObj.prepareStatement(sql);
                 mystatObj.setString(1, flightAgentFullName);
@@ -892,7 +869,7 @@ public class AdminUI extends javax.swing.JFrame {
             }
         }
         updateFlightAgentsTable();
-    }//GEN-LAST:event_UpdateButtonActionPerformed
+    }//GEN-LAST:event_FlightagentUpdateButtonActionPerformed
 
     private void FlightAgentsTabPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlightAgentsTabPanelMouseClicked
         FlightAgentsManagementPanel.setVisible(true);
@@ -924,13 +901,14 @@ public class AdminUI extends javax.swing.JFrame {
         updateRequestsTable();
     }//GEN-LAST:event_RequestsTabPanelMouseClicked
 
-    private void PUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PUpdateButtonActionPerformed
+    private void PassengerUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassengerUpdateButtonActionPerformed
         getPassengerFields();
-        if(passengerFullName.equals("") ||  passengerUsername.equals("") || passengerPassword.equals("") || passengerEmail.equals("") || passengerPhoneNumber.equals("") || passengerIdTxt.getText().equals("")){
+        if(emptyPassengerField() || passengerIdTxt.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Complete Missing Data Fields!");
         }else{
             java.sql.Date sqlDate = new java.sql.Date(passengerDateofBirth.getTime());
             try{
+                passengerId = Integer.parseInt( passengerIdTxt.getText());
                 String sql="UPDATE ROOT.PASSENGERS SET FULLNAME = ?, USERNAME = ?, PASSWORD = ? , DATEOFBIRTH = ? , PHONENUMBER = ? , EMAIL = ? WHERE ID = ?";
                 java.sql.PreparedStatement mystatObj=  MyconObj.prepareStatement(sql);
                 mystatObj.setString(1, passengerFullName);
@@ -949,48 +927,44 @@ public class AdminUI extends javax.swing.JFrame {
             clearPassengerFields();
         }
         updatePassengersTable();
-    }//GEN-LAST:event_PUpdateButtonActionPerformed
+    }//GEN-LAST:event_PassengerUpdateButtonActionPerformed
 
-    private void PAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PAddButtonActionPerformed
+    private void PassengerAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassengerAddButtonActionPerformed
         getPassengerFields();
         java.sql.Date sqlDate = new java.sql.Date(passengerDateofBirth.getTime());
         passengerId = flightproject.PassengerP.Passenger.generateID();
-        if(passengerFullName.equals("") ||  passengerUsername.equals("") || passengerPassword.equals("") || passengerEmail.equals("") || passengerPhoneNumber.equals("")){
+        if(emptyPassengerField()){
             JOptionPane.showMessageDialog(null, "Complete Missing Data Fields!");
         }else{
-            
             flightproject.PassengerP.Passenger.createNewUser(passengerId, passengerFullName, passengerUsername, passengerPassword, sqlDate, passengerPhoneNumber, passengerEmail);
             clearPassengerFields();
         }
         updatePassengersTable();
+    }//GEN-LAST:event_PassengerAddButtonActionPerformed
 
-    }//GEN-LAST:event_PAddButtonActionPerformed
-
-    private void PDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PDeleteButtonActionPerformed
+    private void PassengerDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassengerDeleteButtonActionPerformed
         passengerId = Integer.parseInt(passengerIdTxt.getText());
         try{
             String sql="Delete FROM ROOT.PASSENGERS where id ="+String.valueOf(passengerId);
             Statement add=MyconObj.createStatement();
             add.executeUpdate(sql);
         } catch(SQLException e){
-            e.printStackTrace();
         }
         updatePassengersTable();
         clearPassengerFields();
-    }//GEN-LAST:event_PDeleteButtonActionPerformed
+    }//GEN-LAST:event_PassengerDeleteButtonActionPerformed
 
-    private void RDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RDeleteButtonActionPerformed
+    private void RequestDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RequestDeleteButtonActionPerformed
         requestsId = Integer.parseInt(RequestsIdTxt.getText());
         try{
             String sql="Delete FROM ROOT.REQUESTS where id ="+String.valueOf(requestsId);
             Statement add = MyconObj.createStatement();
             add.executeUpdate(sql);
         } catch(SQLException e){
-            e.printStackTrace();
         }
         updateRequestsTable();
         RequestsIdTxt.setText("");
-    }//GEN-LAST:event_RDeleteButtonActionPerformed
+    }//GEN-LAST:event_RequestDeleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1028,29 +1002,30 @@ public class AdminUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddButton;
-    private javax.swing.JButton DeleteButton;
     private javax.swing.JPanel FlightAgentsManagementPanel;
     private javax.swing.JPanel FlightAgentsTabPanel;
+    private javax.swing.JButton FlightagentAddButton;
+    private javax.swing.JButton FlightagentDeleteButton;
+    private javax.swing.JButton FlightagentUpdateButton;
     private javax.swing.JPanel MainPanel;
-    private javax.swing.JButton PAddButton;
-    private javax.swing.JButton PDeleteButton;
-    private javax.swing.JButton PUpdateButton;
+    private javax.swing.JButton PassengerAddButton;
+    private javax.swing.JButton PassengerDeleteButton;
     private javax.swing.JPanel PassengerManagementPanel;
+    private javax.swing.JButton PassengerUpdateButton;
     private javax.swing.JPanel PassengersTabPanel;
     private javax.swing.JTable PassengersTable;
-    private javax.swing.JButton RDeleteButton;
+    private javax.swing.JButton RequestDeleteButton;
     private javax.swing.JTextField RequestsIdTxt;
     private javax.swing.JPanel RequestsPanel;
     private javax.swing.JPanel RequestsTabPanel;
     private javax.swing.JTable RequestsTable;
     private javax.swing.JPanel SidePanel;
     private javax.swing.JTable Table_1;
-    private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField flightAgentEmailTxt;
+    private javax.swing.JTextField flightAgentFullnameTxt;
     private javax.swing.JTextField flightAgentIdTxt;
     private javax.swing.JTextField flightAgentPasswordTxt;
-    private javax.swing.JTextField flightAgentUsernameTxt;
+    private javax.swing.JTextField flightagentUsernameTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1084,6 +1059,5 @@ public class AdminUI extends javax.swing.JFrame {
     private javax.swing.JTextField passengerUsernameTxt;
     private javax.swing.JPanel tablePanel;
     private javax.swing.JPanel topPanel;
-    private javax.swing.JTextField usernameTxt;
     // End of variables declaration//GEN-END:variables
 }

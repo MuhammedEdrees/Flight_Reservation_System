@@ -54,6 +54,8 @@ public class RegisterationForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         BirthDateField = new com.toedter.calendar.JDateChooser();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -111,11 +113,11 @@ public class RegisterationForm extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(133, 133, 133));
         jLabel9.setText("Date of Birth");
 
-        FullNameField.setBackground(new java.awt.Color(241, 241, 241));
+        FullNameField.setBackground(new java.awt.Color(255, 255, 255));
         FullNameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         FullNameField.setForeground(new java.awt.Color(79, 79, 79));
 
-        UsernameField.setBackground(new java.awt.Color(241, 241, 241));
+        UsernameField.setBackground(new java.awt.Color(255, 255, 255));
         UsernameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         UsernameField.setForeground(new java.awt.Color(79, 79, 79));
         UsernameField.addActionListener(new java.awt.event.ActionListener() {
@@ -124,25 +126,25 @@ public class RegisterationForm extends javax.swing.JFrame {
             }
         });
 
-        PasswordField.setBackground(new java.awt.Color(241, 241, 241));
+        PasswordField.setBackground(new java.awt.Color(255, 255, 255));
         PasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PasswordField.setForeground(new java.awt.Color(79, 79, 79));
 
-        RePasswordField.setBackground(new java.awt.Color(241, 241, 241));
+        RePasswordField.setBackground(new java.awt.Color(255, 255, 255));
         RePasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         RePasswordField.setForeground(new java.awt.Color(79, 79, 79));
 
-        EmailField.setBackground(new java.awt.Color(241, 241, 241));
+        EmailField.setBackground(new java.awt.Color(255, 255, 255));
         EmailField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         EmailField.setForeground(new java.awt.Color(79, 79, 79));
 
-        PhoneNumberField.setBackground(new java.awt.Color(241, 241, 241));
+        PhoneNumberField.setBackground(new java.awt.Color(255, 255, 255));
         PhoneNumberField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PhoneNumberField.setForeground(new java.awt.Color(79, 79, 79));
 
-        jButton1.setBackground(new java.awt.Color(241, 241, 241));
+        jButton1.setBackground(new java.awt.Color(53, 146, 196));
         jButton1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(53, 146, 196));
+        jButton1.setForeground(new java.awt.Color(241, 241, 241));
         jButton1.setText("Register");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +154,19 @@ public class RegisterationForm extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SidePanel2.png"))); // NOI18N
 
+        jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("Already have an account?");
+
+        jLabel11.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(53, 146, 196));
+        jLabel11.setText("Sign In");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -160,7 +175,10 @@ public class RegisterationForm extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -183,26 +201,30 @@ public class RegisterationForm extends javax.swing.JFrame {
                                     .addComponent(RePasswordField)
                                     .addComponent(EmailField)
                                     .addComponent(PhoneNumberField)
-                                    .addComponent(BirthDateField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(288, 288, 288))
-                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(43, 43, 43)
+                                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(BirthDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(19, 19, 19))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(FullNameField)
+                        .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -227,9 +249,13 @@ public class RegisterationForm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(BirthDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
+                .addContainerGap(55, Short.MAX_VALUE))
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -278,6 +304,11 @@ public class RegisterationForm extends javax.swing.JFrame {
     private void UsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UsernameFieldActionPerformed
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        dispose();
+        new LoginpGUI().setVisible(true);
+    }//GEN-LAST:event_jLabel11MouseClicked
           
     /**
      * @param args the command line arguments
@@ -324,6 +355,8 @@ public class RegisterationForm extends javax.swing.JFrame {
     private javax.swing.JTextField UsernameField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
