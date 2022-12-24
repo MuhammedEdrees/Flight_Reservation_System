@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package flightproject.FlightP;
 
 import flightproject.DBConnection;
@@ -10,12 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 
-/**
- *
- * @author moham
- */
 public class Flight {
 
     private static Connection myconObj = DBConnection.connectDB();
@@ -43,5 +34,48 @@ public class Flight {
             "New York", "Los Angeles", "Chicago"};
         return airports;
     }
-
+    public static void createNewFlight(String departureAirport, String arrivalAirport, String departureTime, String flightDuration, java.util.Date flightDate, double basePrice, String airline, int SeatCapacity){
+        java.sql.Date sqlDate = new java.sql.Date(flightDate.getTime());
+        try{
+                PreparedStatement add =myconObj.prepareStatement("Insert Into ROOT.FLIGHTS values (?,?,?,?,?,?,?,?,?,?)");
+                add.setInt(1, flightproject.flightProject.generateID("FLIGHTS"));
+                add.setString(2, departureAirport);
+                add.setString(3, arrivalAirport);
+                add.setDate(4, sqlDate);
+                add.setString(5, departureTime);
+                add.setString(6, flightDuration);
+                add.setDouble(7, basePrice);
+                add.setString(8, airline);
+                add.setInt(9,SeatCapacity);
+                add.setInt(10,SeatCapacity);
+                int row=add.executeUpdate();
+            } catch(SQLException e){
+            }
+    }
+    public static void updateFlight(int id, String departureAirport, String arrivalAirport, String departureTime, String flightDuration, java.util.Date flightDate, double basePrice, String airline, int SeatCapacity){
+        java.sql.Date sqlDate = new java.sql.Date(flightDate.getTime());
+        try{
+                String sql="Update ROOT.FLIGHTS Set DepartureAirport = ?, ArrivalAirport = ?, FlightDate = ? , DepartureTime = ? , FlightDuration = ? , BasePrice = ? , Airline = ? , SeatCapacity = ? where ID = ?";
+                mystatObj= myconObj.prepareStatement(sql);
+                mystatObj.setString(1, departureAirport);
+                mystatObj.setString(2, arrivalAirport);
+                mystatObj.setDate(3, sqlDate);
+                mystatObj.setString(4, departureTime);
+                mystatObj.setString(5, flightDuration);
+                mystatObj.setDouble(6, basePrice);
+                mystatObj.setString(7, airline);
+                mystatObj.setInt(8, SeatCapacity);
+                mystatObj.setInt(9, id);
+                mystatObj.executeUpdate();
+            } catch(SQLException e){
+            }
+    }
+    public static void deleteFlight(int flightId){
+        try{
+            String sql="Delete FROM ROOT.FLIGHTS where id ="+String.valueOf(flightId);
+            Statement add=myconObj.createStatement();
+            add.executeUpdate(sql);
+        } catch(SQLException e){
+        }
+    }
 }
