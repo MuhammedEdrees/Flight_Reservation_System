@@ -26,40 +26,40 @@ public class WelcomeScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        continueButton = new javax.swing.JButton();
+        headerLabel = new javax.swing.JLabel();
+        backgroundLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("Continue");
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        continueButton.setBackground(new java.awt.Color(255, 255, 255));
+        continueButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        continueButton.setForeground(new java.awt.Color(51, 51, 51));
+        continueButton.setText("Continue");
+        continueButton.setFocusPainted(false);
+        continueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                continueButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 150, 50));
+        getContentPane().add(continueButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 150, 50));
 
-        jLabel2.setFont(new java.awt.Font("Roboto", 1, 90)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Let's Fly");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 390, 100));
+        headerLabel.setFont(new java.awt.Font("Roboto", 1, 90)); // NOI18N
+        headerLabel.setForeground(new java.awt.Color(255, 255, 255));
+        headerLabel.setText("Let's Fly");
+        getContentPane().add(headerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 390, 100));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/wallpaper.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 540));
+        backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/wallpaper.jpg"))); // NOI18N
+        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void continueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueButtonActionPerformed
         new PassengerUI().setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_continueButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -97,8 +97,8 @@ public class WelcomeScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel backgroundLabel;
+    private javax.swing.JButton continueButton;
+    private javax.swing.JLabel headerLabel;
     // End of variables declaration//GEN-END:variables
 }

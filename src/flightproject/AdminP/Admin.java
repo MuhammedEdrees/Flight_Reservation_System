@@ -1,16 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package flightproject.AdminP;
 
 import flightproject.DBConnection;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-/**
- *
- * @author moham
- */
 public class Admin {
     private static Connection myconObj = DBConnection.connectDB();
     private static PreparedStatement mystatObj = null;
@@ -43,5 +38,4 @@ public class Admin {
             return "notFound";
         }
     }
-    
 }

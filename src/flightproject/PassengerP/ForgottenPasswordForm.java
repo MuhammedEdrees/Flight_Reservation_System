@@ -1,15 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package flightproject.PassengerP;
 
 import flightproject.DBConnection;
 import flightproject.LoginpGUI;
 import flightproject.flightProject;
 import javax.swing.JOptionPane;
-import java.sql.*;
-
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ForgottenPasswordForm extends javax.swing.JFrame {
 
@@ -17,7 +15,7 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
     Connection myconObj = DBConnection.connectDB();
     Statement mystatObj = null;
     ResultSet myresObj = null;
-    
+    String name, username, eMail, phoneNumber;
     public ForgottenPasswordForm() {
         initComponents();
         DBConnection.connectDB();
@@ -34,39 +32,39 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        phoneNumberLabel = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        submitButton = new javax.swing.JButton();
         EmailField = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
         PhoneNumberField = new javax.swing.JTextField();
         UserNameField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        fullnameLabel = new javax.swing.JLabel();
         FullNameField = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        headerPanel = new javax.swing.JPanel();
+        headerLabel = new javax.swing.JLabel();
+        sidePanelLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel8.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(133, 133, 133));
-        jLabel8.setText("Phone Number");
+        phoneNumberLabel.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        phoneNumberLabel.setForeground(new java.awt.Color(51, 51, 51));
+        phoneNumberLabel.setText("Phone Number    :");
 
-        jLabel5.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(133, 133, 133));
-        jLabel5.setText("Username");
+        usernameLabel.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        usernameLabel.setForeground(new java.awt.Color(51, 51, 51));
+        usernameLabel.setText("Username             :");
 
-        jButton1.setBackground(new java.awt.Color(53, 146, 196));
-        jButton1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(241, 241, 241));
-        jButton1.setText("Submit Request");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        submitButton.setBackground(new java.awt.Color(53, 146, 196));
+        submitButton.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        submitButton.setForeground(new java.awt.Color(241, 241, 241));
+        submitButton.setText("Submit Request");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                submitButtonActionPerformed(evt);
             }
         });
 
@@ -74,9 +72,9 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         EmailField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         EmailField.setForeground(new java.awt.Color(79, 79, 79));
 
-        jLabel7.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(133, 133, 133));
-        jLabel7.setText("E-mail");
+        emailLabel.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        emailLabel.setForeground(new java.awt.Color(51, 51, 51));
+        emailLabel.setText("E-mail                    :");
 
         PhoneNumberField.setBackground(new java.awt.Color(255, 255, 255));
         PhoneNumberField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -91,9 +89,9 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(133, 133, 133));
-        jLabel4.setText("Full Name");
+        fullnameLabel.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        fullnameLabel.setForeground(new java.awt.Color(51, 51, 51));
+        fullnameLabel.setText("Full Name             :");
 
         FullNameField.setBackground(new java.awt.Color(255, 255, 255));
         FullNameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -104,96 +102,85 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(53, 146, 196));
+        headerPanel.setBackground(new java.awt.Color(53, 146, 196));
 
-        jLabel3.setFont(new java.awt.Font("Roboto", 1, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Enter your information");
+        headerLabel.setFont(new java.awt.Font("Roboto", 1, 48)); // NOI18N
+        headerLabel.setForeground(new java.awt.Color(255, 255, 255));
+        headerLabel.setText("Enter your information");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
+        headerPanel.setLayout(headerPanelLayout);
+        headerPanelLayout.setHorizontalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
                 .addContainerGap(164, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(91, 91, 91))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        headerPanelLayout.setVerticalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addComponent(headerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SidePanel2.png"))); // NOI18N
+        sidePanelLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SidePanel2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sidePanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(173, 173, 173)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8))
-                                .addGap(39, 39, 39)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(UserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PhoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(178, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(245, 245, 245))))
+                    .addComponent(fullnameLabel)
+                    .addComponent(emailLabel)
+                    .addComponent(phoneNumberLabel)
+                    .addComponent(usernameLabel))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PhoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(157, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addGap(0, 313, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sidePanelLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(UserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fullnameLabel))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameLabel))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8)
+                    .addComponent(phoneNumberLabel)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(PhoneNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(151, 151, 151))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(73, 73, 73)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(398, 398, 398)))
         );
 
@@ -219,17 +206,17 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UserNameFieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         //assign each data field to a corrosponding variable
-        String name = FullNameField.getText().trim();
-        String username = UserNameField.getText().trim();
-        String email = EmailField.getText().trim();
-        String phoneNumber = PhoneNumberField.getText().trim();
+        name = FullNameField.getText().trim();
+        username = UserNameField.getText().trim();
+        eMail = EmailField.getText().trim();
+        phoneNumber = PhoneNumberField.getText().trim();
         
         int id = flightProject.generateID("REQUESTS");
         
         //Check if all data fields are filled with data.
-        if (name.equals("") || username.equals("")  || email.equals("") || phoneNumber.equals("")){
+        if (name.equals("") || username.equals("")  || eMail.equals("") || phoneNumber.equals("")){
             JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
         }else{
             //Check if passwords are matched
@@ -237,7 +224,7 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
                 try{
                     //add entry to the USERS database and go back to Login UI
                     mystatObj = myconObj.createStatement();
-                    mystatObj.executeUpdate("INSERT INTO ROOT.REQUESTS " + "VALUES ("+id+",'"+name+"','"+username+"','"+email+"','"+phoneNumber+"')");
+                    mystatObj.executeUpdate("INSERT INTO ROOT.REQUESTS " + "VALUES ("+id+",'"+name+"','"+username+"','"+eMail+"','"+phoneNumber+"')");
                     JOptionPane.showMessageDialog(null, "Request is sent!");
                     dispose();
                     new LoginpGUI().setVisible(true);
@@ -247,7 +234,7 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
                 }
              
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,15 +277,15 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
     private javax.swing.JTextField FullNameField;
     private javax.swing.JTextField PhoneNumberField;
     private javax.swing.JTextField UserNameField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel fullnameLabel;
+    private javax.swing.JLabel headerLabel;
+    private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel phoneNumberLabel;
+    private javax.swing.JLabel sidePanelLabel;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

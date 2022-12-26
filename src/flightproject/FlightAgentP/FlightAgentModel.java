@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package flightproject.FlightAgentP;
 
 import flightproject.DBConnection;
 import java.sql.*;
 
-/**
- *
- * @author Mahmoud Rabea
- */
 public class FlightAgentModel {
 private String id;
 private String name;
