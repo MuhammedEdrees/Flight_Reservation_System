@@ -44,6 +44,7 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         headerPanel = new javax.swing.JPanel();
         headerLabel = new javax.swing.JLabel();
         sidePanelLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -83,11 +84,6 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         UserNameField.setBackground(new java.awt.Color(255, 255, 255));
         UserNameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         UserNameField.setForeground(new java.awt.Color(79, 79, 79));
-        UserNameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserNameFieldActionPerformed(evt);
-            }
-        });
 
         fullnameLabel.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         fullnameLabel.setForeground(new java.awt.Color(51, 51, 51));
@@ -96,11 +92,6 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         FullNameField.setBackground(new java.awt.Color(255, 255, 255));
         FullNameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         FullNameField.setForeground(new java.awt.Color(79, 79, 79));
-        FullNameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FullNameFieldActionPerformed(evt);
-            }
-        });
 
         headerPanel.setBackground(new java.awt.Color(53, 146, 196));
 
@@ -127,26 +118,41 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
 
         sidePanelLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SidePanel2.png"))); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(53, 146, 196));
+        jLabel1.setText("Go Back to Login");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(sidePanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(173, 173, 173)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fullnameLabel)
-                    .addComponent(emailLabel)
-                    .addComponent(phoneNumberLabel)
-                    .addComponent(usernameLabel))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PhoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(157, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fullnameLabel)
+                            .addComponent(emailLabel)
+                            .addComponent(phoneNumberLabel)
+                            .addComponent(usernameLabel))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FullNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PhoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(157, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(259, 259, 259))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addGap(0, 313, Short.MAX_VALUE)
@@ -175,8 +181,10 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(PhoneNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(151, 151, 151))
+                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(131, 131, 131))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(73, 73, 73)
@@ -198,14 +206,6 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FullNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FullNameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FullNameFieldActionPerformed
-
-    private void UserNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserNameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UserNameFieldActionPerformed
-
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         //assign each data field to a corrosponding variable
         name = FullNameField.getText().trim();
@@ -220,21 +220,23 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
         }else{
             //Check if passwords are matched
-            
                 try{
                     //add entry to the USERS database and go back to Login UI
                     mystatObj = myconObj.createStatement();
                     mystatObj.executeUpdate("INSERT INTO ROOT.REQUESTS " + "VALUES ("+id+",'"+name+"','"+username+"','"+eMail+"','"+phoneNumber+"')");
                     JOptionPane.showMessageDialog(null, "Request is sent!");
-                    dispose();
                     new LoginpGUI().setVisible(true);
-
+                    dispose();
                 }catch(SQLException e){
                     JOptionPane.showMessageDialog(null, e);
                 }
-             
         }
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        new LoginpGUI().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -281,6 +283,7 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
     private javax.swing.JLabel fullnameLabel;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel phoneNumberLabel;

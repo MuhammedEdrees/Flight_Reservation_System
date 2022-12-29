@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package flightproject;
 import flightproject.AdminP.AdminUI;
 import flightproject.FlightAgentP.FlightAgentUI;
@@ -9,12 +5,10 @@ import flightproject.PassengerP.ForgottenPasswordForm;
 import flightproject.PassengerP.RegisterationForm;
 import flightproject.PassengerP.Passenger;
 import flightproject.PassengerP.WelcomeScreen;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author moham
- */
 public class LoginpGUI extends javax.swing.JFrame { 
     private String username, password;
     public LoginpGUI() {
@@ -30,12 +24,12 @@ public class LoginpGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        SignInButton = new javax.swing.JButton();
         MainPanel = new javax.swing.JPanel();
         LoginPanel = new javax.swing.JPanel();
         HeaderPanel = new javax.swing.JPanel();
         HeaderLabel = new javax.swing.JLabel();
         SignUpTxtLabel = new javax.swing.JLabel();
-        SignInButton = new javax.swing.JButton();
         PasswordLabel = new javax.swing.JLabel();
         UsernameLabel = new javax.swing.JLabel();
         passwordfield = new javax.swing.JPasswordField();
@@ -44,6 +38,18 @@ public class LoginpGUI extends javax.swing.JFrame {
         SignUpLabel = new javax.swing.JLabel();
         SidePanel = new javax.swing.JPanel();
         IconLabel = new javax.swing.JLabel();
+
+        SignInButton.setBackground(new java.awt.Color(53, 146, 196));
+        SignInButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        SignInButton.setForeground(new java.awt.Color(255, 255, 255));
+        SignInButton.setText("Sign in");
+        SignInButton.setFocusPainted(false);
+        SignInButton.setFocusable(false);
+        SignInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SignInButtonActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -65,17 +71,6 @@ public class LoginpGUI extends javax.swing.JFrame {
         SignUpTxtLabel.setForeground(new java.awt.Color(51, 51, 51));
         SignUpTxtLabel.setText("Don't have an account yet?");
 
-        SignInButton.setBackground(new java.awt.Color(53, 146, 196));
-        SignInButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        SignInButton.setForeground(new java.awt.Color(255, 255, 255));
-        SignInButton.setText("Sign in");
-        SignInButton.setFocusPainted(false);
-        SignInButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SignInButtonActionPerformed(evt);
-            }
-        });
-
         PasswordLabel.setBackground(new java.awt.Color(53, 146, 196));
         PasswordLabel.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         PasswordLabel.setForeground(new java.awt.Color(51, 51, 51));
@@ -88,6 +83,11 @@ public class LoginpGUI extends javax.swing.JFrame {
         passwordfield.setBackground(new java.awt.Color(255, 255, 255));
         passwordfield.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         passwordfield.setForeground(new java.awt.Color(102, 102, 102));
+        passwordfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordfieldKeyPressed(evt);
+            }
+        });
 
         usernamefield.setBackground(new java.awt.Color(255, 255, 255));
         usernamefield.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
@@ -97,6 +97,7 @@ public class LoginpGUI extends javax.swing.JFrame {
         ForgottenPasswordLabel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         ForgottenPasswordLabel.setForeground(new java.awt.Color(53, 146, 196));
         ForgottenPasswordLabel.setText("Forgot your Password?");
+        ForgottenPasswordLabel.setFocusable(false);
         ForgottenPasswordLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ForgottenPasswordLabelMouseClicked(evt);
@@ -106,6 +107,7 @@ public class LoginpGUI extends javax.swing.JFrame {
         SignUpLabel.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         SignUpLabel.setForeground(new java.awt.Color(53, 146, 196));
         SignUpLabel.setText("Sign Up");
+        SignUpLabel.setFocusable(false);
         SignUpLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SignUpLabelMouseClicked(evt);
@@ -135,7 +137,6 @@ public class LoginpGUI extends javax.swing.JFrame {
                                     .addComponent(PasswordLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(SignInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(passwordfield)
                                     .addComponent(usernamefield, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(189, 189, 189))
@@ -158,9 +159,7 @@ public class LoginpGUI extends javax.swing.JFrame {
                     .addComponent(PasswordLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ForgottenPasswordLabel)
-                .addGap(8, 8, 8)
-                .addComponent(SignInButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(56, 56, 56)
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(SignUpTxtLabel)
                     .addGroup(LoginPanelLayout.createSequentialGroup()
@@ -264,6 +263,13 @@ public class LoginpGUI extends javax.swing.JFrame {
         new RegisterationForm().setVisible(true);
         dispose();
     }//GEN-LAST:event_SignUpLabelMouseClicked
+
+    private void passwordfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordfieldKeyPressed
+        java.awt.event.ActionEvent evt1 = new ActionEvent(ERROR, WIDTH, username);
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            SignInButtonActionPerformed(evt1);
+        }
+    }//GEN-LAST:event_passwordfieldKeyPressed
 
     /**
      * @param args the command line arguments

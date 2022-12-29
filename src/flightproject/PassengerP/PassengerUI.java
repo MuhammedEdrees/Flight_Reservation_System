@@ -16,11 +16,14 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import swing.DataSearch;
 import swing.EventClick;
 import swing.PanelSearch;
@@ -122,6 +125,8 @@ public class PassengerUI extends javax.swing.JFrame {
         try{
             Connection myConObj = DBConnection.connectDB();
             Statement myStatObj = myConObj.createStatement();
+            DefaultTableModel reservationTableModel = (DefaultTableModel) reservationTable.getModel();
+            reservationTableModel.setRowCount(0);
             String reservationQuery = "select * from Root.reservations where passengerid = "+flightProject.currentUserID;
             ResultSet myResObj1 = myStatObj.executeQuery(reservationQuery);
             int numOfseats, localFlightId;
@@ -138,7 +143,7 @@ public class PassengerUI extends javax.swing.JFrame {
                 String flightDuration = Flight.getFlightDuration(localFlightId);
                 double price = Payment.getPaymentAmount(reservationId);
                 String tbData[] = {String.valueOf(reservationId),airLine, from, to, String.valueOf(flightDate), departureTime, flightDuration, String.valueOf(numOfseats), resClass, String.valueOf(price)};
-                DefaultTableModel reservationTableModel = (DefaultTableModel) reservationTable.getModel();
+               
                 reservationTableModel.addRow(tbData);
             }
         } catch(SQLException e){
@@ -303,9 +308,9 @@ public class PassengerUI extends javax.swing.JFrame {
         flightsTabLayout.setHorizontalGroup(
             flightsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(flightsTabLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(69, 69, 69)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         flightsTabLayout.setVerticalGroup(
             flightsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,9 +335,9 @@ public class PassengerUI extends javax.swing.JFrame {
         bookingsTabLayout.setHorizontalGroup(
             bookingsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bookingsTabLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(70, 70, 70)
                 .addComponent(jLabel3)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         bookingsTabLayout.setVerticalGroup(
             bookingsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,12 +351,8 @@ public class PassengerUI extends javax.swing.JFrame {
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
-                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(flightsTab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bookingsTab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addComponent(flightsTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bookingsTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -944,7 +945,7 @@ public class PassengerUI extends javax.swing.JFrame {
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
+            .addGap(0, 842, Short.MAX_VALUE)
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(FlightSearchingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1105,6 +1106,18 @@ public class PassengerUI extends javax.swing.JFrame {
         int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel reservation?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         int removedReservationId = Integer.parseInt(reservationIdRemoveTxt.getText());
         if(response == JOptionPane.YES_OPTION){
+            try {
+            Connection myConObj = DBConnection.connectDB();
+            Statement myStatObj = myConObj.createStatement();
+            String reservationQuery = "select * from Root.reservations where id = "+String.valueOf(removedReservationId);
+            ResultSet myResObj1 = myStatObj.executeQuery(reservationQuery);
+            myResObj1.next();
+            int flightId = myResObj1.getInt("FLIGHTID");
+            int newNumofSeats = myResObj1.getInt("NUMOFSEATS")+Flight.getNumofSeats(flightId);
+            Flight.setAvailableNumberOfSeats(flightId, newNumofSeats);
+            } catch (SQLException ex) {
+                Logger.getLogger(PassengerUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             flightproject.ReservationP.Reservation.deleteReservation(removedReservationId);
             flightproject.PaymentP.Payment.deletePayment(removedReservationId);
             updateResevrationTable();
@@ -1193,6 +1206,9 @@ public class PassengerUI extends javax.swing.JFrame {
             BookingsPanel.setVisible(false);
             ReservationDetailsPanel.setVisible(false);
             PaymentPanel.setVisible(false);
+            fromSearchTxt.setText("");
+            toSearchTxt.setText("");
+            flightDate.setDate(null);
         }
         else{
 
