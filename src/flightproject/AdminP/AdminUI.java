@@ -216,10 +216,10 @@ public class AdminUI extends javax.swing.JFrame {
         PassengersTabPanel.setLayout(PassengersTabPanelLayout);
         PassengersTabPanelLayout.setHorizontalGroup(
             PassengersTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PassengersTabPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PassengersTabPanelLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addComponent(PassengersManagementTabLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PassengersTabPanelLayout.setVerticalGroup(
             PassengersTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,10 +243,10 @@ public class AdminUI extends javax.swing.JFrame {
         RequestsTabPanel.setLayout(RequestsTabPanelLayout);
         RequestsTabPanelLayout.setHorizontalGroup(
             RequestsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RequestsTabPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(RequestsTabPanelLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
                 .addComponent(RequestsTabLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         RequestsTabPanelLayout.setVerticalGroup(
             RequestsTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

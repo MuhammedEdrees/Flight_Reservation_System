@@ -132,6 +132,21 @@ public class Flight {
         }
     }
     
+    public static int getNumofSeats(int id){
+        String query = "select * from ROOT.FLIGHTS WHERE ID=?";
+        try{
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setInt(1, id);
+            myresObj = mystatObj.executeQuery();
+            if (myresObj.next()){
+                return myresObj.getInt("AVAILABLESEATS");
+            }
+            return -1;
+        }catch(SQLException e){
+            return -1;
+        }
+    }
+    
     public static String getFlightDuration(int id){
         String query = "select * from ROOT.FLIGHTS WHERE ID=?";
         try{
@@ -156,6 +171,7 @@ public class Flight {
         mystatObj.executeUpdate();
         } catch(SQLException e){}
     }
+    
     public static void updateFlight(int id, String departureAirport, String arrivalAirport, String departureTime, String flightDuration, java.util.Date flightDate, double basePrice, String airline, int SeatCapacity){
         java.sql.Date sqlDate = new java.sql.Date(flightDate.getTime());
         try{
