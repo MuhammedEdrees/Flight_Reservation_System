@@ -204,9 +204,15 @@ public class PassengerUI extends javax.swing.JFrame {
     private double computePaymentAmount(String Class, int numOfSeats, double basePrice){
         double multiplier = 0, amount;
         switch (Class){
-            case "First" -> multiplier = 2;
-            case "Bussiness" -> multiplier = 1.5;
-            case "Economy" -> multiplier = 1;
+            case "First" :
+                multiplier = 2;
+                break;
+            case "Bussiness":
+                multiplier = 1.5;
+                break;
+            case "Economy":
+                multiplier = 1;
+                break;
         }
         amount = numOfSeats*multiplier*basePrice;
         return amount;
