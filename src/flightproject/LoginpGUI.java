@@ -24,7 +24,6 @@ public class LoginpGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        SignInButton = new javax.swing.JButton();
         MainPanel = new javax.swing.JPanel();
         LoginPanel = new javax.swing.JPanel();
         HeaderPanel = new javax.swing.JPanel();
@@ -36,20 +35,9 @@ public class LoginpGUI extends javax.swing.JFrame {
         usernamefield = new javax.swing.JTextField();
         ForgottenPasswordLabel = new javax.swing.JLabel();
         SignUpLabel = new javax.swing.JLabel();
+        SignInButton = new javax.swing.JButton();
         SidePanel = new javax.swing.JPanel();
         IconLabel = new javax.swing.JLabel();
-
-        SignInButton.setBackground(new java.awt.Color(53, 146, 196));
-        SignInButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        SignInButton.setForeground(new java.awt.Color(255, 255, 255));
-        SignInButton.setText("Sign in");
-        SignInButton.setFocusPainted(false);
-        SignInButton.setFocusable(false);
-        SignInButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SignInButtonActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -114,6 +102,18 @@ public class LoginpGUI extends javax.swing.JFrame {
             }
         });
 
+        SignInButton.setBackground(new java.awt.Color(53, 146, 196));
+        SignInButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        SignInButton.setForeground(new java.awt.Color(255, 255, 255));
+        SignInButton.setText("Sign in");
+        SignInButton.setFocusPainted(false);
+        SignInButton.setFocusable(false);
+        SignInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SignInButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
         LoginPanel.setLayout(LoginPanelLayout);
         LoginPanelLayout.setHorizontalGroup(
@@ -136,9 +136,11 @@ public class LoginpGUI extends javax.swing.JFrame {
                                     .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(PasswordLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(passwordfield)
-                                    .addComponent(usernamefield, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SignInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(passwordfield)
+                                        .addComponent(usernamefield, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(189, 189, 189))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
                         .addComponent(ForgottenPasswordLabel)
@@ -159,7 +161,9 @@ public class LoginpGUI extends javax.swing.JFrame {
                     .addComponent(PasswordLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ForgottenPasswordLabel)
-                .addGap(56, 56, 56)
+                .addGap(10, 10, 10)
+                .addComponent(SignInButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(SignUpTxtLabel)
                     .addGroup(LoginPanelLayout.createSequentialGroup()
@@ -182,7 +186,7 @@ public class LoginpGUI extends javax.swing.JFrame {
         );
         SidePanelLayout.setVerticalGroup(
             SidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(IconLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+            .addComponent(IconLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);

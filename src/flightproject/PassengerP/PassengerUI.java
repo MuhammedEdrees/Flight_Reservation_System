@@ -1080,6 +1080,7 @@ public class PassengerUI extends javax.swing.JFrame {
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
         list = Flight.search(flightDate.getDate(), fromSearchTxt.getText(), toSearchTxt.getText());
         DefaultTableModel model = (DefaultTableModel)searchTable.getModel();
+        model.setRowCount(0);
         if(!list.isEmpty() ){
             searchPanel.setVisible(true);
             resultLabel.setText("Pick a Flight and Press Continue:");
