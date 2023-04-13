@@ -2,7 +2,6 @@ package flightproject.PassengerP;
 import flightproject.DBConnection;
 import java.sql.*;
 import java.time.LocalDate;
-
 public class Passenger {
     private static Connection myconObj = DBConnection.connectDB();
     private static PreparedStatement mystatObj = null;
