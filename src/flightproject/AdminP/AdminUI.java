@@ -143,13 +143,13 @@ public class AdminUI extends javax.swing.JFrame {
         passengerPasswordTxt = new javax.swing.JTextField();
         passengerPhoneNumberTxt = new javax.swing.JTextField();
         passengerEmailTxt = new javax.swing.JTextField();
+        passengerDateofBirthChooser = new com.toedter.calendar.JDateChooser();
         PassengerUpdateButton = new javax.swing.JButton();
         PassengerAddButton = new javax.swing.JButton();
         PassengerDeleteButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         PassengersTable = new javax.swing.JTable();
         PassengerHeaderLabel = new javax.swing.JLabel();
-        passengerDateofBirthChooser = new com.toedter.calendar.JDateChooser();
         FlightAgentsManagementPanel = new javax.swing.JPanel();
         flightAgentPasswordTxt = new javax.swing.JTextField();
         FlightagentAddButton = new javax.swing.JButton();
@@ -431,6 +431,9 @@ public class AdminUI extends javax.swing.JFrame {
         passengerEmailTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         passengerEmailTxt.setForeground(new java.awt.Color(0, 0, 0));
 
+        passengerDateofBirthChooser.setBackground(new java.awt.Color(255, 255, 255));
+        passengerDateofBirthChooser.setForeground(new java.awt.Color(51, 51, 51));
+
         PassengerUpdateButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         PassengerUpdateButton.setText("Update");
         PassengerUpdateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -473,9 +476,6 @@ public class AdminUI extends javax.swing.JFrame {
         PassengerHeaderLabel.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         PassengerHeaderLabel.setForeground(new java.awt.Color(51, 51, 51));
         PassengerHeaderLabel.setText("Passengers Management");
-
-        passengerDateofBirthChooser.setBackground(new java.awt.Color(255, 255, 255));
-        passengerDateofBirthChooser.setForeground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout PassengerManagementPanelLayout = new javax.swing.GroupLayout(PassengerManagementPanel);
         PassengerManagementPanel.setLayout(PassengerManagementPanelLayout);
@@ -522,10 +522,10 @@ public class AdminUI extends javax.swing.JFrame {
                                 .addComponent(PassengerEmailLabel))
                             .addComponent(PassengerPhonenumberLabel))
                         .addGap(25, 25, 25)
-                        .addGroup(PassengerManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(passengerPhoneNumberTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                            .addComponent(passengerEmailTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                            .addComponent(passengerDateofBirthChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))))
+                        .addGroup(PassengerManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passengerDateofBirthChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passengerPhoneNumberTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passengerEmailTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(66, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
         );
