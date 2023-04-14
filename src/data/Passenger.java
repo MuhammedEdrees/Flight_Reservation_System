@@ -9,9 +9,12 @@ import static utils.DbUtils.*;
 public class Passenger extends User {
     private Date dateOfBirth;
     private String phoneNumber;
-    Connection myconObj = connectDB();
+    Connection myconObj;
     PreparedStatement mystatObj;
     ResultSet myresObj;
+    public Passenger(int id) {
+        super(id);
+    }
     public Passenger(String fullname, String username, String password, Date dateOfBirth, String phonenumber, String email) {
         super();
         this.fullname = fullname;
@@ -41,6 +44,7 @@ public class Passenger extends User {
     //insert new entry to the passengers table
     private void createPassenger(){
         String createQuery = "INSERT INTO ROOT.PASSENGERS VALUES (?,?,?,?,?,?,?)";
+        myconObj = connectDB();
         java.sql.Date sqlDate = new java.sql.Date(dateOfBirth.getTime());
         try{
             mystatObj = myconObj.prepareStatement(createQuery);
@@ -62,6 +66,7 @@ public class Passenger extends User {
     @Override
     public void load() {
         String loadQuery = "select * from ROOT.PASSENGERS WHERE ID=?";
+        myconObj = connectDB();
         try{
             mystatObj= myconObj.prepareStatement(loadQuery);
             mystatObj.setInt(1, id);
@@ -80,6 +85,7 @@ public class Passenger extends User {
     @Override
     public void update() {
         String updateQuery = "Update ROOT.PASSENGERS Set Fullname = ?, Username = ?, Password = ?, DateOfBirth = ?, PhoneNumber = ?, Email = ? where ID = ?";
+        myconObj = connectDB();
         try {
             mystatObj = myconObj.prepareStatement(updateQuery);
             mystatObj.setString(1, fullname);
@@ -94,6 +100,7 @@ public class Passenger extends User {
     @Override
     public void delete(){
         String deleteQuery = "Delete from ROOT.PASSENGERS where id = " + String.valueOf(this.id);
+        myconObj = connectDB();
         try {
             Statement deleteStat = myconObj.createStatement();
             deleteStat.executeUpdate(deleteQuery);

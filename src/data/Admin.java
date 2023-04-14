@@ -9,11 +9,18 @@ import static utils.DbUtils.*;
 
 
 public class Admin extends User {
-    Connection myconObj = connectDB();
+    Connection myconObj;
     PreparedStatement mystatObj;
     ResultSet myresObj;
+    public Admin(int id) {
+        super(id);
+    }
+    public Admin(String fullname, String username, String password, String email) {
+        super(fullname, username, password, email);
+    }
     private void createFlightAgent() {
         String createQuery = "INSERT INTO ROOT.ADMINS VALUES (?,?,?,?,?)";
+        myconObj = connectDB();
         try{
             mystatObj = myconObj.prepareStatement(createQuery);
             mystatObj.setInt(1, id);
@@ -32,6 +39,7 @@ public class Admin extends User {
     @Override
     public void update(){
         String updateQuery = "Update ROOT.ADMINS Set Username = ?, Password = ?, Fullname = ?, Email = ? where ID = ?";
+        myconObj = connectDB();
         try {
             mystatObj = myconObj.prepareStatement(updateQuery);
             mystatObj.setString(1, username);
@@ -43,6 +51,7 @@ public class Admin extends User {
     }
     @Override
     public void load() {
+        myconObj = connectDB();
         String loadQuery = "select * from ROOT.ADMINS WHERE ID=?";
         try{
             mystatObj= myconObj.prepareStatement(loadQuery);
@@ -60,6 +69,7 @@ public class Admin extends User {
     @Override
     public void delete() {
         String deleteQuery = "Delete from ROOT.ADMINS where id = " + String.valueOf(this.id);
+        myconObj = connectDB();
         try {
             Statement deleteStat = myconObj.createStatement();
             deleteStat.executeUpdate(deleteQuery);

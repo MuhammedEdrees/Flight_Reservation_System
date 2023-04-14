@@ -8,11 +8,18 @@ import java.sql.ResultSet;
 import static utils.DbUtils.*;
 
 public class FlightAgent extends User {
-    Connection myconObj = connectDB();
+    Connection myconObj;
     PreparedStatement mystatObj;
     ResultSet myresObj;
+    public FlightAgent(int id) {
+        super(id);
+    }
+    public FlightAgent(String fullname, String username, String password, String email) {
+        super(fullname, username, password, email);
+    }
     private void createFlightAgent() {
         String createQuery = "INSERT INTO ROOT.FLIGHTAGENTS VALUES (?,?,?,?,?)";
+        myconObj = connectDB();
         try{
             mystatObj = myconObj.prepareStatement(createQuery);
             mystatObj.setInt(1, id);
@@ -31,6 +38,7 @@ public class FlightAgent extends User {
     @Override
     public void update(){
         String updateQuery = "Update ROOT.FLIGHTAGENTS Set Fullname = ?, Email = ?, Username = ?, Password = ? where ID = ?";
+        myconObj = connectDB();
         try {
             mystatObj = myconObj.prepareStatement(updateQuery);
             mystatObj.setString(1, fullname);
@@ -43,6 +51,7 @@ public class FlightAgent extends User {
     @Override
     public void load() {
         String loadQuery = "select * from ROOT.FLIGHTAGENTS WHERE ID=?";
+        myconObj = connectDB();
         try{
             mystatObj= myconObj.prepareStatement(loadQuery);
             mystatObj.setInt(1, id);
@@ -59,6 +68,7 @@ public class FlightAgent extends User {
     @Override
     public void delete() {
         String deleteQuery = "Delete from ROOT.FLIGHTAGENTS where id = " + String.valueOf(this.id);
+        myconObj = connectDB();
         try {
             Statement deleteStat = myconObj.createStatement();
             deleteStat.executeUpdate(deleteQuery);
