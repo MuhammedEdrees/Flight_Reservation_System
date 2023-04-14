@@ -9,9 +9,9 @@ import static utils.DbUtils.*;
 public class Passenger extends User {
     private Date dateOfBirth;
     private String phoneNumber;
-    Connection myconObj;
-    PreparedStatement mystatObj;
-    ResultSet myresObj;
+    private Connection myconObj;
+    private PreparedStatement mystatObj;
+    private ResultSet myresObj;
     public Passenger(int id) {
         super(id);
     }
@@ -40,6 +40,23 @@ public class Passenger extends User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         update();
+    }
+    
+    public static int getID(String username){
+        String query = "select * from ROOT.PASSENGERS WHERE USERNAME=?";
+        Connection myconObj = connectDB();
+        PreparedStatement mystatObj;
+        ResultSet myresObj;
+        try{
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setString(1, username);
+            myresObj = mystatObj.executeQuery();
+            if (myresObj.next()){
+                return myresObj.getInt(1);
+            }
+        }catch(SQLException e){
+        }
+        return -1;
     }
     //insert new entry to the passengers table
     private void createPassenger(){

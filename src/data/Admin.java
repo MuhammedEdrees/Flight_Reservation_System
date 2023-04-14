@@ -9,16 +9,32 @@ import static utils.DbUtils.*;
 
 
 public class Admin extends User {
-    Connection myconObj;
-    PreparedStatement mystatObj;
-    ResultSet myresObj;
+    private Connection myconObj;
+    private PreparedStatement mystatObj;
+    private ResultSet myresObj;
     public Admin(int id) {
         super(id);
     }
     public Admin(String fullname, String username, String password, String email) {
         super(fullname, username, password, email);
     }
-    private void createFlightAgent() {
+    public static int getID(String username){
+        String query = "select * from ROOT.ADMINS WHERE USERNAME=?";
+        Connection myconObj = connectDB();
+        PreparedStatement mystatObj;
+        ResultSet myresObj;
+        try{
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setString(1, username);
+            myresObj = mystatObj.executeQuery();
+            if (myresObj.next()){
+                return myresObj.getInt(1);
+            }
+        }catch(SQLException e){
+        }
+        return -1;
+    }
+    private void createAdmin() {
         String createQuery = "INSERT INTO ROOT.ADMINS VALUES (?,?,?,?,?)";
         myconObj = connectDB();
         try{
@@ -34,7 +50,7 @@ public class Admin extends User {
     @Override
     public void store(){
         this.id = generateID("ADMINS");
-        createFlightAgent();
+        createAdmin();
     }
     @Override
     public void update(){

@@ -8,14 +8,30 @@ import java.sql.ResultSet;
 import static utils.DbUtils.*;
 
 public class FlightAgent extends User {
-    Connection myconObj;
-    PreparedStatement mystatObj;
-    ResultSet myresObj;
+    private Connection myconObj;
+    private PreparedStatement mystatObj;
+    private ResultSet myresObj;
     public FlightAgent(int id) {
         super(id);
     }
     public FlightAgent(String fullname, String username, String password, String email) {
         super(fullname, username, password, email);
+    }
+    public static int getID(String username){
+        String query = "select * from ROOT.FLIGHTAGENTS WHERE USERNAME=?";
+        Connection myconObj = connectDB();
+        PreparedStatement mystatObj;
+        ResultSet myresObj;
+        try{
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setString(1, username);
+            myresObj = mystatObj.executeQuery();
+            if (myresObj.next()){
+                return myresObj.getInt(1);
+            }
+        }catch(SQLException e){
+        }
+        return -1;
     }
     private void createFlightAgent() {
         String createQuery = "INSERT INTO ROOT.FLIGHTAGENTS VALUES (?,?,?,?,?)";
