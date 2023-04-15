@@ -109,9 +109,10 @@ public class Passenger extends User {
             mystatObj.setString(2, username);
             mystatObj.setString(3, password);
             mystatObj.setDate(4, new java.sql.Date(dateOfBirth.getTime()));
-            mystatObj.setString(5, password);
+            mystatObj.setString(5, phoneNumber);
             mystatObj.setString(6, email);
             mystatObj.setInt(7, id);
+            mystatObj.executeUpdate();
         } catch (SQLException ex){}
     }   
     @Override

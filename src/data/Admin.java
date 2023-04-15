@@ -63,6 +63,7 @@ public class Admin extends User {
             mystatObj.setString(3, fullname);
             mystatObj.setString(4, email);
             mystatObj.setInt(5, id);
+            mystatObj.executeUpdate();
         } catch (SQLException ex){}
     }
     @Override

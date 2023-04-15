@@ -62,6 +62,7 @@ public class FlightAgent extends User {
             mystatObj.setString(3, username);
             mystatObj.setString(4, password);
             mystatObj.setInt(5, id);
+            mystatObj.executeUpdate();
         } catch (SQLException ex){}
     }
     @Override

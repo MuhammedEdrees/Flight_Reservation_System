@@ -5,6 +5,7 @@ import flightproject.DBConnection;
 import flightproject.LoginpGUI;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import data.Passenger;
 
 public class RegisterationForm extends javax.swing.JFrame {
     private String fullName, username, password, rePassword, email, phoneNumber;
@@ -270,7 +271,7 @@ public class RegisterationForm extends javax.swing.JFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         //assign each data field to a corrosponding variable
-        fullName = FullNameField.getText().trim();
+        /*fullName = FullNameField.getText().trim();
         username = UsernameField.getText().trim();
         password = PasswordField.getText();
         rePassword = RePasswordField.getText();
@@ -287,6 +288,28 @@ public class RegisterationForm extends javax.swing.JFrame {
             if(password.equals(rePassword)){
                     //add entry to the USERS database and go back to Login UI
                     Passenger.createNewUser(id, fullName, username, password, sqlDate, phoneNumber, email);
+                    JOptionPane.showMessageDialog(null, "Registeration was successfull!");
+                    dispose();
+                    new LoginpGUI().setVisible(true);
+            } else{
+                JOptionPane.showMessageDialog(null, "Passwords doesn't Match!");
+            }
+        }*/
+        fullName = FullNameField.getText().trim();
+        username = UsernameField.getText().trim();
+        password = PasswordField.getText();
+        rePassword = RePasswordField.getText();
+        email = EmailField.getText().trim();
+        phoneNumber = PhoneNumberField.getText().trim();
+        dateofBirth = BirthDateField.getDate();
+        //Check if all data fields are filled with data.
+        if (fullName.equals("") || username.equals("") || password.equals("") || rePassword.equals("") || email.equals("") || phoneNumber.equals("")){
+            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
+        }else{
+            //Check if passwords are matched
+            if(password.equals(rePassword)){
+                    //add entry to the USERS database and go back to Login UI
+                    Passenger pass1 = new Passenger(fullName, username, password, dateofBirth, phoneNumber, email);
                     JOptionPane.showMessageDialog(null, "Registeration was successfull!");
                     dispose();
                     new LoginpGUI().setVisible(true);
