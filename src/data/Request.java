@@ -15,8 +15,18 @@ public class Request implements DataEntity{
     Connection myconObj = connectDB();
     PreparedStatement mystatObj;
     ResultSet myresObj;
+    
+    public Request (String fullname, String username, String email, String phonenumber)
+    {
+        this.fullname = fullname;
+        this.username = username;
+        this.email = email;
+        this.phoneNumber = phonenumber;
+        store();
+    }
     private void createRequest(){
         String createQuery = "INSERT INTO ROOT.REQUESTS VALUES (?,?,?,?,?)";
+        myconObj = connectDB();
         try{
             mystatObj = myconObj.prepareStatement(createQuery);
             mystatObj.setInt(1, id);
@@ -73,6 +83,7 @@ public class Request implements DataEntity{
     @Override
     public void update(){
         String updateQuery = "Update ROOT.REQUESTS Set Fullname = ?, Username = ?, Email = ?, PhoneNumber = ? where ID = ?";
+        myconObj = connectDB();
         try {
             mystatObj = myconObj.prepareStatement(updateQuery);
             mystatObj.setString(1, fullname);
@@ -85,6 +96,7 @@ public class Request implements DataEntity{
     @Override
     public void load() {
         String loadQuery = "select * from ROOT.REQUESTS WHERE ID=?";
+        myconObj = connectDB();
         try{
             mystatObj= myconObj.prepareStatement(loadQuery);
             mystatObj.setInt(1, id);
@@ -101,6 +113,7 @@ public class Request implements DataEntity{
     @Override
     public void delete() {
         String deleteQuery = "Delete from ROOT.REQUESTS where id = " + String.valueOf(this.id);
+        myconObj = connectDB();
         try {
             Statement deleteStat = myconObj.createStatement();
             deleteStat.executeUpdate(deleteQuery);
