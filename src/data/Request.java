@@ -91,6 +91,7 @@ public class Request implements DataEntity{
             mystatObj.setString(3, email);
             mystatObj.setString(4, phoneNumber);
             mystatObj.setInt(5, id);
+            mystatObj.executeUpdate();
         } catch (SQLException ex){}
     }
     @Override
