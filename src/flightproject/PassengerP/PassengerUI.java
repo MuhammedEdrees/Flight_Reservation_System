@@ -1,10 +1,5 @@
 package flightproject.PassengerP;
 
-import flightproject.DBConnection;
-import flightproject.FlightP.Flight;
-import flightproject.FlightP.FlightModel;
-import flightproject.PaymentP.Payment;
-import flightproject.ReservationP.Reservation;
 import flightproject.flightProject;
 import java.util.List;
 import java.sql.Connection;
@@ -16,17 +11,20 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import swing.DataSearch;
 import swing.EventClick;
 import swing.PanelSearch;
+import utils.DbUtils;
+import utils.PassengeruiUtils;
+import data.Flight;
+import data.Reservation;
+import data.Payment;
 
 public class PassengerUI extends javax.swing.JFrame {
 
@@ -34,16 +32,15 @@ public class PassengerUI extends javax.swing.JFrame {
     private PanelSearch toSearch;
     private JPopupMenu fromMenu;
     private JPopupMenu toMenu;
-    private Connection myconObj = DBConnection.connectDB();
-    private Statement mystatObj = null;
-    private ResultSet myresObj = null;
-    private ArrayList<FlightModel> list = new ArrayList<FlightModel>();
+    private ArrayList<Flight> matchingFlightsList;
     private int flightID, reservationNumberOfSeats,flightAvailableSeats, reservationId, paymentId;
     private double flightBasePrice, paymentAmount;
     private String firstName, surname, nationality, reservationClass, passportNumber, cardType, cardNumber, cardHolderName, cardCVV;
     private java.util.Date passportExpiryDate, cardExpiryDate;
+    private String dataStory[] = {"Cairo", "Alexandria", "Paris", "London", "New York"};
    
     public PassengerUI() {
+        this.matchingFlightsList = new ArrayList<>();
         String[] countries={"Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","St. Lucia","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"};
         initComponents();
         CountriesField.setModel(new DefaultComboBoxModel<>(countries));
@@ -121,43 +118,45 @@ public class PassengerUI extends javax.swing.JFrame {
         searchTable.setRowHeight(25);
     }
     
-    private void updateResevrationTable(){
+    private void updateReservationTable(){
         try{
-            Connection myConObj = DBConnection.connectDB();
+            Connection myConObj = DbUtils.connectDB();
             Statement myStatObj = myConObj.createStatement();
             DefaultTableModel reservationTableModel = (DefaultTableModel) reservationTable.getModel();
             reservationTableModel.setRowCount(0);
             String reservationQuery = "select * from Root.reservations where passengerid = "+flightProject.currentUserID;
-            ResultSet myResObj1 = myStatObj.executeQuery(reservationQuery);
+            ResultSet myResObj = myStatObj.executeQuery(reservationQuery);
             int numOfseats, localFlightId;
-            while(myResObj1.next()){
-                int reservationId = myResObj1.getInt("id");
-                numOfseats = myResObj1.getInt("numofseats");
-                localFlightId = myResObj1.getInt("flightid");
-                String resClass = myResObj1.getString("CLASS");
-                String from = Flight.getDepartureAirport(localFlightId);
-                String to = Flight.getArrivalAirport(localFlightId);
-                java.sql.Date flightDate = Flight.getFlightDate(localFlightId);
-                String departureTime = Flight.getDepartureTime(localFlightId);
-                String airLine = Flight.getAirline(localFlightId);
-                String flightDuration = Flight.getFlightDuration(localFlightId);
-                double price = Payment.getPaymentAmount(reservationId);
-                String tbData[] = {String.valueOf(reservationId),airLine, from, to, String.valueOf(flightDate), departureTime, flightDuration, String.valueOf(numOfseats), resClass, String.valueOf(price)};
-               
+            while(myResObj.next()){
+                int reservId = myResObj.getInt("id");
+                numOfseats = myResObj.getInt("numofseats");
+                localFlightId = myResObj.getInt("flightid");
+                String resClass = myResObj.getString("CLASS");
+                Flight flight = new Flight(localFlightId);
+                String from = flight.getDepartureAirport();
+                String to = flight.getArrivalAirport();
+                Date flightDate = flight.getFlightDate();
+                String departureTime = flight.getDepartureTime();
+                String airLine = flight.getAirline();
+                String flightDuration = flight.getFlightDuration();
+                Payment payment =  new Payment(reservId);
+                double price = payment.getPaymentAmount();
+                System.out.println(price);
+                String tbData[] = {String.valueOf(reservId), airLine, from, to, String.valueOf(flightDate), departureTime, flightDuration, String.valueOf(numOfseats), resClass, String.valueOf(price)};
                 reservationTableModel.addRow(tbData);
             }
         } catch(SQLException e){
             e.printStackTrace();
         }
     }
-    private void getReservationFields() throws NumberFormatException, NullPointerException{
+    private void getReservationFields(){
         firstName = firstNameField.getText();
         surname = surNameField.getText();
         nationality = (String)CountriesField.getSelectedItem();
         try{
-        reservationNumberOfSeats = Integer.parseInt(numberOfSeatsField.getText());
+            reservationNumberOfSeats = Integer.parseInt(numberOfSeatsField.getText());
         }catch(NumberFormatException e){
-            throw e;
+            e.printStackTrace();
         }
         if(firstClassButton.isSelected()){
             reservationClass = "First";
@@ -170,20 +169,20 @@ public class PassengerUI extends javax.swing.JFrame {
         try{
             passportExpiryDate = passportExpiryDateField.getDate();
         } catch(NullPointerException e){
-            throw e;
+            e.printStackTrace();
         }
     }
     private void getPaymentFields(){
-        paymentId = flightproject.flightProject.generateID("PAYMENTS");
-        if(visaButton.isSelected())
+        if(visaButton.isSelected()) {
             cardType = "Visa";
-        else if(mastercardButton.isSelected())
+        } else if(mastercardButton.isSelected()){
             cardType = "Mastercard";
+        }
         cardNumber = cardNumberField.getText();
         cardHolderName = cardNameHolderField.getText();
         cardCVV = cardCVVField.getText();
         cardExpiryDate = cardExpiryDateChooser.getDate();
-        paymentAmount = computePaymentAmount(reservationClass, reservationNumberOfSeats, flightBasePrice);
+        paymentAmount = PassengeruiUtils.computePaymentAmount(reservationClass, reservationNumberOfSeats, flightBasePrice);
     }
     
     private void clearPaymentFields(){
@@ -199,23 +198,6 @@ public class PassengerUI extends javax.swing.JFrame {
         numberOfSeatsField.setText("");
         passportNumberField.setText("");
         passportExpiryDateField.setDate(null);
-    }
-    
-    private double computePaymentAmount(String Class, int numOfSeats, double basePrice){
-        double multiplier = 0, amount;
-        switch (Class){
-            case "First" :
-                multiplier = 2;
-                break;
-            case "Bussiness":
-                multiplier = 1.5;
-                break;
-            case "Economy":
-                multiplier = 1;
-                break;
-        }
-        amount = numOfSeats*multiplier*basePrice;
-        return amount;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1012,7 +994,7 @@ public class PassengerUI extends javax.swing.JFrame {
        //highlight bookings tab button and set other tab buttons to normal colors
         flightsTab.setBackground(new Color (53, 146, 196));
         bookingsTab.setBackground(new Color (94, 170, 211));
-        updateResevrationTable();
+        updateReservationTable();
     }//GEN-LAST:event_bookingsTabMouseClicked
 
     private void fromSearchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fromSearchTxtKeyReleased
@@ -1078,25 +1060,24 @@ public class PassengerUI extends javax.swing.JFrame {
     }//GEN-LAST:event_toSearchTxtKeyPressed
 
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
-        list = Flight.search(flightDate.getDate(), fromSearchTxt.getText(), toSearchTxt.getText());
+        matchingFlightsList = PassengeruiUtils.search(flightDate.getDate(), fromSearchTxt.getText(), toSearchTxt.getText());
         DefaultTableModel model = (DefaultTableModel)searchTable.getModel();
         model.setRowCount(0);
-        if(!list.isEmpty() ){
+        if(!matchingFlightsList.isEmpty() ){
             searchPanel.setVisible(true);
             resultLabel.setText("Pick a Flight and Press Continue:");
             resultLabel.setForeground(new Color(53, 146, 196));
             resultLabel.setVisible(true);
             ContinueButton.setVisible(true);
-         for (int i = 0; i<list.size();i++) {
-            System.out.println( list.get(i).departureAirport);
+         for (int i = 0; i<matchingFlightsList.size();i++) {
             Object[] o = new Object[7];
-            o[0] = list.get(i).id;
-            o[1] = list.get(i).airline;
-            o[2] = list.get(i).departureAirport;
-            o[3] = list.get(i).arrivalAirport;
-            o[4] = list.get(i).flightDate;
-            o[5] = list.get(i).departureTime;
-            o[6] = list.get(i).flightDuration;
+            o[0] = matchingFlightsList.get(i).getId();
+            o[1] = matchingFlightsList.get(i).getAirline();
+            o[2] = matchingFlightsList.get(i).getDepartureAirport();
+            o[3] = matchingFlightsList.get(i).getArrivalAirport();
+            o[4] = matchingFlightsList.get(i).getFlightDate();
+            o[5] = matchingFlightsList.get(i).getDepartureTime();
+            o[6] = matchingFlightsList.get(i).getFlightDuration();
             model.addRow(o);
         }
         }else{
@@ -1111,39 +1092,25 @@ public class PassengerUI extends javax.swing.JFrame {
 
     private void reservationCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationCancelButtonActionPerformed
         int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel reservation?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        int removedReservationId = Integer.parseInt(reservationIdRemoveTxt.getText());
+        int cancelledReservationId = Integer.parseInt(reservationIdRemoveTxt.getText());
         if(response == JOptionPane.YES_OPTION){
-            try {
-            Connection myConObj = DBConnection.connectDB();
-            Statement myStatObj = myConObj.createStatement();
-            String reservationQuery = "select * from Root.reservations where id = "+String.valueOf(removedReservationId);
-            ResultSet myResObj1 = myStatObj.executeQuery(reservationQuery);
-            myResObj1.next();
-            int flightId = myResObj1.getInt("FLIGHTID");
-            int newNumofSeats = myResObj1.getInt("NUMOFSEATS")+Flight.getNumofSeats(flightId);
-            Flight.setAvailableNumberOfSeats(flightId, newNumofSeats);
-            } catch (SQLException ex) {
-                Logger.getLogger(PassengerUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            flightproject.ReservationP.Reservation.deleteReservation(removedReservationId);
-            flightproject.PaymentP.Payment.deletePayment(removedReservationId);
-            updateResevrationTable();
+            Reservation cancelledReservation = new Reservation(cancelledReservationId);
+            Flight flight = new Flight(cancelledReservation.getFlightID());
+            Payment cancelledPayment = new Payment(cancelledReservationId);
+            flight.setAvailableSeats(cancelledReservation.getNumOfseats() + flight.getAvailableSeats());
+            cancelledReservation.delete();
+            cancelledPayment.delete();
+            updateReservationTable();
         } else if(response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION){
         }
     }//GEN-LAST:event_reservationCancelButtonActionPerformed
 
     private void submitPassengerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitPassengerInfoActionPerformed
-        try{
+        try {
             getReservationFields();
-            reservationId = flightProject.generateID("RESERVATIONS");
-            //getting the availabe seats
-            String seatQuery="select * FROM ROOT.FLIGHTS where ID="+ String.valueOf(flightID);
-            mystatObj = myconObj.createStatement();
-            myresObj = mystatObj.executeQuery(seatQuery);
-            myresObj.next();
-            flightAvailableSeats = myresObj.getInt("AVAILABLESEATS");
-            //check if number entered is negative or = 0
-            if (reservationNumberOfSeats <= 0){
+            Flight passengerFlight = new Flight(flightID);
+            flightAvailableSeats = passengerFlight.getAvailableSeats();
+             if (reservationNumberOfSeats <= 0){
                 JOptionPane.showMessageDialog(null, "Please, Enter a correct number of seats!", "Warning", JOptionPane.ERROR_MESSAGE);
             }
             //check if there is avaialbe seats
@@ -1161,18 +1128,17 @@ public class PassengerUI extends javax.swing.JFrame {
                 invalidNo.setVisible(false);
                 invalidcvv.setVisible(false);
             }
-        } catch (NumberFormatException e){
+        } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Please, Enter a valid Number of Seats!", "Warning", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
                 JOptionPane.showMessageDialog(null, "Please, Complete missing data fields!");
-        } catch (SQLException e){
         }
     }//GEN-LAST:event_submitPassengerInfoActionPerformed
 
     private void ContinueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinueButtonActionPerformed
         if(searchTable.getSelectedRow()!= -1){
             flightID = (int) searchTable.getModel().getValueAt(searchTable.getSelectedRow(), 0);
-            flightBasePrice = list.get(searchTable.getSelectedRow()).basePrice;
+            flightBasePrice = matchingFlightsList.get(searchTable.getSelectedRow()).getBasePrice();
             ReservationDetailsPanel.setVisible(true);
             FlightSearchingPanel.setVisible(false);
             BookingsPanel.setVisible(false);
@@ -1200,12 +1166,12 @@ public class PassengerUI extends javax.swing.JFrame {
         getPaymentFields();
         if(cardNumber.length() == 16  && cardCVV.length() == 3){
             getReservationFields();
-            Reservation.createNewReservation(reservationId, firstName, surname, nationality, passportNumber, passportExpiryDate, reservationNumberOfSeats, flightID,flightProject.currentUserID, reservationClass);
+            Reservation newReservation = new Reservation(flightProject.currentUserID, flightID, firstName, surname, nationality, passportNumber, passportExpiryDate, reservationNumberOfSeats, reservationClass);
             //availbeseats reduced
-            flightAvailableSeats -= reservationNumberOfSeats;
-            Flight.setAvailableNumberOfSeats(flightID, flightAvailableSeats);
-            Payment.createNewPayment(paymentId, cardType, cardNumber, cardHolderName, cardCVV, cardExpiryDate, reservationId, paymentAmount);
-            JOptionPane.showMessageDialog(null, "Your ticket is booked successfully!");
+            Flight passengerFlight = new Flight(flightID);
+            passengerFlight.setAvailableSeats(passengerFlight.getAvailableSeats() - newReservation.getNumOfseats());
+            Payment reservationPayment = new Payment(newReservation.getId(), cardType, cardHolderName, cardNumber, paymentAmount, cardCVV, cardExpiryDate);
+            JOptionPane.showMessageDialog(null, "Your Reservation is placed successfully!");
             clearPaymentFields();
             clearReservationFields();
             //show flights tab and hide other tabs
@@ -1241,10 +1207,11 @@ public class PassengerUI extends javax.swing.JFrame {
             PaymentPanel.setVisible(false);
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
+    
     private List<DataSearch> search(String search) {
         int limitData = 7;
         List<DataSearch> list = new ArrayList<>();
-        String dataTesting[] = flightproject.FlightP.Flight.getAirports();
+        String dataTesting[] = Flight.getAirports();
         for (String d : dataTesting) {
             if (d.toLowerCase().contains(search)) {
                 boolean story = isStory(d);
@@ -1262,12 +1229,7 @@ public class PassengerUI extends javax.swing.JFrame {
         }
         return list;
     }
-    String dataStory[] = {"Cairo",
-        "Alexandria",
-        "Paris",
-        "London",
-        "New York"};
-
+    
     private void removeHistory(String text) {
         for (int i = 0; i < dataStory.length; i++) {
             String d = dataStory[i];
@@ -1276,7 +1238,7 @@ public class PassengerUI extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private boolean isStory(String text) {
         for (String d : dataStory) {
             if (d.toLowerCase().equals(text.toLowerCase())) {

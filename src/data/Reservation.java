@@ -32,12 +32,16 @@ public class Reservation implements DataEntity{
         this.resClass = resClass;
         store();
     }
-
+    
+    public int getId() {
+        load();
+        return id;
+    }
+    
     public int getFlightID() {
         load();
         return flightID;
     }
-
 
     public int getPassengerId() {
          load();

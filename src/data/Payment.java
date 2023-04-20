@@ -19,13 +19,27 @@ public class Payment implements DataEntity {
     private PreparedStatement mystatObj;
     private ResultSet myresObj;
 
-    public Payment(int paymentId) {
+    /*public Payment(int paymentId) {
         this.paymentId = paymentId;
         load();
     }
+*/
+    public Payment(int reservationId) {
+        String query = "select * from ROOT.PAYMENTS WHERE RESERVATIONID=?";
+        myconObj = connectDB();
+        try{
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setInt(1, reservationId);
+            myresObj = mystatObj.executeQuery();
+            if (myresObj.next()){
+                this.paymentId = myresObj.getInt(1);
+                load();
+            }
+        }catch(SQLException e){
+        }
+    }
 
-    public Payment(int paymentId, int reservationId, String cardType, String cardHolderName, String cardNumber, double paymentAmount, String cardCVV, Date expirationDate) {
-        this.paymentId = paymentId;
+    public Payment(int reservationId, String cardType, String cardHolderName, String cardNumber, double paymentAmount, String cardCVV, Date expirationDate) {
         this.reservationId = reservationId;
         this.cardType = cardType;
         this.cardHolderName = cardHolderName;
@@ -120,7 +134,6 @@ public class Payment implements DataEntity {
     public void createPayment() {
         String createQuery = "INSERT INTO ROOT.PAYMENTS VALUES (?,?,?,?,?,?,?,?)";
         myconObj = connectDB();
-        
         try {
             mystatObj = myconObj.prepareStatement(createQuery);
             mystatObj.setInt(1, paymentId);
@@ -163,7 +176,7 @@ public class Payment implements DataEntity {
 
     @Override
     public void load() {
-        String loadQuery = "select * from ROOT.PAYMNETS WHERE ID=?";
+        String loadQuery = "select * from ROOT.PAYMENTS WHERE ID=?";
         myconObj = connectDB();
         try {
             mystatObj = myconObj.prepareStatement(loadQuery);

@@ -135,6 +135,15 @@ public class Flight implements DataEntity {
         update();
     }
     
+    public static String[] getAirports() {
+        return new String[]{"Dubai", "Abu Dhabi", "Veinna", "Sydney", "Melbourne", "Antwerp", "Brussels", "Sao Paulo",
+            "Rio de Janeiro", "Manama", "Shanghai", "Beijing", "Copnheagne", "Alexandria", "Cairo",
+            "Sharm El Sheikh", "Luxor", "Aswan", "Hurgada", "Berlin", "Munich", "Cologne", "Frankfurt",
+            "Mumbai", "Delhi", "Rome", "Milan", "Tokyo", "Beirut", "Casablanca", "Marrakesh", "Amsterdam",
+            "Oslo", "Doha", "Makkah", "Madinah", "Riyadh", "Jeddah", "Cape Town", "Madrid", "Barcelona",
+            "Stockholm", "Basel", "Zurich", "Geneva", "Tunis", "Istanbul", "London", "Manchester", "Liverpool",
+            "New York", "Los Angeles", "Chicago"};
+    }
     private void createFlight() {
         String createQuery = "INSERT INTO ROOT.FLIGHTS VALUES (?,?,?,?,?,?,?,?,?,?)";
         myconObj = connectDB();
