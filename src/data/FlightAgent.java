@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import static utils.DbUtils.*;
+import static util.DbUtils.*;
 
 public class FlightAgent extends User {
     private Connection myconObj;

@@ -20,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import swing.DataSearch;
 import swing.EventClick;
 import swing.PanelSearch;
-import utils.DbUtils;
-import utils.PassengeruiUtils;
+import util.DbUtils;
+import util.PassengeruiUtil;
 import data.Flight;
 import data.Reservation;
 import data.Payment;
@@ -182,7 +182,7 @@ public class PassengerUI extends javax.swing.JFrame {
         cardHolderName = cardNameHolderField.getText();
         cardCVV = cardCVVField.getText();
         cardExpiryDate = cardExpiryDateChooser.getDate();
-        paymentAmount = PassengeruiUtils.computePaymentAmount(reservationClass, reservationNumberOfSeats, flightBasePrice);
+        paymentAmount = PassengeruiUtil.computePaymentAmount(reservationClass, reservationNumberOfSeats, flightBasePrice);
     }
     
     private void clearPaymentFields(){
@@ -1060,7 +1060,7 @@ public class PassengerUI extends javax.swing.JFrame {
     }//GEN-LAST:event_toSearchTxtKeyPressed
 
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
-        matchingFlightsList = PassengeruiUtils.search(flightDate.getDate(), fromSearchTxt.getText(), toSearchTxt.getText());
+        matchingFlightsList = PassengeruiUtil.search(flightDate.getDate(), fromSearchTxt.getText(), toSearchTxt.getText());
         DefaultTableModel model = (DefaultTableModel)searchTable.getModel();
         model.setRowCount(0);
         if(!matchingFlightsList.isEmpty() ){
@@ -1069,17 +1069,7 @@ public class PassengerUI extends javax.swing.JFrame {
             resultLabel.setForeground(new Color(53, 146, 196));
             resultLabel.setVisible(true);
             ContinueButton.setVisible(true);
-         for (int i = 0; i<matchingFlightsList.size();i++) {
-            Object[] o = new Object[7];
-            o[0] = matchingFlightsList.get(i).getId();
-            o[1] = matchingFlightsList.get(i).getAirline();
-            o[2] = matchingFlightsList.get(i).getDepartureAirport();
-            o[3] = matchingFlightsList.get(i).getArrivalAirport();
-            o[4] = matchingFlightsList.get(i).getFlightDate();
-            o[5] = matchingFlightsList.get(i).getDepartureTime();
-            o[6] = matchingFlightsList.get(i).getFlightDuration();
-            model.addRow(o);
-        }
+            model = PassengeruiUtil.updateSearchTableModel(model, matchingFlightsList);
         }else{
             model.setRowCount(0);
             resultLabel.setVisible(true);

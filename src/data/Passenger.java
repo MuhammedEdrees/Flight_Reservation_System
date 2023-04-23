@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import static utils.DbUtils.*;
+import static util.DbUtils.*;
 public class Passenger extends User {
     private Date dateOfBirth;
     private String phoneNumber;

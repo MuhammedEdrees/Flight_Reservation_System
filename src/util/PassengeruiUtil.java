@@ -1,14 +1,16 @@
 
-package utils;
+package util;
 import data.Flight;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-public class PassengeruiUtils {
+public class PassengeruiUtil {
     private static PreparedStatement mystatObj;
     private static ResultSet myresObj;
     private Connection myconObj;
@@ -50,6 +52,23 @@ public class PassengeruiUtils {
             JOptionPane.showMessageDialog(null, e.toString());
             return null;
         }
+        
+    }
+    public static DefaultTableModel updateSearchTableModel(DefaultTableModel model, ArrayList<Flight> matchingFlights) {
+        for (int i = 0; i<matchingFlights.size();i++) {
+            Object[] o = new Object[7];
+            o[0] = matchingFlights.get(i).getId();
+            o[1] = matchingFlights.get(i).getAirline();
+            o[2] = matchingFlights.get(i).getDepartureAirport();
+            o[3] = matchingFlights.get(i).getArrivalAirport();
+            o[4] = matchingFlights.get(i).getFlightDate();
+            o[5] = matchingFlights.get(i).getDepartureTime();
+            o[6] = matchingFlights.get(i).getFlightDuration();
+            model.addRow(o);
+    }
+        return model;
+}
+    public static void createReservation(int flightID, String firstName,String surname,String nationality,String passportNumber,Date passportExpiryDate,int reservationNumberOfSeats,String reservationClass) {
         
     }
 }

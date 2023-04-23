@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
-import static utils.DbUtils.*;
+import static util.DbUtils.*;
 
 public class Reservation implements DataEntity{
 
