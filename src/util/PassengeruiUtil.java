@@ -1,6 +1,9 @@
 
 package util;
 import data.Flight;
+import data.Payment;
+import data.Reservation;
+import flightproject.flightProject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,7 +71,10 @@ public class PassengeruiUtil {
     }
         return model;
 }
-    public static void createReservation(int flightID, String firstName,String surname,String nationality,String passportNumber,Date passportExpiryDate,int reservationNumberOfSeats,String reservationClass) {
-        
+    public static void completeReservation(int flightID, String firstName,String surname,String nationality,String passportNumber,Date passportExpiryDate,int reservationNumberOfSeats,String reservationClass, String cardType, String cardHolderName, String cardNumber, double paymentAmount, String cardCVV, Date cardExpiryDate) {
+        Reservation newReservation = new Reservation(flightProject.currentUserID, flightID, firstName, surname, nationality, passportNumber, passportExpiryDate, reservationNumberOfSeats, reservationClass);
+        Flight passengerFlight = new Flight(flightID);
+        passengerFlight.setAvailableSeats(passengerFlight.getAvailableSeats() - newReservation.getNumOfseats());
+        Payment reservationPayment = new Payment(newReservation.getId(), cardType, cardHolderName, cardNumber, paymentAmount, cardCVV, cardExpiryDate);
     }
 }

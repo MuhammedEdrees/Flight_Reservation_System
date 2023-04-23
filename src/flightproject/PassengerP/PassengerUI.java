@@ -1156,11 +1156,7 @@ public class PassengerUI extends javax.swing.JFrame {
         getPaymentFields();
         if(cardNumber.length() == 16  && cardCVV.length() == 3){
             getReservationFields();
-            Reservation newReservation = new Reservation(flightProject.currentUserID, flightID, firstName, surname, nationality, passportNumber, passportExpiryDate, reservationNumberOfSeats, reservationClass);
-            //availbeseats reduced
-            Flight passengerFlight = new Flight(flightID);
-            passengerFlight.setAvailableSeats(passengerFlight.getAvailableSeats() - newReservation.getNumOfseats());
-            Payment reservationPayment = new Payment(newReservation.getId(), cardType, cardHolderName, cardNumber, paymentAmount, cardCVV, cardExpiryDate);
+            PassengeruiUtil.completeReservation(flightID, firstName, surname, nationality, passportNumber, passportExpiryDate, reservationNumberOfSeats, reservationClass, cardType, cardHolderName, cardNumber, paymentAmount, cardCVV, cardExpiryDate);
             JOptionPane.showMessageDialog(null, "Your Reservation is placed successfully!");
             clearPaymentFields();
             clearReservationFields();

@@ -5,7 +5,6 @@ import data.Flight;
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import net.proteanit.sql.DbUtils;
 import java.util.Date;
 import javax.swing.JOptionPane;
