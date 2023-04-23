@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import swing.DataSearch;
 import swing.EventClick;
 import swing.PanelSearch;
-import util.DbUtils;
+import util.DbUtil;
 import util.PassengeruiUtil;
 import data.Flight;
 import data.Reservation;
@@ -120,7 +120,7 @@ public class PassengerUI extends javax.swing.JFrame {
     
     private void updateReservationTable(){
         try{
-            Connection myConObj = DbUtils.connectDB();
+            Connection myConObj = DbUtil.connectDB();
             Statement myStatObj = myConObj.createStatement();
             DefaultTableModel reservationTableModel = (DefaultTableModel) reservationTable.getModel();
             reservationTableModel.setRowCount(0);

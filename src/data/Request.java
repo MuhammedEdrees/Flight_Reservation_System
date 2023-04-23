@@ -3,10 +3,10 @@ package data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import static util.DbUtils.connectDB;
+import static util.DbUtil.connectDB;
 import java.sql.SQLException;
 import java.sql.Statement;
-import static util.DbUtils.generateID;
+import static util.DbUtil.generateID;
 
 public class Request implements DataEntity{  
     private String phoneNumber,username, fullname, email;

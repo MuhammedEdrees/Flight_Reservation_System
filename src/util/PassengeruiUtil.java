@@ -34,7 +34,7 @@ public class PassengeruiUtil {
         String query = "select * FROM ROOT.FLIGHTS WHERE departureairport=? AND arrivalairport=? AND flightdate=?";
         java.sql.Date flightDate = new java.sql.Date(date.getTime());
         try{
-            Connection myConObj = DbUtils.connectDB();
+            Connection myConObj = DbUtil.connectDB();
             mystatObj= myConObj.prepareStatement(query);
             mystatObj.setString(1, departureAirport);
             mystatObj.setString(2, arrivalAirport);

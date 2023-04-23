@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Date;
-import static util.DbUtils.*;
+import static util.DbUtil.*;
 
 
 public class Flight implements DataEntity {
