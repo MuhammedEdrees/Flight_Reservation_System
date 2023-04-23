@@ -135,6 +135,19 @@ public class Flight implements DataEntity {
         update();
     }
     
+    public void setAll(String departureAirport, String arrivalAirport, Date flightDate, String departureTime, String flightDuration, double basePrice, String airline, int seatCapacity, int availableSeats) {
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        this.flightDate = flightDate;
+        this.departureTime = departureTime;
+        this.flightDuration = flightDuration;
+        this.basePrice = basePrice;
+        this.airline = airline;
+        this.seatCapacity = seatCapacity;
+        this.availableSeats = availableSeats;
+        update();
+    }
+    
     public static String[] getAirports() {
         return new String[]{"Dubai", "Abu Dhabi", "Veinna", "Sydney", "Melbourne", "Antwerp", "Brussels", "Sao Paulo",
             "Rio de Janeiro", "Manama", "Shanghai", "Beijing", "Copnheagne", "Alexandria", "Cairo",
