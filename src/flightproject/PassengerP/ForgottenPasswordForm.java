@@ -1,5 +1,6 @@
 package flightproject.PassengerP;
 
+import data.Request;
 import flightproject.DBConnection;
 import flightproject.LoginpGUI;
 import flightproject.flightProject;
@@ -15,7 +16,7 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
     Connection myconObj = DBConnection.connectDB();
     Statement mystatObj = null;
     ResultSet myresObj = null;
-    String name, username, eMail, phoneNumber;
+    String name, username, email, phoneNumber;
     public ForgottenPasswordForm() {
         initComponents();
         DBConnection.connectDB();
@@ -210,26 +211,28 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         //assign each data field to a corrosponding variable
         name = FullNameField.getText().trim();
         username = UserNameField.getText().trim();
-        eMail = EmailField.getText().trim();
+        email = EmailField.getText().trim();
         phoneNumber = PhoneNumberField.getText().trim();
+        
         
         int id = flightProject.generateID("REQUESTS");
         
         //Check if all data fields are filled with data.
-        if (name.equals("") || username.equals("")  || eMail.equals("") || phoneNumber.equals("")){
+        if (name.equals("") || username.equals("")  || email.equals("") || phoneNumber.equals("")){
             JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
         }else{
+            Request req1=new Request(name,username,email,phoneNumber);
             //Check if passwords are matched
-                try{
-                    //add entry to the USERS database and go back to Login UI
-                    mystatObj = myconObj.createStatement();
-                    mystatObj.executeUpdate("INSERT INTO ROOT.REQUESTS " + "VALUES ("+id+",'"+name+"','"+username+"','"+eMail+"','"+phoneNumber+"')");
-                    JOptionPane.showMessageDialog(null, "Request is sent!");
-                    new LoginpGUI().setVisible(true);
-                    dispose();
-                }catch(SQLException e){
-                    JOptionPane.showMessageDialog(null, e);
-                }
+//                try{
+//                    //add entry to the USERS database and go back to Login UI
+//                    mystatObj = myconObj.createStatement();
+//                    mystatObj.executeUpdate("INSERT INTO ROOT.REQUESTS " + "VALUES ("+id+",'"+name+"','"+username+"','"+eMail+"','"+phoneNumber+"')");
+//                    JOptionPane.showMessageDialog(null, "Request is sent!");
+//                    new LoginpGUI().setVisible(true);
+//                    dispose();
+//                }catch(SQLException e){
+//                    JOptionPane.showMessageDialog(null, e);
+//                }
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 

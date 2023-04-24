@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import static utils.DbUtils.*;
+import static util.DbUtil.*;
 
 public class FlightAgent extends User {
     private Connection myconObj;
@@ -14,24 +14,40 @@ public class FlightAgent extends User {
     public FlightAgent(int id) {
         super(id);
     }
-    public FlightAgent(String fullname, String username, String password, String email) {
-        super(fullname, username, password, email);
-    }
-    public static int getID(String username){
-        String query = "select * from ROOT.FLIGHTAGENTS WHERE USERNAME=?";
-        Connection myconObj = connectDB();
-        PreparedStatement mystatObj;
-        ResultSet myresObj;
+    public FlightAgent(String username)
+    {
+         String query = "select * from ROOT.FLIGHTAGENTS WHERE USERNAME=?";
+        myconObj = connectDB();
         try{
             mystatObj= myconObj.prepareStatement(query);
             mystatObj.setString(1, username);
             myresObj = mystatObj.executeQuery();
             if (myresObj.next()){
-                return myresObj.getInt(1);
+                id= myresObj.getInt(1);
             }
         }catch(SQLException e){
         }
-        return -1;
+    }
+    public FlightAgent(String fullname, String username, String password, String email) {
+        super(fullname, username, password, email);
+    }
+    public int getID( ){
+        load();
+        return id;
+//        String query = "select * from ROOT.FLIGHTAGENTS WHERE USERNAME=?";
+//        Connection myconObj = connectDB();
+//        PreparedStatement mystatObj;
+//        ResultSet myresObj;
+//        try{
+//            mystatObj= myconObj.prepareStatement(query);
+//            mystatObj.setString(1, username);
+//            myresObj = mystatObj.executeQuery();
+//            if (myresObj.next()){
+//                return myresObj.getInt(1);
+//            }
+//        }catch(SQLException e){
+//        }
+//        return -1;
     }
     private void createFlightAgent() {
         String createQuery = "INSERT INTO ROOT.FLIGHTAGENTS VALUES (?,?,?,?,?)";

@@ -3,7 +3,9 @@ import flightproject.AdminP.AdminUI;
 import flightproject.FlightAgentP.FlightAgentUI;
 import flightproject.PassengerP.ForgottenPasswordForm;
 import flightproject.PassengerP.RegisterationForm;
-import flightproject.PassengerP.Passenger;
+import data.Passenger;
+import data.FlightAgent;
+import data.Admin;
 import flightproject.PassengerP.WelcomeScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -229,25 +231,28 @@ public class LoginpGUI extends javax.swing.JFrame {
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
         username = usernamefield.getText();
         password = passwordfield.getText();
-        if(Passenger.getID(username) != -1){
-            flightProject.currentUserID = Passenger.getID(username);
-            if(password.equals(Passenger.getPassword(flightProject.currentUserID))){
+        Passenger pass=new Passenger(username);
+        FlightAgent agent1= new FlightAgent(username);
+        Admin admin1=new Admin(username);
+        if(pass.getID() != -1){
+            flightProject.currentUserID = pass.getID();
+            if(password.equals(pass.getPassword())){
                 new WelcomeScreen().setVisible(true);
                 dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Wrong Password!");
             }
-        }else if(flightproject.FlightAgentP.FlightAgent.getID(username) != -1){
-            flightProject.currentUserID = flightproject.FlightAgentP.FlightAgent.getID(username);
-            if(password.equals(flightproject.FlightAgentP.FlightAgent.getPassword(flightProject.currentUserID))){
+        }else if(agent1.getID() != -1){
+            flightProject.currentUserID = agent1.getID();
+            if(password.equals(agent1.getPassword())){
                 new FlightAgentUI().setVisible(true);
                 dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Wrong Password!");
             }
-        }else if(flightproject.AdminP.Admin.getID(username) != -1){
-            flightProject.currentUserID = flightproject.AdminP.Admin.getID(username);
-            if(password.equals(flightproject.AdminP.Admin.getPassword(flightProject.currentUserID))){
+        }else if(admin1.getID() != -1){
+            flightProject.currentUserID = admin1.getID();
+            if(password.equals(admin1.getPassword())){
                 new AdminUI().setVisible(true);
                 dispose();
             }else{

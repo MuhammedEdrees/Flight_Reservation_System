@@ -7,27 +7,39 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import static utils.DbUtils.*;
+import static util.DbUtil.*;
 
 public class Payment implements DataEntity {
 
     private int paymentId, reservationId;
-    private String cardType, cardHolderName;
-    private long cardNumber;
+    private String cardType, cardHolderName,cardNumber,cardCVV;
     private double paymentAmount;
-    private short cardCVV;
     private Date expirationDate;
     private Connection myconObj;
     private PreparedStatement mystatObj;
     private ResultSet myresObj;
 
-    public Payment(int paymentId) {
+    /*public Payment(int paymentId) {
         this.paymentId = paymentId;
         load();
     }
+*/
+    public Payment(int reservationId) {
+        String query = "select * from ROOT.PAYMENTS WHERE RESERVATIONID=?";
+        myconObj = connectDB();
+        try{
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setInt(1, reservationId);
+            myresObj = mystatObj.executeQuery();
+            if (myresObj.next()){
+                this.paymentId = myresObj.getInt(1);
+                load();
+            }
+        }catch(SQLException e){
+        }
+    }
 
-    public Payment(int paymentId, int reservationId, String cardType, String cardHolderName, long cardNumber, double paymentAmount, short cardCVV, Date expirationDate) {
-        this.paymentId = paymentId;
+    public Payment(int reservationId, String cardType, String cardHolderName, String cardNumber, double paymentAmount, String cardCVV, Date expirationDate) {
         this.reservationId = reservationId;
         this.cardType = cardType;
         this.cardHolderName = cardHolderName;
@@ -78,12 +90,12 @@ public class Payment implements DataEntity {
         update();
     }
 
-    public long getCardNumber() {
+    public String getCardNumber() {
         load();
         return cardNumber;
     }
 
-    public void setCardNumber(long cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
         update();
     }
@@ -98,12 +110,12 @@ public class Payment implements DataEntity {
         update();
     }
 
-    public short getCardCVV() {
+    public String getCardCVV() {
         load();
         return cardCVV;
     }
 
-    public void setCardCVV(short cardCVV) {
+    public void setCardCVV(String cardCVV) {
         this.cardCVV = cardCVV;
         update();
     }
@@ -122,17 +134,16 @@ public class Payment implements DataEntity {
     public void createPayment() {
         String createQuery = "INSERT INTO ROOT.PAYMENTS VALUES (?,?,?,?,?,?,?,?)";
         myconObj = connectDB();
-        
         try {
             mystatObj = myconObj.prepareStatement(createQuery);
             mystatObj.setInt(1, paymentId);
             mystatObj.setString(2, cardType);
-            mystatObj.setLong(3, cardNumber);
+            mystatObj.setString(3, cardNumber);
             mystatObj.setString(4, cardHolderName);
-            mystatObj.setDate(5, (java.sql.Date) expirationDate);
+            mystatObj.setDate(5, new java.sql.Date (expirationDate.getTime()));
             mystatObj.setInt(6, reservationId);
             mystatObj.setDouble(7, paymentAmount);
-            mystatObj.setShort(8, cardCVV);
+            mystatObj.setString(8, cardCVV);
             mystatObj.executeUpdate();
         } catch (SQLException e) {
         }
@@ -146,18 +157,18 @@ public class Payment implements DataEntity {
 
     @Override
     public void update() {
-        String updateQuery = "Update ROOT.PAYMENTS Set paymentId = ?, cardType = ?, cardNumber = ?, cardHolderName = ?, expirationDate = ?, reservationId = ?, paymentAmount = ?, cardCVV = ?";
+        String updateQuery = "Update ROOT.PAYMENTS Set CARDTYPE = ?, CARDNUMBER = ?, CARDHOLDERNAME = ?, EXPIRATIONDATE = ?, RESERVATIONID = ?, PAYMENTAMOUNT = ?, CVV = ? where ID= ?";
         myconObj = connectDB();
         try {
             mystatObj = myconObj.prepareStatement(updateQuery);
             mystatObj.setInt(1, paymentId);
             mystatObj.setString(2, cardType);
-            mystatObj.setLong(3, cardNumber);
+            mystatObj.setString(3, cardNumber);
             mystatObj.setString(4, cardHolderName);
-            mystatObj.setDate(5, (java.sql.Date) expirationDate);
+            mystatObj.setDate(5, new java.sql.Date (expirationDate.getTime()));
             mystatObj.setInt(6, reservationId);
             mystatObj.setDouble(7, paymentAmount);
-            mystatObj.setShort(8, cardCVV);
+            mystatObj.setString(8, cardCVV);
             mystatObj.executeUpdate();
         } catch (SQLException ex) {
         }
@@ -165,7 +176,7 @@ public class Payment implements DataEntity {
 
     @Override
     public void load() {
-        String loadQuery = "select * from ROOT.PAYMNETS WHERE ID=?";
+        String loadQuery = "select * from ROOT.PAYMENTS WHERE ID=?";
         myconObj = connectDB();
         try {
             mystatObj = myconObj.prepareStatement(loadQuery);
@@ -173,12 +184,12 @@ public class Payment implements DataEntity {
             myresObj = mystatObj.executeQuery();
             if (myresObj.next()) {
                 this.cardType = myresObj.getString(2);
-                this.cardNumber = myresObj.getLong(3);
+                this.cardNumber = myresObj.getString(3);
                 this.cardHolderName = myresObj.getString(4);
-                this.expirationDate = myresObj.getDate(5);
+                this.expirationDate = new Date (myresObj.getDate(5).getTime());
                 this.reservationId = myresObj.getInt(6);
                 this.paymentAmount = myresObj.getDouble(7);
-                this.cardCVV = myresObj.getShort(8);      
+                this.cardCVV = myresObj.getString(8);      
             }
         } catch (SQLException e) {
         }

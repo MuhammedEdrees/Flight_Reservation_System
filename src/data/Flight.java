@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Date;
-import static utils.DbUtils.*;
+import static util.DbUtil.*;
 
 
 public class Flight implements DataEntity {
@@ -135,6 +135,28 @@ public class Flight implements DataEntity {
         update();
     }
     
+    public void setAll(String departureAirport, String arrivalAirport, Date flightDate, String departureTime, String flightDuration, double basePrice, String airline, int seatCapacity, int availableSeats) {
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        this.flightDate = flightDate;
+        this.departureTime = departureTime;
+        this.flightDuration = flightDuration;
+        this.basePrice = basePrice;
+        this.airline = airline;
+        this.seatCapacity = seatCapacity;
+        this.availableSeats = availableSeats;
+        update();
+    }
+    
+    public static String[] getAirports() {
+        return new String[]{"Dubai", "Abu Dhabi", "Veinna", "Sydney", "Melbourne", "Antwerp", "Brussels", "Sao Paulo",
+            "Rio de Janeiro", "Manama", "Shanghai", "Beijing", "Copnheagne", "Alexandria", "Cairo",
+            "Sharm El Sheikh", "Luxor", "Aswan", "Hurgada", "Berlin", "Munich", "Cologne", "Frankfurt",
+            "Mumbai", "Delhi", "Rome", "Milan", "Tokyo", "Beirut", "Casablanca", "Marrakesh", "Amsterdam",
+            "Oslo", "Doha", "Makkah", "Madinah", "Riyadh", "Jeddah", "Cape Town", "Madrid", "Barcelona",
+            "Stockholm", "Basel", "Zurich", "Geneva", "Tunis", "Istanbul", "London", "Manchester", "Liverpool",
+            "New York", "Los Angeles", "Chicago"};
+    }
     private void createFlight() {
         String createQuery = "INSERT INTO ROOT.FLIGHTS VALUES (?,?,?,?,?,?,?,?,?,?)";
         myconObj = connectDB();

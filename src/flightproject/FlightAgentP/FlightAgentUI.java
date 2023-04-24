@@ -1,80 +1,83 @@
-
 package flightproject.FlightAgentP;
 
-import flightproject.DBConnection;
-import flightproject.FlightP.Flight;
+import util.DbUtil;
+import data.Flight;
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import net.proteanit.sql.DbUtils;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class FlightAgentUI extends javax.swing.JFrame {
 
-    Connection MyconObj=null;
-    Statement MystaObj=null;
-    ResultSet MyresObj=null;
-    Date flightDate;
-    int flightId;
-    String departureAirport, arrivalAirport, departureTime, flightDuration, airline;
-    double basePrice;
-    int SeatCapacity;
+    private Date flightDate;
+    private int flightId, seatCapacity;
+    private String departureAirport, arrivalAirport, departureTime, flightDuration, airline;
+    private double basePrice;
+
+    private Connection MyconObj = null;
+    private Statement MystaObj = null;
+    private ResultSet MyresObj = null;
+
     public FlightAgentUI() {
         initComponents();
-        DBConnection.connectDB();
+        MyconObj = DbUtil.connectDB();
         departureAirportBox.setModel(new DefaultComboBoxModel<>(flightproject.FlightP.Flight.getAirports()));
         arrivalAirportBox.setModel(new DefaultComboBoxModel<>(flightproject.FlightP.Flight.getAirports()));
         updateFlightsTable();
         ReservationsPanal.setVisible(false);
         FlightManagementPanel.setVisible(true);
         FlightManagementTabPanel.setBackground(new Color(94, 170, 211));
-        ReservationsTabPanel.setBackground(new Color (53, 146, 196));
+        ReservationsTabPanel.setBackground(new Color(53, 146, 196));
     }
 
-    public final void updateFlightsTable(){
-        try{
-        MyconObj=DriverManager.getConnection("jdbc:derby://localhost:1527/flight project DB", "root", "root");
-        MystaObj=MyconObj.createStatement();
-        MyresObj=MystaObj.executeQuery("SELECT * FROM ROOT.FLIGHTS");
-        FlightsTable.setModel(DbUtils.resultSetToTableModel(MyresObj));
-       } catch(SQLException e){   
+    public final void updateFlightsTable() {
+        try {
+            MystaObj = MyconObj.createStatement();
+            MyresObj = MystaObj.executeQuery("SELECT * FROM ROOT.FLIGHTS");
+            FlightsTable.setModel(DbUtils.resultSetToTableModel(MyresObj));
+        } catch (SQLException e) {
         }
     }
-    public void updateReservationsTable(){
-        try{
-        MyconObj=DriverManager.getConnection("jdbc:derby://localhost:1527/flight project DB", "root", "root");
-        MystaObj=MyconObj.createStatement();
-        MyresObj=MystaObj.executeQuery("SELECT * FROM ROOT.RESERVATIONS");
-        ReservationsTable.setModel(DbUtils.resultSetToTableModel(MyresObj));
-       } catch(SQLException e){
-       }
+
+    public void updateReservationsTable() {
+        try {
+            MystaObj = MyconObj.createStatement();
+            MyresObj = MystaObj.executeQuery("SELECT * FROM ROOT.RESERVATIONS");
+            ReservationsTable.setModel(DbUtils.resultSetToTableModel(MyresObj));
+        } catch (SQLException e) {
+        }
     }
-    public void getFlightFields(){
-        departureAirport = (String)departureAirportBox.getSelectedItem();
+
+    public void getFlightFields() {
+        departureAirport = (String) departureAirportBox.getSelectedItem();
         arrivalAirport = (String) arrivalAirportBox.getSelectedItem();
         departureTime = departureTimeTxt.getText();
         flightDuration = durationTxt.getText();
         airline = airlineTxt.getText();
         basePrice = Double.parseDouble(priceTxt.getText());
         flightDate = flightDateChooser.getDate();
-        SeatCapacity = Integer.parseInt(SeatCapacityTxt.getText().trim());
+        seatCapacity = Integer.parseInt(seatCapacityTxt.getText().trim());
     }
-    public void clearFlightFields(){
+
+    public void clearFlightFields() {
         idTxt.setText("");
         airlineTxt.setText("");
         durationTxt.setText("");
         departureTimeTxt.setText("");
+        flightDateChooser.setDate(null);
         priceTxt.setText("");
-        SeatCapacityTxt.setText("");
+        seatCapacityTxt.setText("");
     }
-    public boolean emptyField(){
-        if(airlineTxt.getText().equals("") || durationTxt.getText().equals("") || departureTimeTxt.getText().equals("") || priceTxt.getText().equals("") || SeatCapacityTxt.getText().equals("")){
+
+    public boolean emptyField() {
+        if (airlineTxt.getText().equals("") || durationTxt.getText().equals("") || departureTimeTxt.getText().equals("") || priceTxt.getText().equals("") || seatCapacityTxt.getText().equals("")) {
             return true;
         }
         return false;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -109,7 +112,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
         DeleteButton = new javax.swing.JButton();
         AddButton = new javax.swing.JButton();
         SeatCapacityLabel = new javax.swing.JLabel();
-        SeatCapacityTxt = new javax.swing.JTextField();
+        seatCapacityTxt = new javax.swing.JTextField();
         ReservationsPanal = new javax.swing.JPanel();
         ReservationsHeaderLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -213,19 +216,15 @@ public class FlightAgentUI extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(FlightsTable);
 
-        idTxt.setBackground(new java.awt.Color(255, 255, 255));
         idTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         idTxt.setForeground(new java.awt.Color(51, 51, 51));
 
-        durationTxt.setBackground(new java.awt.Color(255, 255, 255));
         durationTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         durationTxt.setForeground(new java.awt.Color(51, 51, 51));
 
-        departureTimeTxt.setBackground(new java.awt.Color(255, 255, 255));
         departureTimeTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         departureTimeTxt.setForeground(new java.awt.Color(51, 51, 51));
 
-        priceTxt.setBackground(new java.awt.Color(255, 255, 255));
         priceTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         priceTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -257,7 +256,6 @@ public class FlightAgentUI extends javax.swing.JFrame {
         BasePriceLabel.setForeground(new java.awt.Color(51, 51, 51));
         BasePriceLabel.setText("Base Price                 :");
 
-        airlineTxt.setBackground(new java.awt.Color(255, 255, 255));
         airlineTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         airlineTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -268,11 +266,9 @@ public class FlightAgentUI extends javax.swing.JFrame {
         AirlineLabel.setForeground(new java.awt.Color(51, 51, 51));
         AirlineLabel.setText("Airline                           :");
 
-        departureAirportBox.setBackground(new java.awt.Color(255, 255, 255));
         departureAirportBox.setForeground(new java.awt.Color(51, 51, 51));
         departureAirportBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        arrivalAirportBox.setBackground(new java.awt.Color(255, 255, 255));
         arrivalAirportBox.setForeground(new java.awt.Color(51, 51, 51));
         arrivalAirportBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -309,9 +305,8 @@ public class FlightAgentUI extends javax.swing.JFrame {
         SeatCapacityLabel.setForeground(new java.awt.Color(51, 51, 51));
         SeatCapacityLabel.setText("Seat Capacity          :");
 
-        SeatCapacityTxt.setBackground(new java.awt.Color(255, 255, 255));
-        SeatCapacityTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        SeatCapacityTxt.setForeground(new java.awt.Color(51, 51, 51));
+        seatCapacityTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        seatCapacityTxt.setForeground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout FlightManagementPanelLayout = new javax.swing.GroupLayout(FlightManagementPanel);
         FlightManagementPanel.setLayout(FlightManagementPanelLayout);
@@ -338,7 +333,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
                             .addComponent(SeatCapacityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(FlightManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SeatCapacityTxt)
+                            .addComponent(seatCapacityTxt)
                             .addComponent(durationTxt))))
                 .addGap(115, 115, 115)
                 .addGroup(FlightManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -437,7 +432,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FlightManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SeatCapacityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SeatCapacityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(seatCapacityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(FlightManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DeleteButton)
@@ -486,7 +481,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
             .addGroup(ReservationsPanalLayout.createSequentialGroup()
                 .addComponent(ReservationsHeaderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -528,10 +523,11 @@ public class FlightAgentUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        if(!emptyField() || idTxt.getText().equals("")){
-            getFlightFields();
+        if (!emptyField() || idTxt.getText().equals("")) {
             flightId = Integer.parseInt(idTxt.getText());
-            Flight.updateFlight(flightId, departureAirport, arrivalAirport, departureTime, flightDuration, flightDate, basePrice, airline, SeatCapacity);
+            getFlightFields();
+            Flight flight = new Flight(flightId);
+            flight.setAll(departureAirport, arrivalAirport, flightDate, departureTime, flightDuration, basePrice, airline, seatCapacity, flight.getAvailableSeats() - (flight.getSeatCapacity() - seatCapacity));
             updateFlightsTable();
             clearFlightFields();
         } else {
@@ -541,15 +537,16 @@ public class FlightAgentUI extends javax.swing.JFrame {
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         flightId = Integer.parseInt(idTxt.getText());
-        Flight.deleteFlight(flightId);
+        Flight flight = new Flight(flightId);
+        flight.delete();
         clearFlightFields();
         updateFlightsTable();
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
-        if(!emptyField()){
+        if (!emptyField()) {
             getFlightFields();
-            Flight.createNewFlight(departureAirport, arrivalAirport, departureTime, flightDuration, flightDate, basePrice, airline, SeatCapacity);
+            Flight flight1 = new Flight(departureAirport, arrivalAirport, flightDate, departureTime, flightDuration, basePrice, airline, seatCapacity, seatCapacity);
             updateFlightsTable();
             clearFlightFields();
         } else {
@@ -561,7 +558,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
         ReservationsPanal.setVisible(false);
         FlightManagementPanel.setVisible(true);
         FlightManagementTabPanel.setBackground(new Color(94, 170, 211));
-        ReservationsTabPanel.setBackground(new Color (53, 146, 196));
+        ReservationsTabPanel.setBackground(new Color(53, 146, 196));
         updateFlightsTable();
     }//GEN-LAST:event_FlightManagementTabPanelMouseClicked
 
@@ -569,7 +566,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
         ReservationsPanal.setVisible(true);
         FlightManagementPanel.setVisible(false);
         FlightManagementTabPanel.setBackground(new Color(53, 146, 196));
-        ReservationsTabPanel.setBackground(new Color (94, 170, 211));
+        ReservationsTabPanel.setBackground(new Color(94, 170, 211));
         updateReservationsTable();
     }//GEN-LAST:event_ReservationsTabPanelMouseClicked
 
@@ -628,7 +625,6 @@ public class FlightAgentUI extends javax.swing.JFrame {
     private javax.swing.JPanel ReservationsTabPanel;
     private javax.swing.JTable ReservationsTable;
     private javax.swing.JLabel SeatCapacityLabel;
-    private javax.swing.JTextField SeatCapacityTxt;
     private javax.swing.JPanel SidePanel;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField airlineTxt;
@@ -642,6 +638,7 @@ public class FlightAgentUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField priceTxt;
+    private javax.swing.JTextField seatCapacityTxt;
     private javax.swing.JLabel showFlightsPanal;
     private javax.swing.JLabel showReservPanal;
     // End of variables declaration//GEN-END:variables

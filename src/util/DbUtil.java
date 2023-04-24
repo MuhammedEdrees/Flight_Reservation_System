@@ -1,10 +1,10 @@
-package utils;
+package util;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-public class DbUtils {
+public class DbUtil {
     private static Connection myconObj = connectDB();
     private static Statement mystatObj = null;
     private static ResultSet myresObj = null;
