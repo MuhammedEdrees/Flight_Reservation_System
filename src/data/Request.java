@@ -16,6 +16,10 @@ public class Request implements DataEntity{
     PreparedStatement mystatObj;
     ResultSet myresObj;
     
+    public Request(int id){
+        this.id = id;
+        load();
+    }
     public Request (String fullname, String username, String email, String phonenumber)
     {
         this.fullname = fullname;
