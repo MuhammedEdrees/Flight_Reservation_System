@@ -15,6 +15,20 @@ public class Passenger extends User {
     public Passenger(int id) {
         super(id);
     }
+    public Passenger(String username)
+    {
+        String query = "select * from ROOT.PASSENGERS WHERE USERNAME=?";
+        myconObj = connectDB();
+        try{
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setString(1, username);
+            myresObj = mystatObj.executeQuery();
+            if (myresObj.next()){
+                id= myresObj.getInt(1);
+            }
+        }catch(SQLException e){
+        }
+    }
     public Passenger(String fullname, String username, String password, Date dateOfBirth, String phonenumber, String email) {
         super();
         this.fullname = fullname;
@@ -42,21 +56,23 @@ public class Passenger extends User {
         update();
     }
     
-    public static int getID(String username){
-        String query = "select * from ROOT.PASSENGERS WHERE USERNAME=?";
-        Connection myconObj = connectDB();
-        PreparedStatement mystatObj;
-        ResultSet myresObj;
-        try{
-            mystatObj= myconObj.prepareStatement(query);
-            mystatObj.setString(1, username);
-            myresObj = mystatObj.executeQuery();
-            if (myresObj.next()){
-                return myresObj.getInt(1);
-            }
-        }catch(SQLException e){
-        }
-        return -1;
+    public int getID(){
+        load();
+        return id;
+//        String query = "select * from ROOT.PASSENGERS WHERE USERNAME=?";
+//        Connection myconObj = connectDB();
+//        PreparedStatement mystatObj;
+//        ResultSet myresObj;
+//        try{
+//            mystatObj= myconObj.prepareStatement(query);
+//            mystatObj.setString(1, username);
+//            myresObj = mystatObj.executeQuery();
+//            if (myresObj.next()){
+//                return myresObj.getInt(1);
+//            }
+//        }catch(SQLException e){
+//        }
+//        return -1;
     }
     //insert new entry to the passengers table
     private void createPassenger(){
