@@ -19,10 +19,10 @@ public class Validation {
         return !(password == null || !password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\\$&*~]).{8,64}$"));
     }
     public boolean validateEmail(String email){
-        return true;
+        return !(email == null || !email.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"));
     }
     public boolean validatePhoneNumber(String pnumber) {
-        return true;
+        return !(pnumber == null || !pnumber.matches("^(?:[+0]9)?[0-9]{10,12}$"));
     }
     public boolean validateDateOfBirth(Date bdate){
         return !(bdate == null || bdate.before(new Date()));
@@ -32,8 +32,6 @@ public class Validation {
         return !(airport == null || !airport.matches("[a-zA-z ]*"));
     }
     public boolean validateDepartureDate (Date date) {
-        // must be future date
-        
         return !(date == null || date.before(new Date()));
     }
     public boolean validateTime(String time) {
@@ -70,6 +68,7 @@ public class Validation {
     public boolean validateCvv(String cvv) {
         return !(cvv == null ||!cvv.matches("[0-9]{3}"));
     }
+    /*  Reservation Attributes  */
     public boolean validatePassportNumber(String passportNum) {
         return !(passportNum == null || passportNum.matches("[0-9A-Z]*"));
     }
