@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import model.Reservation;
-import static util.DbUtil.connectDB;
 
 public class ReservationRepository implements Repository<Reservation> {
     
@@ -20,7 +19,7 @@ public class ReservationRepository implements Repository<Reservation> {
         myconObj = util.DbUtil.connectDB();
     }
     @Override
-        public void create(Reservation reservation){
+    public void create(Reservation reservation){
         java.sql.Date sqlDate = new java.sql.Date(reservation.getPassExpiry().getTime());
         try{
             mystatObj = myconObj.prepareStatement("Insert Into ROOT.RESERVATIONS values (?,?,?,?,?,?,?,?,?,?)");

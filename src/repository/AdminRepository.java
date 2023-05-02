@@ -76,8 +76,42 @@ public class AdminRepository implements Repository<Admin> {
 
     @Override
     public ArrayList<Admin> getAll() {
-        ArrayList<Admin> adminsList = new ArrayList<>();
-        return adminsList;
+        ArrayList<Admin> list = new ArrayList<>();
+        String fetchQuery = "select * from ROOT.ADMINS";
+        try {
+            mystatObj= myconObj.prepareStatement(fetchQuery);
+            myresObj = mystatObj.executeQuery();
+            while (myresObj.next()){
+                Admin admin = new Admin();
+                admin.setId(myresObj.getInt(1));
+                admin.setUsername(myresObj.getString(2));
+                admin.setPassword(myresObj.getString(3));
+                admin.setFullname(myresObj.getString(4));
+                admin.setEmail(myresObj.getString(5));
+                list.add(admin);
+            }
+        } catch(SQLException e) {
+        } 
+        return list;
+    }
+    public Admin findByUsername (String username) {
+        String query = "select * from ROOT.ADMINS WHERE USERNAME=?";
+        try{
+            Admin admin = new Admin();
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setString(1, username);
+            myresObj = mystatObj.executeQuery();
+            if (myresObj.next()){
+                admin.setId(myresObj.getInt(1));
+                admin.setUsername(myresObj.getString(2));
+                admin.setPassword(myresObj.getString(3));
+                admin.setFullname(myresObj.getString(4));
+                admin.setEmail(myresObj.getString(5));
+                return admin;
+            } 
+        }catch(SQLException e){
+        }
+        return null;
     }
    
 }
