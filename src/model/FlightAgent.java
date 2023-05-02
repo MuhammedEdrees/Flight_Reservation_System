@@ -62,12 +62,10 @@ public class FlightAgent extends User {
             mystatObj.executeUpdate();
         }catch(SQLException e){}
     }
-    @Override
     public void create(){
         this.id = generateID("FLIGHTAGENTS");
         createFlightAgent();
     }
-    @Override
     public void update(){
         String updateQuery = "Update ROOT.FLIGHTAGENTS Set Fullname = ?, Email = ?, Username = ?, Password = ? where ID = ?";
         myconObj = connectDB();
@@ -81,7 +79,6 @@ public class FlightAgent extends User {
             mystatObj.executeUpdate();
         } catch (SQLException ex){}
     }
-    @Override
     public void read() {
         String loadQuery = "select * from ROOT.FLIGHTAGENTS WHERE ID=?";
         myconObj = connectDB();
@@ -98,7 +95,6 @@ public class FlightAgent extends User {
         }catch(SQLException e){
         }
     }
-    @Override
     public void delete() {
         String deleteQuery = "Delete from ROOT.FLIGHTAGENTS where id = " + String.valueOf(this.id);
         myconObj = connectDB();

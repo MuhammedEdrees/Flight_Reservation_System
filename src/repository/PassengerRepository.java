@@ -98,6 +98,7 @@ public class PassengerRepository implements Repository<Passenger> {
                 passenger.setDateOfBirth(new Date(myresObj.getDate(5).getTime()));
                 passenger.setPhoneNumber(myresObj.getString(6));
                 passenger.setEmail(myresObj.getString(7));
+                passengerList.add(passenger);
             }
         } catch(SQLException e) {
         } 
@@ -123,5 +124,14 @@ public class PassengerRepository implements Repository<Passenger> {
         }catch(SQLException e){
         }
         return null;
+    }
+    
+    public static void main(String args[]) {
+        PassengerRepository repo = new PassengerRepository();
+        ArrayList<Passenger> list = repo.getAll();
+        for(Passenger pass: list){
+            System.out.println(pass.getUsername());
+        }
+        //System.out.println(passenger.getUsername());
     }
 }
