@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 import static util.DbUtil.connectDB;
 
 public class AdminRepository implements Repository<Admin> {
@@ -29,7 +28,7 @@ public class AdminRepository implements Repository<Admin> {
             mystatObj.setInt(1, admin.getId());
             mystatObj.setString(2, admin.getUsername());
             mystatObj.setString(3, admin.getPassword());
-            mystatObj.setString(4, admin.getFullName());
+            mystatObj.setString(4, admin.getFullname());
             mystatObj.setString(5, admin.getEmail());
             mystatObj.executeUpdate();
         }catch(SQLException e){}
@@ -59,7 +58,7 @@ public class AdminRepository implements Repository<Admin> {
             mystatObj = myconObj.prepareStatement(updateQuery);
             mystatObj.setString(1, admin.getUsername());
             mystatObj.setString(2, admin.getPassword());
-            mystatObj.setString(3, admin.getFullName());
+            mystatObj.setString(3, admin.getFullname());
             mystatObj.setString(4, admin.getEmail());
             mystatObj.setInt(5, admin.getId());
             mystatObj.executeUpdate();
