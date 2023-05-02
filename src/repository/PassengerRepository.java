@@ -125,13 +125,4 @@ public class PassengerRepository implements Repository<Passenger> {
         }
         return null;
     }
-    
-    public static void main(String args[]) {
-        PassengerRepository repo = new PassengerRepository();
-        ArrayList<Passenger> list = repo.getAll();
-        for(Passenger pass: list){
-            System.out.println(pass.getUsername());
-        }
-        //System.out.println(passenger.getUsername());
-    }
 }

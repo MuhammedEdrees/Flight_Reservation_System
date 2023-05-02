@@ -46,12 +46,10 @@ public class Admin extends User {
             mystatObj.executeUpdate();
         }catch(SQLException e){}
     }
-    @Override
     public void create(){
         this.id = generateID("ADMINS");
         createAdmin();
     }
-    @Override
     public void update(){
         String updateQuery = "Update ROOT.ADMINS Set Username = ?, Password = ?, Fullname = ?, Email = ? where ID = ?";
         myconObj = connectDB();
@@ -65,7 +63,6 @@ public class Admin extends User {
             mystatObj.executeUpdate();
         } catch (SQLException ex){}
     }
-    @Override
     public void read() throws Exception{
         myconObj = connectDB();
         String readQuery = "select * from ROOT.ADMINS WHERE ID=?";
@@ -84,7 +81,6 @@ public class Admin extends User {
         }catch(SQLException e){
         }
     }
-    @Override
     public void delete() {
         String deleteQuery = "Delete from ROOT.ADMINS where id = " + String.valueOf(this.id);
         myconObj = connectDB();
