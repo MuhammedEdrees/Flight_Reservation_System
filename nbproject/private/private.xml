@@ -4,10 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/W:/Studies/3rd%20Year/Software%20Engineering%202/Project/src/repository/PassengerRepository.java</file>
-            <file>file:/W:/Studies/3rd%20Year/Software%20Engineering%202/Project/src/model/FlightAgent.java</file>
-            <file>file:/W:/Studies/3rd%20Year/Software%20Engineering%202/Project/src/repository/Repository.java</file>
-            <file>file:/W:/Studies/3rd%20Year/Software%20Engineering%202/Project/src/util/Validation.java</file>
-            <file>file:/W:/Studies/3rd%20Year/Software%20Engineering%202/Project/src/model/Admin.java</file>
+            <file>file:/W:/Studies/3rd%20Year/Software%20Engineering%202/Project/src/model/Request.java</file>
+            <file>file:/W:/Studies/3rd%20Year/Software%20Engineering%202/Project/src/repository/RequestRepository.java</file>
             <file>file:/W:/Studies/3rd%20Year/Software%20Engineering%202/Project/src/model/Passenger.java</file>
         </group>
     </open-files>
