@@ -1,7 +1,7 @@
 package ui;
 
 import util.DbUtil;
-import data.Flight;
+import model.Flight;
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.DefaultComboBoxModel;

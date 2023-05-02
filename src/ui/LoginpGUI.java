@@ -1,7 +1,7 @@
 package ui;
-import data.Passenger;
-import data.FlightAgent;
-import data.Admin;
+import model.Passenger;
+import model.FlightAgent;
+import model.Admin;
 import flightproject.flightProject;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

@@ -5,9 +5,9 @@ import java.awt.Color;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
-import data.FlightAgent;
-import data.Passenger;
-import data.Request;
+import model.FlightAgent;
+import model.Passenger;
+import model.Request;
 
 
 public class AdminUI extends javax.swing.JFrame {

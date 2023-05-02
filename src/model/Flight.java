@@ -1,4 +1,4 @@
-package data;
+package model;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -19,7 +19,7 @@ public class Flight implements DataEntity {
     private ResultSet myresObj;
     public Flight(int id) {
         this.id = id;
-        load();
+        read();
     }
     public Flight(String departureAirport, String arrivalAirport, Date flightDate, String departureTime, String flightDuration, double basePrice, String airline, int seatCapacity, int availableSeats) {
         this.departureAirport = departureAirport;
@@ -31,12 +31,12 @@ public class Flight implements DataEntity {
         this.airline = airline;
         this.seatCapacity = seatCapacity;
         this.availableSeats = availableSeats;
-        store();
+        create();
     }
     
     
     public int getId() {
-        load();
+        read();
         return id;
     }
 
@@ -46,7 +46,7 @@ public class Flight implements DataEntity {
     }
 
     public int getSeatCapacity() {
-        load();
+        read();
         return seatCapacity;
     }
 
@@ -56,7 +56,7 @@ public class Flight implements DataEntity {
     }
 
     public int getAvailableSeats() {
-        load();
+        read();
         return availableSeats;
     }
 
@@ -66,7 +66,7 @@ public class Flight implements DataEntity {
     }
 
     public double getBasePrice() {
-        load();
+        read();
         return basePrice;
     }
 
@@ -76,7 +76,7 @@ public class Flight implements DataEntity {
     }
 
     public Date getFlightDate() {
-        load();
+        read();
         return flightDate;
     }
 
@@ -86,7 +86,7 @@ public class Flight implements DataEntity {
     }
 
     public String getDepartureAirport() {
-        load();
+        read();
         return departureAirport;
     }
 
@@ -96,7 +96,7 @@ public class Flight implements DataEntity {
     }
 
     public String getArrivalAirport() {
-        load();
+        read();
         return arrivalAirport;
     }
 
@@ -106,7 +106,7 @@ public class Flight implements DataEntity {
     }
 
     public String getDepartureTime() {
-        load();
+        read();
         return departureTime;
     }
 
@@ -116,7 +116,7 @@ public class Flight implements DataEntity {
     }
 
     public String getFlightDuration() {
-        load();
+        read();
         return flightDuration;
     }
 
@@ -126,7 +126,7 @@ public class Flight implements DataEntity {
     }
 
     public String getAirline() {
-        load();
+        read();
         return airline;
     }
 
@@ -177,7 +177,7 @@ public class Flight implements DataEntity {
         }catch(SQLException e){}
     }
     @Override
-    public void store(){
+    public void create(){
         this.id = generateID("FLIGHTS");
         createFlight();
     }
@@ -201,7 +201,7 @@ public class Flight implements DataEntity {
         } catch (SQLException ex){}
     }
     @Override
-    public void load(){
+    public void read(){
         String loadQuery = "select * from ROOT.FLIGHTS WHERE ID=?";
         myconObj = connectDB();
         try{

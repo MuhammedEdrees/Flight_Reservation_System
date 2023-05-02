@@ -24,13 +24,13 @@ public class DbUtil {
             //Creating the Statement object
             mystatObj = myconObj.createStatement();
             //Query to get the number of rows in a table
-            String idquery = "select count(*) from ROOT."+tableName;
+            String idquery = "select max(id) from ROOT."+tableName;
             //Executing the query
             myresObj = mystatObj.executeQuery(idquery);
             //Retrieving the result
             myresObj.next();
-            int count = myresObj.getInt(1);
-            return count+1;
+            int max = myresObj.getInt(1);
+            return max + 1;
             }catch(SQLException e){
                 return -1;
             }

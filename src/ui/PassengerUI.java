@@ -22,9 +22,9 @@ import swing.EventClick;
 import swing.PanelSearch;
 import util.DbUtil;
 import util.PassengeruiUtil;
-import data.Flight;
-import data.Reservation;
-import data.Payment;
+import model.Flight;
+import model.Reservation;
+import model.Payment;
 
 public class PassengerUI extends javax.swing.JFrame {
 

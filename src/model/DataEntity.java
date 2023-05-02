@@ -1,7 +1,7 @@
-package data;
+package model;
 public interface DataEntity {
-    public void store();
+    public void create();
     public void update();
-    public void load();
+    public void read()throws Exception;
     public void delete();
 }

@@ -1,4 +1,4 @@
-package data;
+package model;
 
 
 import java.util.Date;
@@ -21,7 +21,7 @@ public class Payment implements DataEntity {
 
     /*public Payment(int paymentId) {
         this.paymentId = paymentId;
-        load();
+        read();
     }
 */
     public Payment(int reservationId) {
@@ -33,7 +33,7 @@ public class Payment implements DataEntity {
             myresObj = mystatObj.executeQuery();
             if (myresObj.next()){
                 this.paymentId = myresObj.getInt(1);
-                load();
+                read();
             }
         }catch(SQLException e){
         }
@@ -47,11 +47,11 @@ public class Payment implements DataEntity {
         this.paymentAmount = paymentAmount;
         this.cardCVV = cardCVV;
         this.expirationDate = expirationDate;
-        store();
+        create();
     }
 
     public int getPaymentId() {
-        load();
+        read();
         return paymentId;
     }
 
@@ -61,7 +61,7 @@ public class Payment implements DataEntity {
     }
 
     public int getReservationId() {
-        load();
+        read();
         return reservationId;
     }
 
@@ -71,7 +71,7 @@ public class Payment implements DataEntity {
     }
 
     public String getCardType() {
-        load();
+        read();
         return cardType;
     }
 
@@ -81,7 +81,7 @@ public class Payment implements DataEntity {
     }
 
     public String getCardHolderName() {
-        load();
+        read();
         return cardHolderName;
     }
 
@@ -91,7 +91,7 @@ public class Payment implements DataEntity {
     }
 
     public String getCardNumber() {
-        load();
+        read();
         return cardNumber;
     }
 
@@ -101,7 +101,7 @@ public class Payment implements DataEntity {
     }
 
     public double getPaymentAmount() {
-        load();
+        read();
         return paymentAmount;
     }
 
@@ -111,7 +111,7 @@ public class Payment implements DataEntity {
     }
 
     public String getCardCVV() {
-        load();
+        read();
         return cardCVV;
     }
 
@@ -121,7 +121,7 @@ public class Payment implements DataEntity {
     }
 
     public Date getExpirationDate() {
-        load();
+        read();
         return expirationDate;
     }
 
@@ -150,7 +150,7 @@ public class Payment implements DataEntity {
     }
 
     @Override
-    public void store() {
+    public void create() {
         this.paymentId = generateID("PAYMENTS");
         createPayment();
     }
@@ -175,7 +175,7 @@ public class Payment implements DataEntity {
     }
 
     @Override
-    public void load() {
+    public void read() {
         String loadQuery = "select * from ROOT.PAYMENTS WHERE ID=?";
         myconObj = connectDB();
         try {

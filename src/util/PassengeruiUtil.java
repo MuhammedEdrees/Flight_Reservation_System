@@ -1,8 +1,8 @@
 
 package util;
-import data.Flight;
-import data.Payment;
-import data.Reservation;
+import model.Flight;
+import model.Payment;
+import model.Reservation;
 import flightproject.flightProject;
 import java.sql.Connection;
 import java.sql.ResultSet;

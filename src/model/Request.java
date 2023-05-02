@@ -1,11 +1,13 @@
-package data;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.lang.Exception;
 import static util.DbUtil.connectDB;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import static util.DbUtil.generateID;
 
 public class Request implements DataEntity{  
@@ -18,7 +20,6 @@ public class Request implements DataEntity{
     
     public Request(int id){
         this.id = id;
-        load();
     }
     public Request (String fullname, String username, String email, String phonenumber)
     {
@@ -26,7 +27,6 @@ public class Request implements DataEntity{
         this.username = username;
         this.email = email;
         this.phoneNumber = phonenumber;
-        store();
     }
     private void createRequest(){
         String createQuery = "INSERT INTO ROOT.REQUESTS VALUES (?,?,?,?,?)";
@@ -43,44 +43,35 @@ public class Request implements DataEntity{
     }
     
     public String getUsername() {
-        load();
         return username;
     }
     public void setUsername(String username) {
         this.username = username;
-        update();
     }
     public String getFullname() {
-        load();
         return fullname;
     }
     public void setFullname(String fullname) {
         this.fullname = fullname;
-        update();
     }
     public String getEmail() {
-        load();
         return email;
     }
     public void setEmail(String email) {
         this.email = email;
-        update();
     }
     public int getId() {
-        load();
         return id;
     }
     public String getPhoneNumber() {
-        load();
         return phoneNumber;
     }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        update();
     }
     
     @Override
-    public void store(){
+    public void create(){
         this.id = generateID("REQUESTS");
         createRequest();
     }
@@ -99,7 +90,7 @@ public class Request implements DataEntity{
         } catch (SQLException ex){}
     }
     @Override
-    public void load() {
+    public void read() throws Exception {
         String loadQuery = "select * from ROOT.REQUESTS WHERE ID=?";
         myconObj = connectDB();
         try{
@@ -111,6 +102,8 @@ public class Request implements DataEntity{
                 this.username = myresObj.getString(3);
                 this.email = myresObj.getString(4);
                 this.phoneNumber = myresObj.getString(5);
+            } else {
+                throw new Exception("No matching entry was found in the database.");
             }
         }catch(SQLException e){
         }
@@ -123,6 +116,42 @@ public class Request implements DataEntity{
             Statement deleteStat = myconObj.createStatement();
             deleteStat.executeUpdate(deleteQuery);
         } catch (SQLException e){}
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Request other = (Request) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.phoneNumber, other.phoneNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.fullname, other.fullname)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.myconObj, other.myconObj)) {
+            return false;
+        }
+        if (!Objects.equals(this.mystatObj, other.mystatObj)) {
+            return false;
+        }
+        return Objects.equals(this.myresObj, other.myresObj);
     }
     
     

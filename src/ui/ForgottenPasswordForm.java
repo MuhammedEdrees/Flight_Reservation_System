@@ -1,6 +1,6 @@
 package ui;
 
-import data.Request;
+import model.Request;
 import util.DbUtil;
 import ui.LoginpGUI;
 import flightproject.flightProject;

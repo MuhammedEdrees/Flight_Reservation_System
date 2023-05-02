@@ -1,4 +1,4 @@
-package data;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ public class Reservation implements DataEntity{
     private ResultSet myresObj;
     public Reservation(int id) {
         this.id = id;
-        load();
+        read();
     }
     public Reservation(int passengerId,int flightID,String firstName, String surname, String nationality, String passNum, Date passExpiry, int numOfseats, String resClass) {
         this.flightID=flightID;
@@ -30,66 +30,66 @@ public class Reservation implements DataEntity{
         this.passExpiry = passExpiry;
         this.numOfseats = numOfseats;
         this.resClass = resClass;
-        store();
+        create();
     }
     
     public int getId() {
-        load();
+        read();
         return id;
     }
     
     public int getFlightID() {
-        load();
+        read();
         return flightID;
     }
 
     public int getPassengerId() {
-         load();
+         read();
         return passengerId;
     }
 
     
 
     public String getFirstName() {
-         load();
+         read();
         return firstName;
     }
 
     
 
     public String getSurname() {
-         load();
+         read();
         return surname;
     }
 
   
 
     public String getNationality() {
-         load();
+         read();
         return nationality;
     }
 
   
     public String getPassNum() {
-         load();
+         read();
         return passNum;
     }
 
 
     public Date getPassExpiry() {
-         load();
+         read();
         return passExpiry;
     }
 
    
     public int getNumOfseats() {
-         load();
+         read();
         return numOfseats;
     }
 
     
     public String getResClass() {
-        load();
+        read();
         return resClass;
     }
 
@@ -114,12 +114,12 @@ public class Reservation implements DataEntity{
         }
     }
     @Override
-    public void store(){
+    public void create(){
         this.id = generateID("RESERVATIONS");
         createNewReservation();
     }
     @Override
-    public void load(){
+    public void read(){
         String loadQuery = "select * from ROOT.RESERVATIONS WHERE ID=?";
         myconObj = connectDB();
         try{

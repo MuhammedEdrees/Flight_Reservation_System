@@ -1,4 +1,4 @@
-package data;
+package model;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -7,17 +7,16 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import static util.DbUtil.*;
 
-
-public class Admin extends User {
+public class FlightAgent extends User {
     private Connection myconObj;
     private PreparedStatement mystatObj;
     private ResultSet myresObj;
-    public Admin(int id) {
+    public FlightAgent(int id) {
         super(id);
     }
-    public Admin(String username)
+    public FlightAgent(String username)
     {
-        String query = "select * from ROOT.ADMINS WHERE USERNAME=?";
+         String query = "select * from ROOT.FLIGHTAGENTS WHERE USERNAME=?";
         myconObj = connectDB();
         try{
             mystatObj= myconObj.prepareStatement(query);
@@ -29,13 +28,13 @@ public class Admin extends User {
         }catch(SQLException e){
         }
     }
-    public Admin(String fullname, String username, String password, String email) {
+    public FlightAgent(String fullname, String username, String password, String email) {
         super(fullname, username, password, email);
     }
     public int getID( ){
-        load();
+        read();
         return id;
-//        String query = "select * from ROOT.ADMINS WHERE USERNAME=?";
+//        String query = "select * from ROOT.FLIGHTAGENTS WHERE USERNAME=?";
 //        Connection myconObj = connectDB();
 //        PreparedStatement mystatObj;
 //        ResultSet myresObj;
@@ -50,58 +49,58 @@ public class Admin extends User {
 //        }
 //        return -1;
     }
-    private void createAdmin() {
-        String createQuery = "INSERT INTO ROOT.ADMINS VALUES (?,?,?,?,?)";
+    private void createFlightAgent() {
+        String createQuery = "INSERT INTO ROOT.FLIGHTAGENTS VALUES (?,?,?,?,?)";
         myconObj = connectDB();
         try{
             mystatObj = myconObj.prepareStatement(createQuery);
             mystatObj.setInt(1, id);
-            mystatObj.setString(2, username);
-            mystatObj.setString(3, password);
-            mystatObj.setString(4, fullname);
-            mystatObj.setString(5, email);
+            mystatObj.setString(2, fullname);
+            mystatObj.setString(3, email);
+            mystatObj.setString(4, username);
+            mystatObj.setString(5, password);
             mystatObj.executeUpdate();
         }catch(SQLException e){}
     }
     @Override
-    public void store(){
-        this.id = generateID("ADMINS");
-        createAdmin();
+    public void create(){
+        this.id = generateID("FLIGHTAGENTS");
+        createFlightAgent();
     }
     @Override
     public void update(){
-        String updateQuery = "Update ROOT.ADMINS Set Username = ?, Password = ?, Fullname = ?, Email = ? where ID = ?";
+        String updateQuery = "Update ROOT.FLIGHTAGENTS Set Fullname = ?, Email = ?, Username = ?, Password = ? where ID = ?";
         myconObj = connectDB();
         try {
             mystatObj = myconObj.prepareStatement(updateQuery);
-            mystatObj.setString(1, username);
-            mystatObj.setString(2, password);
-            mystatObj.setString(3, fullname);
-            mystatObj.setString(4, email);
+            mystatObj.setString(1, fullname);
+            mystatObj.setString(2, email);
+            mystatObj.setString(3, username);
+            mystatObj.setString(4, password);
             mystatObj.setInt(5, id);
             mystatObj.executeUpdate();
         } catch (SQLException ex){}
     }
     @Override
-    public void load() {
+    public void read() {
+        String loadQuery = "select * from ROOT.FLIGHTAGENTS WHERE ID=?";
         myconObj = connectDB();
-        String loadQuery = "select * from ROOT.ADMINS WHERE ID=?";
         try{
             mystatObj= myconObj.prepareStatement(loadQuery);
             mystatObj.setInt(1, id);
             myresObj = mystatObj.executeQuery();
             if (myresObj.next()){
-                this.username = myresObj.getString(2);
-                this.password = myresObj.getString(3);
-                this.fullname = myresObj.getString(4);
-                this.email = myresObj.getString(5);
+                this.fullname = myresObj.getString(2);
+                this.email = myresObj.getString(3);
+                this.username = myresObj.getString(4);
+                this.password = myresObj.getString(5);
             }
         }catch(SQLException e){
         }
     }
     @Override
     public void delete() {
-        String deleteQuery = "Delete from ROOT.ADMINS where id = " + String.valueOf(this.id);
+        String deleteQuery = "Delete from ROOT.FLIGHTAGENTS where id = " + String.valueOf(this.id);
         myconObj = connectDB();
         try {
             Statement deleteStat = myconObj.createStatement();

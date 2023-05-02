@@ -3,7 +3,7 @@ package ui;
 import ui.LoginpGUI;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import data.Passenger;
+import model.Passenger;
 
 public class RegisterationForm extends javax.swing.JFrame {
     private String fullName, username, password, rePassword, email, phoneNumber;
