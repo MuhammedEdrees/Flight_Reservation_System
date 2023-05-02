@@ -1,13 +1,11 @@
 package model;
 
 import java.util.Date;
-import java.sql.Connection;
 
 public class Passenger extends User {
 
     private Date dateOfBirth;
     private String phoneNumber;
-    private Connection myconObj;
 
     public Passenger() {
     }
