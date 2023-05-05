@@ -5,14 +5,15 @@ import java.util.Date;
 public class Payment {
 
     private int paymentId, reservationId;
-    private String cardType, cardHolderName,cardNumber,cardCVV;
+    private String cardType, cardHolderName, cardNumber, cardCVV;
     private double paymentAmount;
     private Date expirationDate;
 
     public Payment() {
     }
-    public Payment(int id) {
-        this.paymentId = id;
+
+    public Payment(int paymentId) {
+        this.paymentId = paymentId;
     }
 
     public Payment(int reservationId, String cardType, String cardHolderName, String cardNumber, double paymentAmount, String cardCVV, Date expirationDate) {
