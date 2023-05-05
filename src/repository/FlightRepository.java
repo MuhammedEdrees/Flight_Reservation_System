@@ -84,7 +84,7 @@ public class FlightRepository implements Repository<Flight> {
         } catch (SQLException ex) {
         }
     }
-
+    @Override
     public void delete(Flight flight) {
         String deleteQuery = "Delete from ROOT.FLIGHTS where ID = " + String.valueOf(flight.getId());
         try {
@@ -118,6 +118,28 @@ public class FlightRepository implements Repository<Flight> {
         } catch (SQLException e) {
         }
         return flightList;
+    }
+    
+    public ArrayList<Flight> findByDepartureAirport_ArrivalAirportAndFlightDate(String departureAirport, String arrivalAirport, Date flightDate){
+        String query = "select * FROM ROOT.FLIGHTS WHERE departureairport=? AND arrivalairport=? AND flightdate=?";
+        java.sql.Date date = new java.sql.Date(flightDate.getTime());
+        try{
+            mystatObj= myconObj.prepareStatement(query);
+            mystatObj.setString(1, departureAirport);
+            mystatObj.setString(2, arrivalAirport);
+            mystatObj.setDate(3, date);
+            myresObj = mystatObj.executeQuery();
+            ArrayList<Flight> agentsList = new ArrayList<>();
+            while(myresObj.next()){
+                Flight flight = new Flight(myresObj.getInt(1));
+                FlightRepository repo = new FlightRepository();
+                repo.read(flight);
+                agentsList.add(flight);
+            }
+            return agentsList;
+        }catch(SQLException e){
+            return null;
+        }
     }
 
     public Flight findById(int id) {

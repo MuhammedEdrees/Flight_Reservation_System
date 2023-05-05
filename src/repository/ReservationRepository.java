@@ -21,9 +21,10 @@ public class ReservationRepository implements Repository<Reservation> {
     @Override
     public void create(Reservation reservation){
         java.sql.Date sqlDate = new java.sql.Date(reservation.getPassExpiry().getTime());
+        int id = util.DbUtil.generateID("RESERVATIONS");
         try{
             mystatObj = myconObj.prepareStatement("Insert Into ROOT.RESERVATIONS values (?,?,?,?,?,?,?,?,?,?)");
-            mystatObj.setInt(1, reservation.getId());
+            mystatObj.setInt(1, id);
             mystatObj.setString(2, reservation.getFirstName());
             mystatObj.setString(3, reservation.getSurname());
             mystatObj.setString(4, reservation.getNationality());
@@ -89,22 +90,35 @@ public class ReservationRepository implements Repository<Reservation> {
 @Override
     public ArrayList<Reservation> getAll() {
         ArrayList<Reservation> reservationList = new ArrayList<>();
-        String fetchQuery = "select * from ROOT.FLIGHTAGENTS";
+        String fetchQuery = "select * from ROOT.RESERVATIONS";
         try {
             mystatObj= myconObj.prepareStatement(fetchQuery);
             myresObj = mystatObj.executeQuery();
             while (myresObj.next()){
                 Reservation reservation = new Reservation();
                 reservation.setId(myresObj.getInt(1));
-                reservation.setFirstName( myresObj.getString(2));
-                reservation.setSurname(myresObj.getString(3));
-                reservation.setNationality( myresObj.getString(4));
-                reservation.setPassNum(myresObj.getString(5));
-                reservation.setPassExpiry(new Date(myresObj.getDate(6).getTime())) ;
-                reservation.setNumOfseats(myresObj.getInt(7));
-                reservation.setFlightID(myresObj.getInt(8));
-                reservation.setPassengerId(myresObj.getInt(9)) ;
-                reservation.setResClass(myresObj.getString(10));
+                ReservationRepository repo = new ReservationRepository();
+                repo.read(reservation);
+                reservationList.add(reservation);
+            }
+        } catch(SQLException e) {
+        } 
+        return reservationList;
+    }
+    
+    public ArrayList<Reservation> findByPassengerId(int passengerId) {
+        ArrayList<Reservation> reservationList = new ArrayList<>();
+        String fetchQuery = "select ID from ROOT.RESERVATIONS where passengerid = ?";
+        try {
+            mystatObj= myconObj.prepareStatement(fetchQuery);
+            mystatObj.setInt(1, passengerId);
+            myresObj = mystatObj.executeQuery();
+            while (myresObj.next()){
+                Reservation reservation = new Reservation();
+                reservation.setId(myresObj.getInt(1));
+                ReservationRepository repo = new ReservationRepository();
+                repo.read(reservation);
+                reservationList.add(reservation);
             }
         } catch(SQLException e) {
         } 

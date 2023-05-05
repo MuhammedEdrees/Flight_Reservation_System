@@ -7,6 +7,9 @@ public class Validation {
     public boolean validateId(int id){
         return id >= 1;
     }
+    public boolean validateId(String id){
+        return (id != null && id.matches("-?\\d+(\\.\\d+)?") && Integer.parseInt(id) > 0);
+    }
     /*  User attributes  */
     public boolean validateUsername(String uname){
         return !(uname == null || !uname.matches("[a-zA-Z0-9_]{6,24}"));
@@ -14,6 +17,12 @@ public class Validation {
     
     public boolean validateFullname(String fullname) {
         return !(fullname == null || !fullname.matches("[a-zA-Z ]{12,64}"));
+    }
+    public boolean validateFirstname(String name) {
+        return !(name == null || !name.matches("[a-zA-Z ]{1,64}"));
+    }
+    public boolean validateSurname(String name) {
+        return !(name == null || !name.matches("[a-zA-Z ]{1,64}"));
     }
     public boolean validatePassword(String password) {
         return !(password == null || !password.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\\$&*~]).{8,64}$"));
@@ -29,7 +38,7 @@ public class Validation {
     }
     /*  Flight Attributes  */
     public boolean validateAirport(String airport){
-        return !(airport == null || !airport.matches("[a-zA-z ]*"));
+        return !(airport == null || !airport.matches("[a-zA-z ]{1,}"));
     }
     public boolean validateDepartureDate (Date date) {
         return !(date == null || date.before(new Date()));
@@ -44,7 +53,10 @@ public class Validation {
         return price > 0;
     }
     public boolean validateAirline(String airline) {
-        return !(airline == null || !airline.matches("[a-zA-z ]*"));
+        return !(airline == null || !airline.matches("[a-zA-z ]{1,}"));
+    }
+    public boolean validateNationality(String nationality) {
+        return !(nationality == null || !nationality.matches("[a-zA-z ]{1,}"));
     }
     public boolean validateSeatCapacity(int noOfSeats) {
         return noOfSeats > 0;
@@ -57,7 +69,7 @@ public class Validation {
         return !(cardNum == null || !cardNum.matches("[0-9]{16}"));
     }
     public boolean validateCardType(String cardType){
-        return !(cardType == null || !cardType.equals("Mastercard") || !cardType.equals("Visa"));
+        return (cardType != null && (cardType.equals("Mastercard") || cardType.equals("Visa")));
     }
     public boolean validateCardHolderName(String name) {
         return !(name == null || !name.matches("[a-zA-Z ]{12,64}"));
@@ -70,13 +82,13 @@ public class Validation {
     }
     /*  Reservation Attributes  */
     public boolean validatePassportNumber(String passportNum) {
-        return !(passportNum == null || passportNum.matches("[0-9A-Z]*"));
+        return !(passportNum == null || !passportNum.matches("[0-9A-Z]{1,20}"));
     }
     public boolean validateClass(String resClass) {
-        return !(resClass == null || !resClass.equals("First") || !resClass.equals("Economy") || !resClass.equals("Bussiness"));
+        return (resClass != null &&(resClass.equals("First") || resClass.equals("Economy") || resClass.equals("Business")));
     }
-    public boolean validateNumberOfSeats(int seats) {
-        return seats >= 0;
+    public boolean validateNumberOfSeats(String seats) {
+        return (seats != null && seats.matches("-?\\d+(\\.\\d+)?") && Integer.parseInt(seats) > 0);
     }
     
 }

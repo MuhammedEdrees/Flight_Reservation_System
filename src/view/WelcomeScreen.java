@@ -57,7 +57,7 @@ public class WelcomeScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void continueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueButtonActionPerformed
-        new PassengerUI().setVisible(true);
+        new PassengerView().setVisible(true);
         dispose();
     }//GEN-LAST:event_continueButtonActionPerformed
 

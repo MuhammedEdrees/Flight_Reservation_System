@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import model.Payment;
 import static util.DbUtil.connectDB;
 
@@ -113,8 +112,8 @@ public class PaymentRepository implements Repository<Payment> {
         return paymentList;
     }
     
-    public Payment findById(int id) {
-        String query = "select * from ROOT.FLIGHTS WHERE ID=?";
+    public Payment findByReservationId(int id) {
+        String query = "select * from ROOT.PAYMENTS WHERE RESERVATIONID=?";
         try {
             Payment payment = new Payment();
             mystatObj = myconObj.prepareStatement(query);
