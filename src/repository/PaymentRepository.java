@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.Payment;
-import static utils.DbUtils.connectDB;
+import static util.DbUtil.connectDB;
 
 public class PaymentRepository implements Repository<Payment> {
 
@@ -24,7 +24,7 @@ public class PaymentRepository implements Repository<Payment> {
     @Override
     public void create(Payment payment) {
         String createQuery = "INSERT INTO ROOT.PAYMENTS VALUES (?,?,?,?,?,?,?,?)";
-        payment.setId(util.DbUtil.generateID("payments"));
+        payment.setPaymentId(util.DbUtil.generateID("payments"));
 
         try {
             mystatObj = myconObj.prepareStatement(createQuery);
