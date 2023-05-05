@@ -1,6 +1,6 @@
 package flightproject;
 
-import ui.LoginpGUI;
+import view.LoginpGUI;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
