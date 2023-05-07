@@ -1,18 +1,26 @@
 package view;
-import model.Passenger;
-import model.FlightAgent;
-import model.Admin;
-import flightproject.flightProject;
+import controller.LoginController;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
 
-public class LoginpGUI extends javax.swing.JFrame { 
-    private String username, password;
-    public LoginpGUI() {
+public class LoginView extends javax.swing.JFrame { 
+    LoginController controller = new LoginController();
+    public LoginView() {
         initComponents();
     }
 
+    public String getLogPassword() {
+        return passwordfield.getText();
+    }
+
+    public String getLogUsername() {
+        return usernamefield.getText();
+    }
+    public void showWelcomeScreen(){
+        new WelcomeScreen().setVisible(true);
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,52 +231,53 @@ public class LoginpGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
-        username = usernamefield.getText();
-        password = passwordfield.getText();
-        Passenger pass=new Passenger(username);
-        FlightAgent agent1= new FlightAgent(username);
-        Admin admin1=new Admin(username);
-        if(pass.getID() != -1){
-            flightProject.currentUserID = pass.getID();
-            if(password.equals(pass.getPassword())){
-                new WelcomeScreen().setVisible(true);
-                dispose();
-            }else{
-                JOptionPane.showMessageDialog(null, "Wrong Password!");
-            }
-        }else if(agent1.getID() != -1){
-            flightProject.currentUserID = agent1.getID();
-            if(password.equals(agent1.getPassword())){
-                new FlightAgentUI().setVisible(true);
-                dispose();
-            }else{
-                JOptionPane.showMessageDialog(null, "Wrong Password!");
-            }
-        }else if(admin1.getID() != -1){
-            flightProject.currentUserID = admin1.getID();
-            if(password.equals(admin1.getPassword())){
-                new AdminUI().setVisible(true);
-                dispose();
-            }else{
-                JOptionPane.showMessageDialog(null, "Wrong Password!");
-            }
-        }else {
-            JOptionPane.showMessageDialog(null, "Username doesn't exist!");
-        }
+        controller.handleSignInButtonClick();
+//        username = usernamefield.getText();
+//        password = passwordfield.getText();
+//        Passenger pass=new Passenger(username);
+//        FlightAgent agent1= new FlightAgent(username);
+//        Admin admin1=new Admin(username);
+//        if(pass.getID() != -1){
+//            flightProject.currentUserID = pass.getID();
+//            if(password.equals(pass.getPassword())){
+//                new WelcomeScreen().setVisible(true);
+//                dispose();
+//            }else{
+//                JOptionPane.showMessageDialog(null, "Wrong Password!");
+//            }
+//        }else if(agent1.getID() != -1){
+//            flightProject.currentUserID = agent1.getID();
+//            if(password.equals(agent1.getPassword())){
+//                new FlightAgentUI().setVisible(true);
+//                dispose();
+//            }else{
+//                JOptionPane.showMessageDialog(null, "Wrong Password!");
+//            }
+//        }else if(admin1.getID() != -1){
+//            flightProject.currentUserID = admin1.getID();
+//            if(password.equals(admin1.getPassword())){
+//                new AdminUI().setVisible(true);
+//                dispose();
+//            }else{
+//                JOptionPane.showMessageDialog(null, "Wrong Password!");
+//            }
+//        }else {
+//            JOptionPane.showMessageDialog(null, "Username doesn't exist!");
+//        }
     }//GEN-LAST:event_SignInButtonActionPerformed
 
     private void ForgottenPasswordLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgottenPasswordLabelMouseClicked
-        new ForgottenPasswordForm().setVisible(true);
+        new ForgottenPasswordView().setVisible(true);
         dispose();
     }//GEN-LAST:event_ForgottenPasswordLabelMouseClicked
 
     private void SignUpLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignUpLabelMouseClicked
-        new RegisterationForm().setVisible(true);
+        new RegisterationView().setVisible(true);
         dispose();
     }//GEN-LAST:event_SignUpLabelMouseClicked
 
     private void passwordfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordfieldKeyPressed
-        java.awt.event.ActionEvent evt1 = new ActionEvent(ERROR, WIDTH, username);
+        java.awt.event.ActionEvent evt1 = new ActionEvent(ERROR, WIDTH, usernamefield.getText()); //da beye3mel eh?
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             SignInButtonActionPerformed(evt1);
         }
@@ -291,20 +300,21 @@ public class LoginpGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginpGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginpGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginpGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginpGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginpGUI().setVisible(true);
+                new LoginView().setVisible(true);
             }
         });
     }
@@ -326,4 +336,6 @@ public class LoginpGUI extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordfield;
     private javax.swing.JTextField usernamefield;
     // End of variables declaration//GEN-END:variables
+
+
 }

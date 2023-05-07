@@ -1,6 +1,6 @@
 package flightproject;
 
-import view.LoginpGUI;
+import view.LoginView;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -12,6 +12,6 @@ public class flightProject {
     private static ResultSet myresObj = null;
     public static Integer currentUserID = 2001;
     public static void main(String[] args) throws SQLException {
-        new LoginpGUI().setVisible(true);
+        new LoginView().setVisible(true);
     }
 }

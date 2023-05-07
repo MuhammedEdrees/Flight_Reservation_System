@@ -1,16 +1,40 @@
 
 package view;
-import view.LoginpGUI;
+import controller.RegisterationController;
 import java.util.Date;
-import javax.swing.JOptionPane;
-import model.Passenger;
 
-public class RegisterationForm extends javax.swing.JFrame {
-    private String fullName, username, password, rePassword, email, phoneNumber;
-    private Date dateofBirth;
-    private int id;
-    public RegisterationForm() {
+public class RegisterationView extends javax.swing.JFrame {
+    RegisterationController controller = new RegisterationController();
+    public RegisterationView() {
         initComponents();
+    }
+
+    public Date getBirthDate() {
+        return BirthDateField.getDate();
+    }
+
+    public String getEmail() {
+        return EmailField.getText().trim();
+    }
+
+    public String getFullName() {
+        return FullNameField.getText().trim();
+    }
+
+    public String getPassword() {
+        return PasswordField.getText();
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumberField.getText().trim();
+    }
+
+    public String getRePassword() {
+        return RePasswordField.getText();
+    }
+
+    public String getUsername() {
+        return UsernameField.getText().trim();
     }
 
     /**
@@ -267,34 +291,35 @@ public class RegisterationForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        //assign each data field to a corrosponding variable
-        fullName = FullNameField.getText().trim();
-        username = UsernameField.getText().trim();
-        password = PasswordField.getText();
-        rePassword = RePasswordField.getText();
-        email = EmailField.getText().trim();
-        phoneNumber = PhoneNumberField.getText().trim();
-        dateofBirth = BirthDateField.getDate();
-        //Check if all data fields are filled with data.
-        if (fullName.equals("") || username.equals("") || password.equals("") || rePassword.equals("") || email.equals("") || phoneNumber.equals("")){
-            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
-        }else{
-            //Check if passwords are matched
-            if(password.equals(rePassword)){
-                    //add entry to the USERS database and go back to Login UI
-                    Passenger pass1 = new Passenger(fullName, username, password, dateofBirth, phoneNumber, email);
-                    JOptionPane.showMessageDialog(null, "Registeration was successfull!");
-                    dispose();
-                    new LoginpGUI().setVisible(true);
-            } else{
-                JOptionPane.showMessageDialog(null, "Passwords doesn't Match!");
-            }
-        }
+        controller.handleRegisterButtonClicked();
+//assign each data field to a corrosponding variable
+//        fullName = FullNameField.getText().trim();
+//        username = UsernameField.getText().trim();
+//        password = PasswordField.getText();
+//        rePassword = RePasswordField.getText();
+//        email = EmailField.getText().trim();
+//        phoneNumber = PhoneNumberField.getText().trim();
+//        dateofBirth = BirthDateField.getDate();
+//        //Check if all data fields are filled with data.
+//        if (fullName.equals("") || username.equals("") || password.equals("") || rePassword.equals("") || email.equals("") || phoneNumber.equals("")){
+//            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
+//        }else{
+//            //Check if passwords are matched
+//            if(password.equals(rePassword)){
+//                    //add entry to the USERS database and go back to Login UI
+//                    Passenger pass1 = new Passenger(fullName, username, password, dateofBirth, phoneNumber, email);
+//                    JOptionPane.showMessageDialog(null, "Registeration was successfull!");
+//                    dispose();
+//                    new LoginView().setVisible(true);
+//            } else{
+//                JOptionPane.showMessageDialog(null, "Passwords doesn't Match!");
+//            }
+//        }
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void signInLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signInLabelMouseClicked
         dispose();
-        new LoginpGUI().setVisible(true);
+        new LoginView().setVisible(true);
     }//GEN-LAST:event_signInLabelMouseClicked
           
     /**
@@ -314,20 +339,21 @@ public class RegisterationForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisterationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterationView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisterationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterationView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisterationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterationView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisterationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterationView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterationForm().setVisible(true);
+                new RegisterationView().setVisible(true);
             }
         });
     }

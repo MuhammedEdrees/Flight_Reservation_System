@@ -1,24 +1,30 @@
 package view;
 
-import model.Request;
+import controller.ForgottenPasswordController;
 import util.DbUtil;
-import view.LoginpGUI;
-import flightproject.flightProject;
-import javax.swing.JOptionPane;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.ResultSet;
 
-public class ForgottenPasswordForm extends javax.swing.JFrame {
 
-    private Connection myconObj;
-    private Statement mystatObj = null;
-    private ResultSet myresObj = null;
-    private String name, username, email, phoneNumber;
+public class ForgottenPasswordView extends javax.swing.JFrame {
+    ForgottenPasswordController controller = new ForgottenPasswordController();
 
-    public ForgottenPasswordForm() {
+    public String getEmail() {
+        return EmailField.getText().trim();
+    }
+
+    public String getFullName() {
+        return FullNameField.getText().trim();
+    }
+
+    public String getPhoneNumber() {
+        return PhoneNumberField.getText().trim();
+    }
+
+    public String getUsername() {
+        return UserNameField.getText().trim();
+    }
+
+    public ForgottenPasswordView() {
         initComponents();
-        myconObj = DbUtil.connectDB();
     }
 
     /**
@@ -69,7 +75,6 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
             }
         });
 
-        EmailField.setBackground(new java.awt.Color(255, 255, 255));
         EmailField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         EmailField.setForeground(new java.awt.Color(79, 79, 79));
 
@@ -77,11 +82,9 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         emailLabel.setForeground(new java.awt.Color(51, 51, 51));
         emailLabel.setText("E-mail                    :");
 
-        PhoneNumberField.setBackground(new java.awt.Color(255, 255, 255));
         PhoneNumberField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         PhoneNumberField.setForeground(new java.awt.Color(79, 79, 79));
 
-        UserNameField.setBackground(new java.awt.Color(255, 255, 255));
         UserNameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         UserNameField.setForeground(new java.awt.Color(79, 79, 79));
 
@@ -89,7 +92,6 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
         fullnameLabel.setForeground(new java.awt.Color(51, 51, 51));
         fullnameLabel.setText("Full Name             :");
 
-        FullNameField.setBackground(new java.awt.Color(255, 255, 255));
         FullNameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         FullNameField.setForeground(new java.awt.Color(79, 79, 79));
 
@@ -207,21 +209,22 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+     controller.handleSubmitButtonClicked();
         //assign each data field to a corrosponding variable
-        name = FullNameField.getText().trim();
-        username = UserNameField.getText().trim();
-        email = EmailField.getText().trim();
-        phoneNumber = PhoneNumberField.getText().trim();
-        //Check if all data fields are filled with data.
-        if (name.equals("") || username.equals("") || email.equals("") || phoneNumber.equals("")) {
-            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
-        } else {
-            Request req1 = new Request(name, username, email, phoneNumber);
-        }
+//        name = FullNameField.getText().trim();
+//        username = UserNameField.getText().trim();
+//        email = EmailField.getText().trim();
+//        phoneNumber = PhoneNumberField.getText().trim();
+//        //Check if all data fields are filled with data.
+//        if (name.equals("") || username.equals("") || email.equals("") || phoneNumber.equals("")) {
+//            JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
+//        } else {
+//            Request req1 = new Request(name, username, email, phoneNumber);
+//        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new LoginpGUI().setVisible(true);
+        new LoginView().setVisible(true);
         dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
@@ -242,21 +245,23 @@ public class ForgottenPasswordForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ForgottenPasswordForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgottenPasswordView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ForgottenPasswordForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgottenPasswordView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ForgottenPasswordForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgottenPasswordView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ForgottenPasswordForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgottenPasswordView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ForgottenPasswordForm().setVisible(true);
+                new ForgottenPasswordView().setVisible(true);
             }
         });
     }
