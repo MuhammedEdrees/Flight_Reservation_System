@@ -1,6 +1,8 @@
 package util;
 
 import java.util.Date;
+import model.Flight;
+import repository.FlightRepository;
 
 
 public class Validation {
@@ -63,6 +65,12 @@ public class Validation {
     }
     public boolean validateAvailableSeats(int seats) {
         return seats >= 0;
+    }
+    public boolean validateWantedNumOfSeats(int flightId, int numOfSeats){
+        Flight flight = new Flight(flightId);
+        FlightRepository repo = new FlightRepository();
+        repo.read(flight);
+        return (numOfSeats <= flight.getAvailableSeats());
     }
     /*  Payment Attributes*/
     public boolean validateCardNumber(String cardNum) {

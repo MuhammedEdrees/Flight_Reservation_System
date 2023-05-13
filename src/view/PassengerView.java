@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -1034,8 +1035,8 @@ public class PassengerView extends javax.swing.JFrame {
         
     }
     /*  Controller Input Methods  */
-    public Object[] getFlightSearchInput(){
-        Object[] list = { fromSearchTxt.getText(), toSearchTxt.getText(), flightDate.getDate(), searchTable.getModel()};
+    public List<Object> getFlightSearchInput(){
+        List<Object> list = List.of(fromSearchTxt.getText(), toSearchTxt.getText(), flightDate.getDate(), searchTable.getModel());
         return list;
     }
     public Object[] getReservationInput(){
@@ -1047,6 +1048,7 @@ public class PassengerView extends javax.swing.JFrame {
         } else if (economyClassButton.isSelected()){
             reservationClass ="Economy";
         }
+        Flight flight = new Flight(flightID);
         Object[] list = {firstNameField.getText(), surNameField.getText(), (String)CountriesField.getSelectedItem(),
                         numberOfSeatsField.getText(), reservationClass, passportNumberField.getText(), passportExpiryDateField.getDate(), flightID};
         return list;
@@ -1061,12 +1063,19 @@ public class PassengerView extends javax.swing.JFrame {
         return list;
     }
     public Object[] getCancelledReservationInput(){
-        Object[] list = {reservationIdRemoveTxt.getText(), reservationTable.getModel()};
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel reservation?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        Object[] list = {reservationIdRemoveTxt.getText(), reservationTable.getModel(), response};
         return list;
     }
     /*  Output Methods  */
-    public void updateSearchPanel(boolean isEmpty){
-        if(isEmpty){
+    public void updateSearchPanel(int status){
+        if(status == 0){
+            searchPanel.setVisible(true);
+            resultLabel.setText("Pick a Flight and Press Continue:");
+            resultLabel.setForeground(new Color(53, 146, 196));
+            resultLabel.setVisible(true);
+            ContinueToReservationPanelButton.setVisible(true);
+        } else if (status == 1) {
             DefaultTableModel model = (DefaultTableModel)searchTable.getModel();
             model.setRowCount(0);
             resultLabel.setVisible(true);
@@ -1074,12 +1083,12 @@ public class PassengerView extends javax.swing.JFrame {
             resultLabel.setText("No matches Found");
             searchPanel.setVisible(false);
             ContinueToReservationPanelButton.setVisible(false);
-        } else {
-            searchPanel.setVisible(true);
-            resultLabel.setText("Pick a Flight and Press Continue:");
-            resultLabel.setForeground(new Color(53, 146, 196));
-            resultLabel.setVisible(true);
-            ContinueToReservationPanelButton.setVisible(true);
+        } else if (status == 2){
+            JOptionPane.showMessageDialog(this, "The departure airport name entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        } else if (status == 3){
+            JOptionPane.showMessageDialog(this, "The destination airport name entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        } else if (status == 4) {
+            JOptionPane.showMessageDialog(this, "The flight date entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
     }
     public void updateReservationDetailsPanel(int status){
@@ -1101,6 +1110,22 @@ public class PassengerView extends javax.swing.JFrame {
                 break;
             }
             default -> showPaymentError(status);
+        }
+    }
+    
+    public void updateBookingsPanel(int status) {
+        switch(status){
+            case 0 -> {
+                JOptionPane.showMessageDialog(this, "The Reservation was cancelled successfully!", "", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            }
+            case 1 ->{
+                JOptionPane.showMessageDialog(this, "The ID entered is invalid", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            }
+            default -> {
+                break;
+            }
         }
     }
     
