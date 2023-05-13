@@ -72,7 +72,7 @@ public class RequestRepository implements Repository<Request> {
     }
 
     @Override
-    public List<Request> getAll() {
+    public ArrayList<Request> getAll() {
         ArrayList<Request> list = new ArrayList<>();
         String fetchQuery = "select * from ROOT.REQUESTS";
         try {

@@ -1,15 +1,11 @@
 package view;
 
 import controller.FlightAgentController;
-import util.DbUtil;
-import model.Flight;
 import java.awt.Color;
-import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
-import net.proteanit.sql.DbUtils;
 import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.Constants;
 
 public class FlightAgentView extends javax.swing.JFrame {
 
@@ -22,10 +18,8 @@ public class FlightAgentView extends javax.swing.JFrame {
     public FlightAgentView() {
         initComponents();
         this.controller = new FlightAgentController(this);
-
-        departureAirportBox.setModel(new DefaultComboBoxModel<>(Flight.getAirports()));
-        arrivalAirportBox.setModel(new DefaultComboBoxModel<>(Flight.getAirports()));
-
+        departureAirportBox.setModel(new DefaultComboBoxModel<>(Constants.airports));
+        arrivalAirportBox.setModel(new DefaultComboBoxModel<>(Constants.airports));
         ReservationsPanal.setVisible(false);
         FlightManagementPanel.setVisible(true);
         FlightManagementTabPanel.setBackground(new Color(94, 170, 211));

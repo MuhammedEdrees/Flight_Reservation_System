@@ -9,10 +9,8 @@ import repository.AdminRepository;
 import model.Passenger;
 import model.Admin;
 import model.FlightAgent;
-import view.AdminUI;
-import view.FlightAgentUI;
-import view.ForgottenPasswordView;
-import view.RegisterationView;
+import view.AdminView;
+import view.FlightAgentView;
 import view.WelcomeScreen;
 /**
  *
@@ -50,7 +48,7 @@ public class LoginController {
        else if(agent1.getId()!= -1){
             flightProject.currentUserID = agent1.getId();
             if(password.equals(agent1.getPassword())){
-                new FlightAgentUI().setVisible(true);
+                new FlightAgentView().setVisible(true);
                 view.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Wrong Password!");
@@ -59,7 +57,7 @@ public class LoginController {
        else if(admin1.getId() != -1){
             flightProject.currentUserID = admin1.getId();
             if(password.equals(admin1.getPassword())){
-                new AdminUI().setVisible(true);
+                new AdminView().setVisible(true);
                 view.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Wrong Password!");

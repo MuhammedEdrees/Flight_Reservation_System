@@ -13,7 +13,16 @@ public class Passenger extends User {
     public Passenger(int id) {
         super(id);
     }
-
+public Passenger(int id ,String fullname, String username, String password, Date dateOfBirth, String phonenumber, String email) {
+        super();
+        this.fullname = fullname;
+        this.username = username;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phonenumber;
+        this.email = email;
+        this.id  = id;
+    }
     public Passenger(String fullname, String username, String password, Date dateOfBirth, String phonenumber, String email) {
         super();
         this.fullname = fullname;

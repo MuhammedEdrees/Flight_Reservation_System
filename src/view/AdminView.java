@@ -1,27 +1,16 @@
 package view;
 
-import util.DbUtil;
+import controller.AdminController;
 import java.awt.Color;
-import java.sql.*;
-import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;
-import model.FlightAgent;
-import model.Passenger;
-import model.Request;
+import javax.swing.table.DefaultTableModel;
 
+public class AdminView extends javax.swing.JFrame {
 
-public class AdminUI extends javax.swing.JFrame {
-    private Connection MyconObj;
-    private Statement MystaObj=null;
-    private ResultSet MyresObj=null;
-    private int requestsId, passengerId, flightAgentId;
-    private String passengerFullName, passengerUsername, passengerPassword, passengerEmail, passengerPhoneNumber;
-    private String flightAgentFullName, flightAgentUsername, flightAgentPassword, flightAgentEmail;
-    java.util.Date passengerDateofBirth;
-    public AdminUI() {
+    private AdminController controller;
+
+    public AdminView() {
         initComponents();
-        MyconObj=DbUtil.connectDB();
-        updateFlightAgentsTable();
+        this.controller = new AdminController(this);
         FlightAgentsManagementPanel.setVisible(true);
         PassengerManagementPanel.setVisible(false);
         RequestsPanel.setVisible(false);
@@ -29,47 +18,8 @@ public class AdminUI extends javax.swing.JFrame {
         PassengersTabPanel.setBackground(new Color(56, 146, 196));
         RequestsTabPanel.setBackground(new Color(56, 146, 196));
     }
-    
-    private void updateFlightAgentsTable(){
-        try{
-            MystaObj=MyconObj.createStatement();
-            MyresObj=MystaObj.executeQuery("SELECT * FROM ROOT.FLIGHTAGENTS");
-            Table_1.setModel(DbUtils.resultSetToTableModel(MyresObj));
-       }
-       catch(SQLException e){  
-        }
-    }
-    
-    private void updatePassengersTable(){
-        try{
-            MystaObj=MyconObj.createStatement();
-            MyresObj=MystaObj.executeQuery("SELECT * FROM ROOT.PASSENGERS");
-            PassengersTable.setModel(DbUtils.resultSetToTableModel(MyresObj));
-       }
-       catch(SQLException e){ 
-        }
-    }
-    
-    private void updateRequestsTable(){
-        try{
-            MystaObj=MyconObj.createStatement();
-            MyresObj=MystaObj.executeQuery("SELECT * FROM ROOT.REQUESTS");
-            RequestsTable.setModel(DbUtils.resultSetToTableModel(MyresObj));
-       }
-       catch(SQLException e){   
-        } 
-    }
-    
-    private void getPassengerFields(){
-        passengerFullName = passengerFullNameTxt.getText().trim();
-        passengerUsername = passengerUsernameTxt.getText().trim();
-        passengerPassword = passengerPasswordTxt.getText();
-        passengerEmail = passengerEmailTxt.getText().trim();
-        passengerPhoneNumber = passengerPhoneNumberTxt.getText().trim();
-        passengerDateofBirth = passengerDateofBirthChooser.getDate();
-    }
-    
-    private void clearPassengerFields(){
+
+    private void clearPassengerFields() {
         passengerIdTxt.setText("");
         passengerFullNameTxt.setText("");
         passengerUsernameTxt.setText("");
@@ -77,35 +27,82 @@ public class AdminUI extends javax.swing.JFrame {
         passengerPhoneNumberTxt.setText("");
         passengerEmailTxt.setText("");
     }
-    
-    private void getFlightAgentsFields(){
-        flightAgentFullName = flightAgentFullnameTxt.getText().trim();
-        flightAgentUsername = flightagentUsernameTxt.getText().trim();
-        flightAgentPassword = flightAgentPasswordTxt.getText();
-        flightAgentEmail = flightAgentEmailTxt.getText().trim();
-    }
-    
-    private void clearFlightAgentsFields(){
+
+    private void clearFlightAgentsFields() {
         flightAgentIdTxt.setText("");
         flightAgentFullnameTxt.setText("");
         flightagentUsernameTxt.setText("");
         flightAgentPasswordTxt.setText("");
         flightAgentEmailTxt.setText("");
     }
-    
-    public boolean emptyFlightagentField(){
-        if(flightAgentFullName.equals("") || flightAgentUsername.equals("") || flightAgentPassword.equals("") || flightAgentEmail.equals("")){
-            return true;
-        }
-        return false;
+
+    // input functions
+    public String getFlightAgentFullname() {
+        return flightAgentFullnameTxt.getText().trim();
     }
-    
-    public boolean emptyPassengerField(){
-        if(passengerFullName.equals("") ||  passengerUsername.equals("") || passengerPassword.equals("") || passengerEmail.equals("") || passengerPhoneNumber.equals("")){
-            return true;
-        }
-        return false;
+
+    public String getFlightAgentUsername() {
+        return flightagentUsernameTxt.getText().trim();
     }
+
+    public String getFlightAgentEmail() {
+        return flightAgentEmailTxt.getText().trim();
+    }
+
+    public String getFlightAgentPassword() {
+        return flightAgentPasswordTxt.getText();
+    }
+
+    public String getFlightAgentId() {
+        return flightAgentIdTxt.getText();
+    }
+
+    public DefaultTableModel getFlightAgentModel() {
+        return (DefaultTableModel) Table_1.getModel();
+    }
+
+    //2
+    public String getPassengerFullname() {
+        return passengerFullNameTxt.getText().trim();
+    }
+
+    public String getPassengerUsername() {
+        return passengerUsernameTxt.getText().trim();
+    }
+
+    public String getPassengerEmail() {
+        return passengerEmailTxt.getText().trim();
+    }
+
+    public String getPassengerPhonenumber() {
+        return passengerPhoneNumberTxt.getText();
+    }
+
+    public String getPassengerPassword() {
+        return passengerPasswordTxt.getText();
+    }
+
+    public java.util.Date getPassengerDateOFBirth() {
+        return passengerDateofBirthChooser.getDate();
+    }
+
+    public String getPassengerId() {
+        return passengerIdTxt.getText();
+    }
+
+    public DefaultTableModel getPassengerModel() {
+        return (DefaultTableModel) PassengersTable.getModel();
+    }
+
+    //3
+    public String getRequestId() {
+        return RequestsIdTxt.getText();
+    }
+
+    public DefaultTableModel getRequesModel() {
+        return (DefaultTableModel) RequestsTable.getModel();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -316,7 +313,6 @@ public class AdminUI extends javax.swing.JFrame {
         IdLabel.setForeground(new java.awt.Color(51, 51, 51));
         IdLabel.setText("ID       :");
 
-        RequestsIdTxt.setBackground(new java.awt.Color(255, 255, 255));
         RequestsIdTxt.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         RequestsIdTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -410,29 +406,17 @@ public class AdminUI extends javax.swing.JFrame {
         PassengerEmailLabel.setForeground(new java.awt.Color(51, 51, 51));
         PassengerEmailLabel.setText("E-Mail                 :");
 
-        passengerIdTxt.setBackground(new java.awt.Color(255, 255, 255));
         passengerIdTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        passengerIdTxt.setForeground(new java.awt.Color(0, 0, 0));
 
-        passengerFullNameTxt.setBackground(new java.awt.Color(255, 255, 255));
         passengerFullNameTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        passengerFullNameTxt.setForeground(new java.awt.Color(0, 0, 0));
 
-        passengerUsernameTxt.setBackground(new java.awt.Color(255, 255, 255));
         passengerUsernameTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        passengerUsernameTxt.setForeground(new java.awt.Color(0, 0, 0));
 
-        passengerPasswordTxt.setBackground(new java.awt.Color(255, 255, 255));
         passengerPasswordTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        passengerPasswordTxt.setForeground(new java.awt.Color(0, 0, 0));
 
-        passengerPhoneNumberTxt.setBackground(new java.awt.Color(255, 255, 255));
         passengerPhoneNumberTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        passengerPhoneNumberTxt.setForeground(new java.awt.Color(0, 0, 0));
 
-        passengerEmailTxt.setBackground(new java.awt.Color(255, 255, 255));
         passengerEmailTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        passengerEmailTxt.setForeground(new java.awt.Color(0, 0, 0));
 
         PassengerUpdateButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         PassengerUpdateButton.setText("Update");
@@ -571,7 +555,6 @@ public class AdminUI extends javax.swing.JFrame {
 
         FlightAgentsManagementPanel.setBackground(new java.awt.Color(231, 231, 231));
 
-        flightAgentPasswordTxt.setBackground(new java.awt.Color(255, 255, 255));
         flightAgentPasswordTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         flightAgentPasswordTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -583,7 +566,6 @@ public class AdminUI extends javax.swing.JFrame {
             }
         });
 
-        flightAgentFullnameTxt.setBackground(new java.awt.Color(255, 255, 255));
         flightAgentFullnameTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         flightAgentFullnameTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -597,7 +579,6 @@ public class AdminUI extends javax.swing.JFrame {
             }
         });
 
-        flightagentUsernameTxt.setBackground(new java.awt.Color(255, 255, 255));
         flightagentUsernameTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         flightagentUsernameTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -609,7 +590,6 @@ public class AdminUI extends javax.swing.JFrame {
             }
         });
 
-        flightAgentIdTxt.setBackground(new java.awt.Color(255, 255, 255));
         flightAgentIdTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         flightAgentIdTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -640,7 +620,6 @@ public class AdminUI extends javax.swing.JFrame {
                     .addContainerGap(21, Short.MAX_VALUE)))
         );
 
-        flightAgentEmailTxt.setBackground(new java.awt.Color(255, 255, 255));
         flightAgentEmailTxt.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         flightAgentEmailTxt.setForeground(new java.awt.Color(51, 51, 51));
 
@@ -807,36 +786,15 @@ public class AdminUI extends javax.swing.JFrame {
 
 
     private void FlightagentAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlightagentAddButtonActionPerformed
-        getFlightAgentsFields();
-        if(emptyFlightagentField()){
-            JOptionPane.showMessageDialog(null, "Complete Missing Data Fields!");
-        }else{
-            FlightAgent flightagent = new FlightAgent(flightAgentFullName, flightAgentUsername, flightAgentPassword, flightAgentEmail);
-            clearFlightAgentsFields();
-        }
-        updateFlightAgentsTable();
+        controller.handleAddFlightAgentButtonClick();
     }//GEN-LAST:event_FlightagentAddButtonActionPerformed
 
     private void FlightagentDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlightagentDeleteButtonActionPerformed
-        FlightAgent flightagent = new FlightAgent(Integer.parseInt(flightAgentIdTxt.getText()));
-        flightagent.delete();
-        clearFlightAgentsFields();
-        updateFlightAgentsTable();
+        controller.handleDeleteFlightAgentButtonClick();
     }//GEN-LAST:event_FlightagentDeleteButtonActionPerformed
 
     private void FlightagentUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlightagentUpdateButtonActionPerformed
-        getFlightAgentsFields();
-        if(emptyFlightagentField() || flightAgentIdTxt.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Complete Missing Data Fields!");
-        }else{
-            FlightAgent flightagent = new FlightAgent(Integer.parseInt(flightAgentIdTxt.getText()));
-            flightagent.setEmail(flightAgentEmail);
-            flightagent.setFullname(flightAgentFullName);
-            flightagent.setPassword(flightAgentPassword);
-            flightagent.setUsername(flightAgentUsername);
-            clearFlightAgentsFields();
-        }
-        updateFlightAgentsTable();
+        controller.handleUpdateFlightAgentButtonClick();
     }//GEN-LAST:event_FlightagentUpdateButtonActionPerformed
 
     private void FlightAgentsTabPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FlightAgentsTabPanelMouseClicked
@@ -846,7 +804,7 @@ public class AdminUI extends javax.swing.JFrame {
         FlightAgentsTabPanel.setBackground(new Color(104, 173, 211));
         PassengersTabPanel.setBackground(new Color(56, 146, 196));
         RequestsTabPanel.setBackground(new Color(56, 146, 196));
-        updateFlightAgentsTable();
+
     }//GEN-LAST:event_FlightAgentsTabPanelMouseClicked
 
     private void PassengersTabPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PassengersTabPanelMouseClicked
@@ -856,7 +814,6 @@ public class AdminUI extends javax.swing.JFrame {
         PassengersTabPanel.setBackground(new Color(104, 173, 211));
         FlightAgentsTabPanel.setBackground(new Color(56, 146, 196));
         RequestsTabPanel.setBackground(new Color(56, 146, 196));
-        updatePassengersTable();
     }//GEN-LAST:event_PassengersTabPanelMouseClicked
 
     private void RequestsTabPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RequestsTabPanelMouseClicked
@@ -866,49 +823,25 @@ public class AdminUI extends javax.swing.JFrame {
         RequestsTabPanel.setBackground(new Color(104, 173, 211));
         PassengersTabPanel.setBackground(new Color(56, 146, 196));
         FlightAgentsTabPanel.setBackground(new Color(56, 146, 196));
-        updateRequestsTable();
+        controller.handleAllRequestsButtonClick();
     }//GEN-LAST:event_RequestsTabPanelMouseClicked
 
     private void PassengerUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassengerUpdateButtonActionPerformed
-        getPassengerFields();
-        if(emptyPassengerField() || passengerIdTxt.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Complete Missing Data Fields!");
-        }else{
-            java.sql.Date sqlDate = new java.sql.Date(passengerDateofBirth.getTime());
-            Passenger passenger = new Passenger(Integer.parseInt(passengerIdTxt.getText()));
-            passenger.setFullname(passengerFullName);
-            passenger.setEmail(passengerEmail);
-            passenger.setPhoneNumber(passengerPhoneNumber);
-            passenger.setDateOfBirth(passengerDateofBirth);
-            clearPassengerFields();
-        }
-        updatePassengersTable();
+        controller.handleUpdatePassengerButtonClick();
     }//GEN-LAST:event_PassengerUpdateButtonActionPerformed
 
     private void PassengerAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassengerAddButtonActionPerformed
-        getPassengerFields();
-        if(emptyPassengerField()){
-            JOptionPane.showMessageDialog(null, "Complete Missing Data Fields!");
-        }else{
-            Passenger passenger = new Passenger(passengerFullName, passengerUsername, passengerPassword, passengerDateofBirth, passengerPhoneNumber, passengerEmail);
-            clearPassengerFields();
-        }
-        updatePassengersTable();
+        controller.handleAddPassengerButtonClick();
+        clearPassengerFields();
     }//GEN-LAST:event_PassengerAddButtonActionPerformed
 
     private void PassengerDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassengerDeleteButtonActionPerformed
-        passengerId = Integer.parseInt(passengerIdTxt.getText());
-        Passenger passenger = new Passenger(Integer.parseInt(passengerIdTxt.getText()));
-        passenger.delete();
-        updatePassengersTable();
+        controller.handleDeletePassengerButtonClick();
         clearPassengerFields();
     }//GEN-LAST:event_PassengerDeleteButtonActionPerformed
 
     private void RequestDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RequestDeleteButtonActionPerformed
-        requestsId = Integer.parseInt(RequestsIdTxt.getText());
-        Request request = new Request(requestsId);
-        request.delete();
-        updateRequestsTable();
+        controller.handleDeleteRequestButtonClick();
         RequestsIdTxt.setText("");
     }//GEN-LAST:event_RequestDeleteButtonActionPerformed
 
@@ -929,20 +862,21 @@ public class AdminUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new AdminUI().setVisible(true);
+                new AdminView().setVisible(true);
             }
         });
     }
