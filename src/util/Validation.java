@@ -18,7 +18,7 @@ public class Validation {
     }
     
     public boolean validateFullname(String fullname) {
-        return !(fullname == null || !fullname.matches("[a-zA-Z ]{12,64}"));
+        return !(fullname == null || !fullname.matches("[a-zA-Z ]{6,64}"));
     }
     public boolean validateFirstname(String name) {
         return !(name == null || !name.matches("[a-zA-Z ]{1,64}"));
@@ -46,7 +46,7 @@ public class Validation {
         return !(date == null || date.before(new Date()));
     }
     public boolean validateTime(String time) {
-        return !(time == null || !time.matches("2[0123]:[0-9]{2}") || !time.matches("[01][0-9]:[0-9]{2}"));
+        return !(time == null || !(time.matches("2[0123]:[0-9]{2}") || time.matches("[01][0-9]:[0-9]{2}")));
     }
     public boolean validateDuration(String duration) {
         return !(duration == null || !duration.matches("[0-9]{2}:[0-9]{2}") || "00:00".equals(duration));
@@ -80,7 +80,7 @@ public class Validation {
         return (cardType != null && (cardType.equals("Mastercard") || cardType.equals("Visa")));
     }
     public boolean validateCardHolderName(String name) {
-        return !(name == null || !name.matches("[a-zA-Z ]{12,64}"));
+        return !(name == null || !name.matches("[a-zA-Z ]{6,64}"));
     }
     public boolean validateExpiryDate(Date date) {
         return !(date == null || date.before(new Date()));

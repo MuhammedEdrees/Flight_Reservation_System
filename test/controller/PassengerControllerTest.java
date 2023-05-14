@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Flight;
 import model.Payment;
@@ -254,5 +255,4 @@ public class PassengerControllerTest {
         expModel.addRow(row2);
         assertEquals(expModel.getDataVector(), actualModel.getDataVector());
     }
-    
 }
