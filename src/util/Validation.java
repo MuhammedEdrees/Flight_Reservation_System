@@ -36,7 +36,7 @@ public class Validation {
         return !(pnumber == null || !pnumber.matches("^(?:[+0]9)?[0-9]{10,12}$"));
     }
     public boolean validateDateOfBirth(Date bdate){
-        return !(bdate == null || bdate.before(new Date()));
+        return !(bdate == null || bdate.after(new Date()));
     }
     /*  Flight Attributes  */
     public boolean validateAirport(String airport){

@@ -4,7 +4,7 @@ import controller.RegisterationController;
 import java.util.Date;
 
 public class RegisterationView extends javax.swing.JFrame {
-    RegisterationController controller = new RegisterationController();
+    RegisterationController controller = new RegisterationController(this);
     public RegisterationView() {
         initComponents();
     }

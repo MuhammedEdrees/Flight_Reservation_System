@@ -18,8 +18,11 @@ import view.WelcomeScreen;
  */
 public class LoginController {
     
-    LoginView view=new LoginView();
-    
+    private LoginView view;
+    public LoginController(LoginView view)
+    {
+        this.view=view;
+    }
     public void handleSignInButtonClick()
     {
         String username=view.getLogUsername();

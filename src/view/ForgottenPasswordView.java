@@ -5,7 +5,7 @@ import util.DbUtil;
 
 
 public class ForgottenPasswordView extends javax.swing.JFrame {
-    ForgottenPasswordController controller = new ForgottenPasswordController();
+    ForgottenPasswordController controller = new ForgottenPasswordController(this);
 
     public String getEmail() {
         return EmailField.getText().trim();

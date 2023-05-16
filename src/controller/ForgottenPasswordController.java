@@ -11,13 +11,21 @@ import view.LoginView;
  * @author Moaaz
  */
 public class ForgottenPasswordController {
-    ForgottenPasswordView view = new ForgottenPasswordView();
-    String name = view.getFullName();
-    String username = view.getUsername();
-    String email = view.getEmail();
-    String phoneNumber = view.getPhoneNumber();
+    ForgottenPasswordView view;
+    String name ;
+    String username ;
+    String email ;
+    String phoneNumber;
+    public ForgottenPasswordController(ForgottenPasswordView view)
+    {
+        this.view=view;
+    }
     public void handleSubmitButtonClicked()
     {
+        name = view.getFullName();
+        username = view.getUsername();
+        email = view.getEmail();
+        phoneNumber = view.getPhoneNumber();
         if (name.equals("") || username.equals("") || email.equals("") || phoneNumber.equals("")) {
             JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
         } else {

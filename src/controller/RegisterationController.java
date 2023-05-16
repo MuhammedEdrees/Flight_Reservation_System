@@ -12,16 +12,27 @@ import util.Validation;
  */
 public class RegisterationController {
     Validation valid1=new Validation();
-    RegisterationView view = new RegisterationView();
-    String fullname = view.getFullName();
-    String username = view.getUsername();
-    String password = view.getPassword();
-    String rePassword = view.getRePassword();
-    String email = view.getEmail();
-    String phoneNumber = view.getPhoneNumber();
-    Date dateofBirth = view.getBirthDate();
+    RegisterationView view;
+    String fullname;
+    String username;
+    String password ;
+    String rePassword ;
+    String email;
+    String phoneNumber;
+    Date dateofBirth;
+    public RegisterationController(RegisterationView view)
+    {
+        this.view=view;
+    }
     public void handleRegisterButtonClicked ()
     {
+        fullname = view.getFullName();
+        username = view.getUsername();
+        password = view.getPassword();
+        rePassword = view.getRePassword();
+        email = view.getEmail();
+        phoneNumber = view.getPhoneNumber();
+        dateofBirth = view.getBirthDate();
         if (fullname.equals("") || username.equals("") || password.equals("") || rePassword.equals("") || email.equals("") || phoneNumber.equals("")){
             JOptionPane.showMessageDialog(null, "Please Complete missing data fields!");
         }else if(!valid1.validateFullname(fullname))
@@ -50,7 +61,7 @@ public class RegisterationController {
         }
         else if(!valid1.validateDateOfBirth(dateofBirth))
         {
-            JOptionPane.showMessageDialog(view, "Date of birth is invalid! Users have to be atleast 18 years old.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(view, "Date of birth is invalid! Users have to be at least 18 years old.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
         else
         {
