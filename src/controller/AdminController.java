@@ -33,7 +33,23 @@ public class AdminController {
     public AdminController(AdminView view) {
         this.view = view;
     }
+    public void setValidator(Validation validator) {
+        this.validator = validator;
+    }
 
+    public void setFlightAgentRepo(FlightAgentRepository flightAgentRepository) {
+        this.flightAgentRepository = flightAgentRepository;
+    }
+
+    public void setPassengerRepo(PassengerRepository passengerRepo) {
+        this.passengerRepository = passengerRepo;
+    }
+
+    public void setRequestRepo(RequestRepository requestRepo) {
+        this.requestRepository = requestRepo;
+    }
+    
+    
     public void handleAddFlightAgentButtonClick() {
         if (validator.validateFullname(view.getFlightAgentFullname()) == false) {
             JOptionPane.showMessageDialog(view, "The Full name entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
@@ -46,7 +62,7 @@ public class AdminController {
         } else {
             FlightAgent flightAgent = new FlightAgent(view.getFlightAgentFullname(), view.getFlightAgentUsername(), view.getFlightAgentPassword(), view.getFlightAgentEmail());
             flightAgentRepository.create(flightAgent);
-            updateAddFlightAgentTableModel(view.getFlightAgentModel(), flightAgentRepository.getAll());
+            updateAddFlightAgentTableModel(view.getFlightAgentModel());
 
         }
     }
@@ -66,7 +82,7 @@ public class AdminController {
         } else {
             FlightAgent flightAgent = new FlightAgent(Integer.parseInt(view.getFlightAgentId()), view.getFlightAgentFullname(), view.getFlightAgentUsername(), view.getFlightAgentPassword(), view.getFlightAgentEmail());
             flightAgentRepository.update(flightAgent);
-            updateAddFlightAgentTableModel(view.getFlightAgentModel(), flightAgentRepository.getAll());
+            updateAddFlightAgentTableModel(view.getFlightAgentModel());
 
         }
     }
@@ -76,12 +92,14 @@ public class AdminController {
         }  else {
             FlightAgent flightAgent = new FlightAgent(Integer.parseInt(view.getFlightAgentId()));
             flightAgentRepository.delete(flightAgent);
-            updateAddFlightAgentTableModel(view.getFlightAgentModel(), flightAgentRepository.getAll());
+            updateAddFlightAgentTableModel(view.getFlightAgentModel());
 
         }
     }
 
-    private DefaultTableModel updateAddFlightAgentTableModel(DefaultTableModel model, ArrayList<FlightAgent> flightAgents) {
+    public DefaultTableModel updateAddFlightAgentTableModel(DefaultTableModel model ) {//actual
+        ArrayList<FlightAgent> flightAgents = flightAgentRepository.getAll();//matches
+        model.setRowCount(0);
         for (int i = 0; i < flightAgents.size(); i++) {
             Object[] o = new Object[7];
             FlightAgent flightAgent = flightAgents.get(i);
@@ -107,10 +125,17 @@ public class AdminController {
         } else if (validator.validatePassword(view.getPassengerPassword()) == false) {
             JOptionPane.showMessageDialog(view, "The Password entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
 
-        } else {
+        } else if (validator.validateDateOfBirth(view.getPassengerDateOFBirth()) == false) {
+            JOptionPane.showMessageDialog(view, "The Date entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+
+        }else if (validator.validateId(view.getPassengerId()) == false) {
+            JOptionPane.showMessageDialog(view, "The Id entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+
+        }
+        else {
             Passenger passenger = new Passenger(view.getPassengerFullname(), view.getPassengerUsername(), view.getPassengerPassword(), view.getPassengerDateOFBirth(), view.getPassengerPhonenumber(), view.getPassengerEmail());
             passengerRepository.create(passenger);
-            updateAddPassengerTableModel(view.getFlightAgentModel(), passengerRepository.getAll());
+            updateAddPassengerTableModel(view.getPassengerModel());
 
         }
     }
@@ -127,13 +152,16 @@ public class AdminController {
         } else if (validator.validatePassword(view.getPassengerPassword()) == false) {
             JOptionPane.showMessageDialog(view, "The Password entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
 
-        } else if (validator.validateId(view.getFlightAgentId()) == false) {
+        } else if (validator.validateId(view.getPassengerId()) == false) {
             JOptionPane.showMessageDialog(view, "The Id entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+
+        }else if (validator.validateDateOfBirth(view.getPassengerDateOFBirth()) == false) {
+            JOptionPane.showMessageDialog(view, "The Date entered is invalid!", "Invalid Input", JOptionPane.ERROR_MESSAGE);
 
         } else {
             Passenger passenger = new Passenger(Integer.parseInt(view.getPassengerId()), view.getPassengerFullname(), view.getPassengerUsername(), view.getPassengerPassword(), view.getPassengerDateOFBirth(), view.getPassengerPhonenumber(), view.getPassengerEmail());
             passengerRepository.update(passenger);
-            updateAddPassengerTableModel(view.getPassengerModel(), passengerRepository.getAll());
+            updateAddPassengerTableModel(view.getPassengerModel());
 
         }
     }
@@ -143,11 +171,13 @@ public class AdminController {
         }  else {
             Passenger passenger = new Passenger(Integer.parseInt(view.getPassengerId()));
             passengerRepository.delete(passenger);
-            updateAddPassengerTableModel(view.getPassengerModel(), passengerRepository.getAll());
+            updateAddPassengerTableModel(view.getPassengerModel());
 
         }
     }
-    private DefaultTableModel updateAddPassengerTableModel(DefaultTableModel model, ArrayList<Passenger> passengers) {
+    public DefaultTableModel updateAddPassengerTableModel(DefaultTableModel model ) {
+        model.setRowCount(0);
+          ArrayList<Passenger> passengers = passengerRepository.getAll();
         for (int i = 0; i < passengers.size(); i++) {
             Object[] o = new Object[7];
             Passenger pass = passengers.get(i);
@@ -155,7 +185,9 @@ public class AdminController {
             o[1] = pass.getFullname();
             o[2] = pass.getUsername();
             o[4] = pass.getPassword();
-            //o[4] = flightAgent.getEmail();
+            o[3] = pass.getEmail();
+            o[5] = pass.getDateOfBirth();
+            o[6] = pass.getPhoneNumber();
             model.addRow(o);
         }
         return model;
@@ -167,25 +199,22 @@ public class AdminController {
         }  else {
             Request request = new Request(Integer.parseInt(view.getRequestId()));
             requestRepository.delete(request);
-            updateRequestsTableModel(view.getPassengerModel(), requestRepository.getAll());
+            updateRequestsTableModel(view.getRequesModel());
 
         }
     }
-     public void handleAllRequestsButtonClick() {
-            updateRequestsTableModel(view.getPassengerModel(), requestRepository.getAll());
-
-       
-    }
-    
-      private DefaultTableModel updateRequestsTableModel(DefaultTableModel model, ArrayList<Request> requests) {
+   
+      public DefaultTableModel updateRequestsTableModel(DefaultTableModel model) {
+           model.setRowCount(0);
+           ArrayList<Request> requests = requestRepository.getAll();
         for (int i = 0; i < requests.size(); i++) {
-            Object[] o = new Object[7];
+            Object[] o = new Object[5];
             Request request = requests.get(i);
             o[0] = request.getId();
-            o[1] = request.getEmail();
+            o[3] = request.getEmail();
             o[2] = request.getUsername();
-            o[3] = request.getPhoneNumber();
-            o[4] = request.getFullname();
+            o[4] = request.getPhoneNumber();
+            o[1] = request.getFullname();
             model.addRow(o);
         }
         return model;
