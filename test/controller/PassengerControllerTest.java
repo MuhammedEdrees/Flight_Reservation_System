@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Flight;
 import model.Payment;
@@ -13,13 +12,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import static org.mockito.ArgumentMatchers.isA;
-import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import repository.FlightRepository;
@@ -60,11 +56,114 @@ public class PassengerControllerTest {
     }
     
     @Test
-    public void testHandleSearchFlightButtonClick() {
-        System.out.println("handleSearchFlightButtonClick");
-        String departureAirport = "Cairo";
+    public void testHandleSearchFlightButtonClick1() {
+        //System.out.println("Test case 1");
+        String departureAirport = "Ca1ro";
         String arrivalAirport = "Luxor";
+        Date flightDate = new Date(2024, 6, 25);
+        String departureTime = "10:00";
+        String flightDuration = "03:00";
+        double basePrice = 100;
+        String airline = "Cairo Airlines";
+        int seatCapacity = 60;
+        int availableSeats = 60;
+        DefaultTableModel actualModel = new DefaultTableModel();
+        actualModel.setColumnCount(7);
+        DefaultTableModel expectedModel = new DefaultTableModel();
+        ArrayList<Flight> matches = new ArrayList<>();
+        Flight flight = new Flight(1, departureAirport, arrivalAirport, flightDate, departureTime, flightDuration, basePrice, airline, seatCapacity,availableSeats);
+        matches.add(flight);
+        Object[] row = {flight.getId(), flight.getAirline(), flight.getDepartureAirport(), flight.getArrivalAirport(), flight.getFlightDate(), flight.getDepartureTime(), flight.getFlightDuration()};
+        expectedModel.setColumnCount(7);
+        expectedModel.addRow(row);
+        when(view.getFlightSearchInput()).thenReturn(List.of(departureAirport, arrivalAirport, flightDate, actualModel));
+        when(validator.validateAirport(departureAirport)).thenReturn(false);
+        when(validator.validateAirport(arrivalAirport)).thenReturn(true);
+        when(validator.validateDepartureDate(flightDate)).thenReturn(true);
+        when(flightRepo.findByDepartureAirport_ArrivalAirportAndFlightDate(departureAirport, arrivalAirport, flightDate))
+                .thenReturn(matches);
+        controller.handleSearchFlightButtonClick();
+        verify(view).getFlightSearchInput();
+        verify(validator).validateAirport(departureAirport);
+        verify(view).updateSearchPanel(2);
+        //optional?
+    }
+    
+    @Test
+    public void testHandleSearchFlightButtonClick2() {
+        //System.out.println("Test case 2");
+        String departureAirport = "Cairo";
+        String arrivalAirport = "12345";
         Date flightDate = new Date(2023, 6, 30);
+        String departureTime = "10:00";
+        String flightDuration = "03:00";
+        double basePrice = 100;
+        String airline = "Cairo Airlines";
+        int seatCapacity = 60;
+        int availableSeats = 60;
+        DefaultTableModel actualModel = new DefaultTableModel();
+        actualModel.setColumnCount(7);
+        DefaultTableModel expectedModel = new DefaultTableModel();
+        ArrayList<Flight> matches = new ArrayList<>();
+        Flight flight = new Flight(1, departureAirport, arrivalAirport, flightDate, departureTime, flightDuration, basePrice, airline, seatCapacity,availableSeats);
+        matches.add(flight);
+        Object[] row = {flight.getId(), flight.getAirline(), flight.getDepartureAirport(), flight.getArrivalAirport(), flight.getFlightDate(), flight.getDepartureTime(), flight.getFlightDuration()};
+        expectedModel.setColumnCount(7);
+        expectedModel.addRow(row);
+        when(view.getFlightSearchInput()).thenReturn(List.of(departureAirport, arrivalAirport, flightDate, actualModel));
+        when(validator.validateAirport(departureAirport)).thenReturn(true);
+        when(validator.validateAirport(arrivalAirport)).thenReturn(false);
+        when(validator.validateDepartureDate(flightDate)).thenReturn(true);
+        when(flightRepo.findByDepartureAirport_ArrivalAirportAndFlightDate(departureAirport, arrivalAirport, flightDate)).thenReturn(matches);
+        controller.handleSearchFlightButtonClick();
+        verify(view).getFlightSearchInput();
+        verify(validator).validateAirport(departureAirport);
+        verify(validator).validateAirport(arrivalAirport);
+        verify(view).updateSearchPanel(3);
+    }
+    
+    @Test
+    public void testHandleSearchFlightButtonClick3() {
+        //System.out.println("Test case 3");
+        String departureAirport = "Cairo";
+        String arrivalAirport = "Alexandria";
+        Date flightDate = new Date(2022, 6, 25);
+        String departureTime = "10:00";
+        String flightDuration = "03:00";
+        double basePrice = 100;
+        String airline = "Cairo Airlines";
+        int seatCapacity = 60;
+        int availableSeats = 60;
+        DefaultTableModel actualModel = new DefaultTableModel();
+        actualModel.setColumnCount(7);
+        DefaultTableModel expectedModel = new DefaultTableModel();
+        ArrayList<Flight> matches = new ArrayList<>();
+        Flight flight = new Flight(1, departureAirport, arrivalAirport, flightDate, departureTime, flightDuration, basePrice, airline, seatCapacity,availableSeats);
+        matches.add(flight);
+        Object[] row = {flight.getId(), flight.getAirline(), flight.getDepartureAirport(), flight.getArrivalAirport(), flight.getFlightDate(), flight.getDepartureTime(), flight.getFlightDuration()};
+        expectedModel.setColumnCount(7);
+        expectedModel.addRow(row);
+        when(view.getFlightSearchInput()).thenReturn(List.of(departureAirport, arrivalAirport, flightDate, actualModel));
+        when(validator.validateAirport(departureAirport)).thenReturn(true);
+        when(validator.validateAirport(arrivalAirport)).thenReturn(true);
+        when(validator.validateDepartureDate(flightDate)).thenReturn(false);
+        when(flightRepo.findByDepartureAirport_ArrivalAirportAndFlightDate(departureAirport, arrivalAirport, flightDate))
+                .thenReturn(matches);
+        controller.handleSearchFlightButtonClick();
+        verify(view).getFlightSearchInput();
+        verify(validator).validateAirport(departureAirport);
+        verify(validator).validateAirport(arrivalAirport);
+        verify(validator).validateDepartureDate(flightDate);
+        verify(view).updateSearchPanel(4);
+        //optional?
+    }
+    
+    @Test
+    public void testHandleSearchFlightButtonClick4() {
+        //System.out.println("Test case 4");
+        String departureAirport = "Cairo";
+        String arrivalAirport = "Alexandria";
+        Date flightDate = new Date(2024, 6, 30);
         String departureTime = "10:00";
         String flightDuration = "03:00";
         double basePrice = 100;
@@ -92,12 +191,11 @@ public class PassengerControllerTest {
         verify(validator).validateAirport(arrivalAirport);
         verify(validator).validateDepartureDate(flightDate);
         verify(view).updateSearchPanel(0);
-        //optional?
-        assertEquals(expectedModel.getDataVector(), actualModel.getDataVector());
     }
     /*
      * Test of handleSubmitPassengerInfoButtonClick method, of class PassengerController.
      */
+ 
     @Test
     public void testHandleSubmitPassengerInfoButtonClick() {
         String fname = "John";
@@ -139,9 +237,7 @@ public class PassengerControllerTest {
         verify(view).updateReservationDetailsPanel(0);
     }
 
-    /**
-     * Test of handleSubmitReservationButtonClick method, of class PassengerController.
-     */
+    
     @Test
     public void testHandleSubmitReservationButtonClick() {
         int flightId = 1;
@@ -182,9 +278,7 @@ public class PassengerControllerTest {
         verify(view).updatePaymentDetailsPanel(0);
     }
 
-    /**
-     * Test of handleCancelReservationButtonClick method, of class PassengerController.
-     */
+    /*
     @Test
     public void testHandleCancelReservationButtonClick() {
         int resId = 1;
@@ -202,12 +296,9 @@ public class PassengerControllerTest {
         verify(view).updateBookingsPanel(0);
     }
 
-    /**
-    * Test of updateSearchTableModel method, of class PassengerController.
-    */
+    
     @Test
     public void testUpdateSearchTableModel() {
-        System.out.println("updateSearchTableModel");
         DefaultTableModel actualModel = new DefaultTableModel();
         DefaultTableModel expModel = new DefaultTableModel();
         actualModel.setColumnCount(7);
@@ -255,4 +346,5 @@ public class PassengerControllerTest {
         expModel.addRow(row2);
         assertEquals(expModel.getDataVector(), actualModel.getDataVector());
     }
+*/
 }

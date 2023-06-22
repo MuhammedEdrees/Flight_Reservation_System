@@ -114,7 +114,9 @@ public class PassengerController {
             double pAmount = computePaymentAmount(resClass, noSeats, flight.getBasePrice());
             String cvv = (String) paymentInput[3];
             Date cExpiry = (Date) paymentInput[4];
-            submitReservation(flight, fName, sName, nationality, pNum, pExpiry, noSeats, resClass, cType, cName, cNum, pAmount, cvv, cExpiry);
+            submitReservation(flight,fName, sName, nationality, pNum, pExpiry,
+          noSeats, resClass, cType, cName, cNum, pAmount,
+          cvv, cExpiry);
             view.updatePaymentDetailsPanel(0);
         }
     }
