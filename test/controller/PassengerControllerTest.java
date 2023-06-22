@@ -57,7 +57,7 @@ public class PassengerControllerTest {
     
     @Test
     public void testHandleSearchFlightButtonClick1() {
-        //System.out.println("Test case 1");
+        System.out.println("Test case With Invalid Departure Airport");
         String departureAirport = "Ca1ro";
         String arrivalAirport = "Luxor";
         Date flightDate = new Date(2024, 6, 25);
@@ -91,7 +91,7 @@ public class PassengerControllerTest {
     
     @Test
     public void testHandleSearchFlightButtonClick2() {
-        //System.out.println("Test case 2");
+        System.out.println("Test case With Invalid Arrival Airport");
         String departureAirport = "Cairo";
         String arrivalAirport = "12345";
         Date flightDate = new Date(2023, 6, 30);
@@ -124,7 +124,7 @@ public class PassengerControllerTest {
     
     @Test
     public void testHandleSearchFlightButtonClick3() {
-        //System.out.println("Test case 3");
+        System.out.println("Test case With Invalid Departure Date");
         String departureAirport = "Cairo";
         String arrivalAirport = "Alexandria";
         Date flightDate = new Date(2022, 6, 25);
@@ -160,7 +160,7 @@ public class PassengerControllerTest {
     
     @Test
     public void testHandleSearchFlightButtonClick4() {
-        //System.out.println("Test case 4");
+        System.out.println("Test case With valid input");
         String departureAirport = "Cairo";
         String arrivalAirport = "Alexandria";
         Date flightDate = new Date(2024, 6, 30);
